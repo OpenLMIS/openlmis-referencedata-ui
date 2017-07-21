@@ -138,10 +138,8 @@
             }
 
             function getFulfillmentFacilities(userId, rightName) {
-                return facilityService.getFulfillmentFacilities({
-                    userId: userId,
-                    rightId: authorizationService.getRightByName(rightName).id
-                });
+                var right = authorizationService.getRightByName(rightName);
+                return right ? facilityService.getFulfillmentFacilities({userId: userId, rightId: right.id}) : [];
             }
 
             /**

@@ -94,10 +94,12 @@ describe('facilityFactory', function() {
 
     describe('getSupplyingFacilities', function() {
 
-        var userId, ordersViewFacilities, podsManageFacilities;
+        var userId, ordersViewFacilities, podsManageFacilities, ordersViewRight, podsManageRight;
 
         beforeEach(function() {
             userId = 'user-id';
+            ordersViewRight = {id: 'orders-view-id'};
+            podsManageRight = {id: 'pods-manage-id'};
 
             ordersViewFacilities = [
                 createFacility('facility-one', 'facilityOne'),
@@ -110,12 +112,8 @@ describe('facilityFactory', function() {
             ];
 
             authorizationService.getRightByName.andCallFake(function(name) {
-                if (name === FULFILLMENT_RIGHTS.ORDERS_VIEW) return {
-                    id: 'orders-view-id'
-                };
-                if (name === FULFILLMENT_RIGHTS.PODS_MANAGE) return {
-                    id: 'pods-manage-id'
-                };
+                if (name === FULFILLMENT_RIGHTS.ORDERS_VIEW) return ordersViewRight;
+                if (name === FULFILLMENT_RIGHTS.PODS_MANAGE) return podsManageRight;
             });
 
             facilityService.getFulfillmentFacilities.andCallFake(function(params) {
@@ -133,10 +131,32 @@ describe('facilityFactory', function() {
             });
         });
 
+        it('should not fetch facilities for ORDERS_VIEW if user does not have this right', function() {
+            ordersViewRight = undefined;
+
+            facilityFactory.getSupplyingFacilities(userId);
+
+            expect(facilityService.getFulfillmentFacilities).not.toHaveBeenCalledWith({
+                userId: userId,
+                rightId: 'orders-view-id'
+            });
+        });
+
         it('should fetch facilities for PODS_MANAGE right', function() {
             facilityFactory.getSupplyingFacilities(userId);
 
             expect(facilityService.getFulfillmentFacilities).toHaveBeenCalledWith({
+                userId: userId,
+                rightId: 'pods-manage-id'
+            });
+        });
+
+        it('should not fetch facilities for PODS_MANAGE if user does not have this right', function() {
+            podsManageRight = undefined;
+
+            facilityFactory.getSupplyingFacilities(userId);
+
+            expect(facilityService.getFulfillmentFacilities).not.toHaveBeenCalledWith({
                 userId: userId,
                 rightId: 'pods-manage-id'
             });
@@ -154,6 +174,34 @@ describe('facilityFactory', function() {
             expect(result[0]).toEqual(ordersViewFacilities[0]);
             expect(result[1]).toEqual(podsManageFacilities[0]);
             expect(result[2]).toEqual(podsManageFacilities[1]);
+        });
+
+        it('should resolve to set of ORDERS_VIEW facilities when no PODS_MANAGE right', function() {
+            var result;
+            podsManageRight = undefined;
+
+            facilityFactory.getSupplyingFacilities(userId).then(function(facilities) {
+                result = facilities;
+            });
+            $rootScope.$apply();
+
+            expect(result.length).toBe(2);
+            expect(result[0]).toEqual(ordersViewFacilities[0]);
+            expect(result[1]).toEqual(ordersViewFacilities[1]);
+        });
+
+        it('should resolve to set of PODS_MANAGE facilities when no ORDERS_VIEW right', function() {
+            var result;
+            ordersViewRight = undefined;
+
+            facilityFactory.getSupplyingFacilities(userId).then(function(facilities) {
+                result = facilities;
+            });
+            $rootScope.$apply();
+
+            expect(result.length).toBe(2);
+            expect(result[0]).toEqual(podsManageFacilities[0]);
+            expect(result[1]).toEqual(podsManageFacilities[1]);
         });
 
     });
