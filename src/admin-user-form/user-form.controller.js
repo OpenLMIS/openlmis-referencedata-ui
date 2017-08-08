@@ -170,12 +170,12 @@
          */
         function processUpdateUser(removeFacilityRights) {
             var loadingPromise = loadingModalService.open(true);
-            var savePromise = saveUserData();
+            var savePromise = createUser();
 
             if (removeFacilityRights) {
                 savePromise = savePromise.then(function() {
                     vm.user.roleAssignments = $filter('userRoleAssignments')(vm.user.roleAssignments);
-                    return saveUserData();
+                    return createUser();
                 });
             }
 

@@ -129,7 +129,9 @@ describe('UserFormController', function() {
 
         beforeEach(function() {
             deferred = $q.defer();
-            referencedataUserService.saveUser.andReturn(deferred.promise);
+            referencedataUserService.saveUser.andReturn($q.when(user));
+            authUserService.saveUser.andReturn(deferred.promise);
+
         });
 
         it('should open loading modal', function() {
@@ -148,6 +150,22 @@ describe('UserFormController', function() {
 
             vm.saveUser();
             expect(referencedataUserService.saveUser).toHaveBeenCalledWith(user);
+        });
+
+        it('should call authUserService with changes', function() {
+            vm.user.username = 'newUserName';
+            user.username = 'newUserName';
+            var authUser = {
+                enabled: true,
+                referenceDataUserId: user.id,
+                role: 'USER',
+                username: user.username
+            };
+
+            vm.saveUser();
+            $rootScope.$apply();
+
+            expect(authUserService.saveUser).toHaveBeenCalledWith(authUser);
         });
 
         it('should show notification', function() {
@@ -231,7 +249,8 @@ describe('UserFormController', function() {
             confirmService.confirmDestroy.andReturn(confirmDeferred.promise);
             confirmDeferred.resolve();
 
-            referencedataUserService.saveUser.andReturn(saveDeferred.promise);
+            referencedataUserService.saveUser.andReturn($q.when(user));
+            authUserService.saveUser.andReturn(saveDeferred.promise);
             saveDeferred.resolve();
 
             vm.saveUser();
