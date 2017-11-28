@@ -45,8 +45,7 @@
                 },
                 getAllMinimal: {
                     url: referencedataUrlFactory('/api/facilities/minimal'),
-                    method: 'GET',
-                    isArray: true
+                    method: 'GET'
                 },
                 getUserSupervisedFacilities: {
                     url: referencedataUrlFactory('api/users/:userId/supervisedFacilities'),
@@ -304,10 +303,17 @@
              * @description
              * Retrieves all facilities with id and name fields.
              *
+             * @param  {Object}  paginationParams the pagination params: page, size, sort
              * @return {Promise} Array of facilities with minimal representation
              */
-            function getAllMinimal() {
-                return resource.getAllMinimal().$promise;
+            function getAllMinimal(paginationParams) {
+                var params = (paginationParams) ? paginationParams : {};
+                if (!params.hasOwnProperty('sort')) {
+                    params.sort = 'name';
+                }
+                return resource.getAllMinimal(params).$promise.then(function(response) {
+                    return response.content;
+                });
             }
         }
     })();

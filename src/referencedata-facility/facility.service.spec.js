@@ -36,7 +36,7 @@ describe('facilityService', function() {
                     finally: function() {}
                 }
             });
-            
+
             $provide.service('offlineService', function() {
                 return offlineService;
             });
@@ -171,7 +171,8 @@ describe('facilityService', function() {
         it('should get all facilities with minimal representation', function() {
             var data;
 
-            $httpBackend.when('GET', referencedataUrlFactory('/api/facilities/minimal')).respond(200, [facilityOne, facilityTwo]);
+            $httpBackend.whenGET(new RegExp(referencedataUrlFactory('/api/facilities/minimal.*')))
+                .respond(200, {'content': [facilityOne, facilityTwo]});
 
             facilityService.getAllMinimal().then(function(response) {
                 data = response;
@@ -182,6 +183,17 @@ describe('facilityService', function() {
 
             expect(data[0].id).toBe(facilityOne.id);
             expect(data[1].id).toBe(facilityTwo.id);
+        });
+
+        it('should add sort=name pagination parameter if none provided', function() {
+            $httpBackend.whenGET(new RegExp(referencedataUrlFactory('/api/facilities/minimal.*')))
+                .respond(200, {'content': [facilityOne, facilityTwo]});
+
+            $httpBackend.expectGET(referencedataUrlFactory('/api/facilities/minimal?sort=name'));
+
+            facilityService.getAllMinimal();
+
+            $httpBackend.flush();
         });
     });
 
@@ -364,7 +376,7 @@ describe('facilityService', function() {
                 right: 'test',
                 facilityId: '2'
             }];
-            
+
             var facilities = [
                 facilityOne,
                 facilityTwo
@@ -424,7 +436,7 @@ describe('facilityService', function() {
             $rootScope.$apply();
 
             expect(results.length).toBe(1);
-            expect(results[0].id).toBe('2');      
+            expect(results[0].id).toBe('2');
         });
 
         it('will sort the returned facilities alphebetically by name', function() {

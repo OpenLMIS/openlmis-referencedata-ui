@@ -39,7 +39,7 @@ describe('Facility service minimal decorator', function() {
         cache.getAll.andReturn([{}, {}, {}]);
 
         var results = false;
-        facilityService.getAllMinimal().then(function(res){
+        facilityService.getAllMinimal().then(function(res) {
             results = res;
         });
         $rootScope.$apply(); // resolving promises
@@ -53,8 +53,8 @@ describe('Facility service minimal decorator', function() {
             name: 'example'
         }];
 
-        $httpBackend.when('GET', referencedataUrlFactory('/api/facilities/minimal'))
-        .respond(200, facilities);
+        $httpBackend.whenGET(new RegExp(referencedataUrlFactory('/api/facilities/minimal.*')))
+            .respond(200, {'content': facilities});
 
         cache.getAll.andReturn([]);
 
