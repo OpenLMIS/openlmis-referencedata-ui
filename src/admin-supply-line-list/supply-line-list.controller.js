@@ -141,7 +141,8 @@
          * @returns {boolean}            true if popover should be shown
          */
         function showFacilityPopover(supplyLine) {
-            return supplyLine.supervisoryNode.requisitionGroup.memberFacilities &&
+            return supplyLine.supervisoryNode.requisitionGroup &&
+                supplyLine.supervisoryNode.requisitionGroup.memberFacilities &&
                 supplyLine.supervisoryNode.requisitionGroup.memberFacilities.length;
         }
     }
