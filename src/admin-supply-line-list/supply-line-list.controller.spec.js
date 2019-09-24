@@ -127,6 +127,18 @@ describe('SupplyLineListController', function() {
 
     describe('showFacilityPopover', function() {
 
+        it('should not show facility popover when requisition group is empty', function() {
+            this.supplyLines[0].supervisoryNode.requisitionGroup = [];
+
+            expect(this.vm.showFacilityPopover(this.supplyLines[0])).toBeFalsy();
+        });
+
+        it('should not show facility popover when requisition group is null', function() {
+            this.supplyLines[0].supervisoryNode.requisitionGroup = [];
+
+            expect(this.vm.showFacilityPopover(this.supplyLines[0])).toBeFalsy();
+        });
+
         it('should not show facility popover when member facilities are null', function() {
             this.supplyLines[0].supervisoryNode.requisitionGroup.memberFacilities = null;
 
