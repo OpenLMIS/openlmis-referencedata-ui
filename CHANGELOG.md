@@ -1,3 +1,9 @@
+5.6.1 / WIP
+==================
+
+Bug fixes:
+* [OLMIS-6580](https://openlmis.atlassian.net/browse/OLMIS-6580): Fixed malformed table on the Supply Lines screen when Requisition Group is empty.
+
 5.6.0 / Work in Progress
 ========================
 
