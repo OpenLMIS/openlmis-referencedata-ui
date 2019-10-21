@@ -64,7 +64,7 @@
                 }
             })
             .state('openlmis.profile.roleAssignments', {
-                url: '/roleAssignments',
+                url: '/roleAssignments?page&size',
                 templateUrl: 'openlmis-user/user-profile-role-assignments.html',
                 controller: 'UserProfileRoleAssignmentsController',
                 controllerAs: 'vm',
