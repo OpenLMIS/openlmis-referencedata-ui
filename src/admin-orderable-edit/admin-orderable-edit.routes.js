@@ -166,7 +166,7 @@
                 template: '<div ui-view></div>',
                 resolve: {
                     children: function(orderable) {
-                        return angular.copy(orderable.children);
+                        return orderable.children;
                     }
                 }
             });

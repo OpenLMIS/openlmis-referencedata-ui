@@ -4,6 +4,7 @@
 Bug fixes:
 * [OLMIS-6580](https://openlmis.atlassian.net/browse/OLMIS-6580): Fixed malformed table on the Supply Lines screen when Requisition Group is empty.
 * [OLMIS-6539](https://openlmis.atlassian.net/browse/OLMIS-6539): Refreshed state after save program orderable.
+* [OLMIS-6665](https://openlmis.atlassian.net/browse/OLMIS-6665): Fixed broken editing of orderable kits.
 
 5.6.0 / 2019-10-17
 ==================

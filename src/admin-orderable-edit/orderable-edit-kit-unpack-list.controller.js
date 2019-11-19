@@ -112,7 +112,9 @@
          * Redirects to orderable list screen.
          */
         function goToOrderableList() {
-            stateTrackerService.goToPreviousState('openlmis.administration.orderables');
+            stateTrackerService.goToPreviousState('openlmis.administration.orderables', {}, {
+                reload: true
+            });
         }
 
         /**

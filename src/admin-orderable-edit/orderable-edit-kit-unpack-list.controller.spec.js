@@ -189,7 +189,9 @@ describe('OrderableEditKitUnpackListController', function() {
             this.vm.goToOrderableList();
 
             expect(this.stateTrackerService.goToPreviousState).toHaveBeenCalledWith(
-                'openlmis.administration.orderables'
+                'openlmis.administration.orderables', {}, {
+                    reload: true
+                }
             );
         });
     });
@@ -207,7 +209,9 @@ describe('OrderableEditKitUnpackListController', function() {
             this.$rootScope.$apply();
 
             expect(this.stateTrackerService.goToPreviousState).toHaveBeenCalledWith(
-                'openlmis.administration.orderables'
+                'openlmis.administration.orderables', {}, {
+                    reload: true
+                }
             );
         });
 
