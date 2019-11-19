@@ -161,7 +161,9 @@
          * Takes the user to the add program orderables page.
          */
         function goToProgramOrderablePage() {
-            $state.go('openlmis.administration.orderables.edit.programs');
+            $state.go('openlmis.administration.orderables.edit.programs', {}, {
+                reload: true
+            });
         }
     }
 })();
