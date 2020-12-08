@@ -341,7 +341,7 @@
                 return 'adminSupplyPartnerEdit.associationEmptyFacilities';
             }
             if (!vm.association.orderables || vm.association.orderables < 1) {
-                return 'adminSupplyPartnerEdit.associationEmptyOrderables';
+                return 'adminSupplyPartnerEdit.associationEmptyProducts';
             }
         }
     }

@@ -763,14 +763,14 @@ describe('AssociationModalController', function() {
             this.vm.association.orderables = undefined;
             this.vm.addAssociation();
 
-            expect(this.alertService.error).toHaveBeenCalledWith('adminSupplyPartnerEdit.associationEmptyOrderables');
+            expect(this.alertService.error).toHaveBeenCalledWith('adminSupplyPartnerEdit.associationEmptyProducts');
         });
 
         it('should show error message if orderables are empty', function() {
             this.vm.association.orderables = [];
             this.vm.addAssociation();
 
-            expect(this.alertService.error).toHaveBeenCalledWith('adminSupplyPartnerEdit.associationEmptyOrderables');
+            expect(this.alertService.error).toHaveBeenCalledWith('adminSupplyPartnerEdit.associationEmptyProducts');
         });
     });
 

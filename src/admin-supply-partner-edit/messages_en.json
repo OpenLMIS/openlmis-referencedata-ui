@@ -39,7 +39,7 @@
     "adminSupplyPartnerEdit.associationEmptyProgram": "Program is required for new association.",
     "adminSupplyPartnerEdit.associationEmptySupervisoryNode": "Supervisory Node is required for new association.",
     "adminSupplyPartnerEdit.associationEmptyFacilities": "Facilities list cannot be empty for new association.",
-    "adminSupplyPartnerEdit.associationEmptyOrderables": "Ordereables list cannot be empty for new association.",
+    "adminSupplyPartnerEdit.associationEmptyProducts": "Product list cannot be empty for new association.",
     "adminSupplyPartnerEdit.selectedFacilitiesAreFulfilledByThisSupplier": "Selected facilities are fulfilled by this supplier.",
     "adminSupplyPartnerEdit.selectedProductsAreFulfilledByThisSupplier": "Selected products are fulfilled by this supplier."
 }
