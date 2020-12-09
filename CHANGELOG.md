@@ -1,3 +1,9 @@
+5.6.5 / WIMP
+============
+
+Bug fixes:
+* [OLMIS-5893](hhttps://openlmis.atlassian.net/browse/OLMIS-5893): Fix wrong product notification when adding/editing associations.
+
 5.6.4 / 2020-11-17
 ==================
 
