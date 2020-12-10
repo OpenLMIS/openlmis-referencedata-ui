@@ -21,5 +21,6 @@
     "adminSupervisoryNodeEdit.confirmChildNodeRemoval": "Do you really want to remove the child node?",
     "adminSupervisoryNodeEdit.confirmPartnerNodeRemoval": "Do you really want to remove the partner node?",
     "adminSupervisoryNodeEdit.partnerNodes": "Partner Nodes",
+    "adminSupervisoryNodeEdit.noPartnerNodes": "No partner nodes assigned",
     "adminSupervisoryNodeEdit.removePartnerNode": "Remove Partner Node"
 }
