@@ -2,7 +2,7 @@
 ============
 
 Bug fixes:
-* [OLMIS-5851](hhttps://openlmis.atlassian.net/browse/OLMIS-5851):  Added missing message string for empty partner node list when editing supervisory nodes.
+* [OLMIS-5851](https://openlmis.atlassian.net/browse/OLMIS-5851):  Added missing message string for empty partner node list when editing supervisory nodes.
 
 5.6.4 / 2020-11-17
 ==================
