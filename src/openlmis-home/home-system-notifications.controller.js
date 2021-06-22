@@ -28,13 +28,14 @@
         .module('openlmis-home')
         .controller('HomeSystemNotificationsController', controller);
 
-    controller.$inject = ['homePageSystemNotifications', 'offlineService'];
+    controller.$inject = ['homePageSystemNotifications', 'offlineService', '$state'];
 
-    function controller(homePageSystemNotifications, offlineService) {
+    function controller(homePageSystemNotifications, offlineService, $state) {
 
         var vm = this;
 
         vm.$onInit = onInit;
+        vm.isMobile = checkWindowWidth();
 
         /**
          * @ngdoc property
@@ -60,6 +61,32 @@
 
         /**
          * @ngdoc method
+         * @propertyOf home-system-notifications.controller:HomeSystemNotificationsController
+         * @name checkWindowWidth
+         * @type {Boolean}
+         *
+         * @description
+         * Responsible for checking if width of window matches max width.
+         */
+        function checkWindowWidth() {
+            if (window.matchMedia('(max-width: 700px)').matches) {
+                return true;
+            }
+            return false;
+        }
+
+        window.matchMedia('(max-width: 700px)').addEventListener('change', function(evt) {
+            if (evt.matches) {
+                vm.isMobile = true;
+                reloadPage();
+            } else {
+                vm.isMobile = false;
+                reloadPage();
+            }
+        });
+
+        /**
+         * @ngdoc method
          * @methodOf home-system-notifications.controller:HomeSystemNotificationsController
          * @name $onInit
          *
@@ -67,8 +94,15 @@
          * Method that is executed on initiating HomeSystemNotificationsController.
          */
         function onInit() {
+            vm.isMobile = checkWindowWidth();
             vm.isOffline = offlineService.isOffline();
             vm.homePageSystemNotifications = homePageSystemNotifications;
+        }
+
+        function reloadPage() {
+            $state.go('openlmis.home', {}, {
+                reload: true
+            });
         }
     }
 
