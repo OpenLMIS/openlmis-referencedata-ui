@@ -50,8 +50,8 @@
                 controller: 'UserProfileBasicInformationController',
                 controllerAs: 'vm',
                 resolve: {
-                    user: function(user) {
-                        return angular.copy(user);
+                    user: function(UserRepository, userId) {
+                        return new UserRepository().get(userId);
                     },
                     homeFacility: function(user, facilityService) {
                         if (user.homeFacilityId) {

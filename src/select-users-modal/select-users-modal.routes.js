@@ -44,20 +44,23 @@
                         return new UserRepository().query(params);
                     });
                 },
-                user: function(user) {
-                    return user;
+                user: function(UserRepository, $stateParams) {
+                    return new UserRepository().get($stateParams.id);
                 },
-                roles: function(roles) {
-                    return angular.copy(roles);
+                roles: function(referencedataRoleFactory) {
+                    return referencedataRoleFactory.getAllWithType();
                 },
-                programs: function(programs) {
-                    return angular.copy(programs);
+                programs: function(programService) {
+                    return programService.getAll();
                 },
-                supervisoryNodes: function(supervisoryNodes) {
-                    return angular.copy(supervisoryNodes);
-                },
-                warehouses: function(warehouses) {
-                    return angular.copy(warehouses);
+                supervisoryNodes: function(AdminUserRolesSupervisoryNodeResource, facilitiesMap) {
+                        return new AdminUserRolesSupervisoryNodeResource(facilitiesMap).query()
+                            .then(function(page) {
+                                return page.content;
+                            });
+                    },
+                warehouses: function(facilityService) {
+                    return facilityService.getAllMinimal();
                 }
             }
         });
