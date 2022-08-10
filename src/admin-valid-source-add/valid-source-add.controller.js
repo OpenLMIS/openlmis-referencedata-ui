@@ -200,7 +200,6 @@
             vm.validSourceResource = new ValidSourceResource();
             vm.facilityTypes = facilityTypes;
             vm.geoLevels = geoLevels;
-            console.log(geoLevels);
         };
 
         /**
