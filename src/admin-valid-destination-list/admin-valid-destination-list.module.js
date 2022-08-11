@@ -25,6 +25,7 @@
      */
     angular.module('admin-valid-destination-list', [
         'openlmis-admin',
+        'openlmis-cached-repository',
         'openlmis-pagination',
         'openlmis-rights',
         'ui.router',
