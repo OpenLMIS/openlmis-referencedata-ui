@@ -24,6 +24,7 @@
      * Provides a modal for adding new valid destination.
      */
     angular.module('admin-valid-destination-add', [
+        'admin-valid-destination-list',
         'referencedata-facility',
         'referencedata-facility-type',
         'referencedata-facility-operator',

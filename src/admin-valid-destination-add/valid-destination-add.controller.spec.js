@@ -17,14 +17,7 @@ describe('ValidDestinationAddController', function() {
 
     beforeEach(function() {
 
-        this.destinationToAdd =
-            {
-                programId: 3,
-                facilityTypeId: 2,
-                name: 'valid destination to add',
-                geoZoneId: 1,
-                geoLevelId: 3
-            };
+        module('admin-valid-destination-add');
 
         this.validDestinations = [
             {
@@ -43,23 +36,32 @@ describe('ValidDestinationAddController', function() {
             }
         ];
 
-        module('admin-valid-destination-add');
         inject(function($injector) {
-            this.$controller = $injector.get('ValidDestinationAddController');
-            this.$q = $injector.get('$q');
+            this.$controller = $injector.get('$controller');
             this.$rootScope = $injector.get('$rootScope');
-            this.notificationService = $injector.get('notificationService');
             this.$state = $injector.get('$state');
             this.confirmService = $injector.get('confirmService');
-            this.validDestinationResource = $injector.get('ValidDestinationResource');
             this.loadingModalService = $injector.get('loadingModalService');
+            this.notificationService = $injector.get('notificationService');
+            this.$q = $injector.get('$q');
         });
 
         var geoLevelMap = [];
         geoLevelMap[4] = 'geo level 1';
 
         this.programs = ['program 1'];
-        this.facilities = ['type 1'];
+        this.facilities = [{
+            id: 54467
+        }];
+        this.organizations = [{
+            id: 5466
+        }];
+        this.facilityTypes = [{
+            id: 1
+        }];
+        this.geoLevels = [{
+            id: 1
+        }];
 
         this.controller = this.$controller('ValidDestinationAddController', {
             validDestinations: this.validDestinations,
@@ -74,56 +76,68 @@ describe('ValidDestinationAddController', function() {
             },
             geographicLevelMap: geoLevelMap,
             programs: this.programs,
-            facilities: this.facilities
+            facilities: this.facilities,
+            organizations: this.organizations,
+            facilityTypes: this.facilityTypes,
+            geoLevels: this.geoLevels
         });
 
     });
 
     it('should assign facilities', function() {
+        this.controller.$onInit();
+
         expect(this.controller.facilities).toEqual(this.facilities);
     });
 
     it('should assign programs', function() {
+        this.controller.$onInit();
+
         expect(this.controller.programs).toEqual(this.programs);
+    });
+
+    it('should assign geo levels', function() {
+        this.controller.$onInit();
+
+        expect(this.controller.geoLevels).toEqual(this.geoLevels);
+    });
+
+    it('should assign organizations', function() {
+        this.controller.$onInit();
+
+        expect(this.controller.organizations).toEqual(this.organizations);
+    });
+
+    it('should assign facilityTypes', function() {
+        this.controller.$onInit();
+
+        expect(this.controller.facilityTypes).toEqual(this.facilityTypes);
     });
 
     describe('submit', function() {
         beforeEach(function() {
+            this.saveDeferred = this.$q.defer();
             this.confirmDeferred = this.$q.defer();
             this.loadingDeferred = this.$q.defer();
 
+            spyOn(this.$state, 'go');
             spyOn(this.loadingModalService, 'open').andReturn(this.loadingDeferred.promise);
-            spyOn(this.loadingModalService, 'close').andReturn();
+            spyOn(this.loadingModalService, 'close').andCallFake(this.loadingDeferred.resolve);
             spyOn(this.confirmService, 'confirm').andReturn(this.confirmDeferred.promise);
-            spyOn(this.notificationService, 'error').andReturn();
-            spyOn(this.notificationService, 'success').andReturn();
+            spyOn(this.notificationService, 'success');
+            spyOn(this.notificationService, 'error');
 
-            this.controller.destinationToAdd = this.destinationToAdd;
-        });
-
-        it('should save valid destination and open loading modal after confirm', function() {
-            this.controller.submit();
-
-            this.confirmService.resolve();
-            this.$rootScope.$apply();
-
-            expect(this.controller.validDestinationResource.create).toHaveBeenCalledWith(this.destinationToAdd);
-            expect(this.loadingModalService.open).toHaveBeenCalled();
-        });
-
-        it('should show notification if valid destination was saved successfully', function() {
-            this.controller.submit();
-
-            this.confirmDeferred.resolve();
-            this.saveDeferred.resolve(this.destinationToAdd);
-            this.loadingDeferred.resolve();
-            this.$rootScope.$apply();
-
-            expect(this.notificationService.success)
-                .toHaveBeenCalledWith('adminValidDestinationAdd.validDestinationAddedSuccessfully');
         });
 
         it('should show notification if valid destination save has failed', function() {
+
+            this.controller.unitType = 'organization';
+            this.controller.organization = this.organizations[0];
+            this.controller.program = this.programs[0];
+            this.controller.facilityType = this.facilityTypes[0];
+            this.controller.geoLevel = null;
+            this.controller.$onInit();
+
             this.controller.submit();
 
             this.confirmDeferred.resolve();
