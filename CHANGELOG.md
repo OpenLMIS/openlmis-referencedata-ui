@@ -7,7 +7,7 @@ New functionality that are backwards-compatible:
 * [OLMIS-7444](https://openlmis.atlassian.net/browse/OLMIS-7444): Add edit modal to lot management page
 * [OLMIS-7452](https://openlmis.atlassian.net/browse/OLMIS-7452): Add ORDER_CREATE right
 * [OLMIS-7501](https://openlmis.atlassian.net/browse/OLMIS-7501): Add CCE_INVENTORY_TRANSFER right
-
+* [OLMIS-7604](https://openlmis.atlassian.net/browse/OLMIS-7604): Added valid destination page to the administration panel
 Improvements:
 * [OLMIS-6545](https://openlmis.atlassian.net/browse/OLMIS-6545): Add missing translation adminOrderableEdit.failedToUpdateProduct
 

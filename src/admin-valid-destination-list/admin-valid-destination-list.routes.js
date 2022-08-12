@@ -66,8 +66,6 @@
                             facilityTypeId: validDestination.facilityTypeId,
                             name: validDestination.name,
                             id: validDestination.id
-                            //Geographic level affinity temporarily is not displayed
-                            //geoLevelAffinityId: validDestination.geoLevelAffinityId
                         };
 
                         if (validDestination.node.refDataFacility) {
