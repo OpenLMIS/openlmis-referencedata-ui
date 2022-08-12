@@ -24,6 +24,7 @@
      * Provides a modal for adding new valid source.
      */
     angular.module('admin-valid-source-add', [
+        'admin-valid-source-list',
         'referencedata-facility',
         'referencedata-facility-type',
         'referencedata-facility-operator',
