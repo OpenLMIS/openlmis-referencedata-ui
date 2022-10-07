@@ -1,4 +1,4 @@
-5.6.8-SNAPSHOT
+5.6.8 / 2022-10-07
 ==================
 
 New functionality that are backwards-compatible:
