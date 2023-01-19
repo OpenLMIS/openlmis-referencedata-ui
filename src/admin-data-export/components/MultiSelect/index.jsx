@@ -13,19 +13,4 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
-(function() {
-    'use strict';
-
-    angular.module('admin-data-export', [
-        'openlmis-admin',
-        'openlmis-pagination',
-        'openlmis-rights',
-        'openlmis-templates',
-        'referencedata-facility',
-        'referencedata-geographic-zone',
-        'openlmis-admin',
-        'ui.router',
-        'react-components'
-    ]);
-
-})();
+export { default } from './MultiSelect';
