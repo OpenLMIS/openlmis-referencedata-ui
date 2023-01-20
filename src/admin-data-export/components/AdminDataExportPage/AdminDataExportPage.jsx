@@ -20,7 +20,7 @@ import MultiSelect from '../../../react-components/inputs/multi-select';
 import { DATA_EXPORT, TYPE_OF_EXPORTS, MOCKED_ZIP_STRING, ZIP_NAME } from '../../consts';
 import { download } from '../../utils';
 
-const AdminDataExportPage = ({ offlineService }) => {
+const AdminDataExportPage = () => {
 
     const menu = document.getElementsByClassName('header ng-scope')[0];
     const [typeOfExport, setTypeOfExport] = useState("");
@@ -33,7 +33,7 @@ const AdminDataExportPage = ({ offlineService }) => {
         if (newArray.includes(id)) {
             return newArray.filter(item => item != id)
         } else {
-            newArray.push(id)
+            newArray.push(id);
             return newArray;
         }
       })
