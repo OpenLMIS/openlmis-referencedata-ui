@@ -16,7 +16,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Select from '../../../react-components/inputs/select';
-import MultiSelect from '../MultiSelect';
+import MultiSelect from '../../../react-components/inputs/multi-select';
 import { DATA_EXPORT, TYPE_OF_EXPORTS, MOCKED_ZIP_STRING, ZIP_NAME } from '../../consts';
 import { download } from '../../utils';
 
