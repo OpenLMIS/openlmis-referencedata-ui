@@ -15,14 +15,15 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { DATA_EXPORT, TYPE_OF_EXPORTS } from '../../consts';
 import Select from '../../../react-components/inputs/select';
 import MultiSelect from '../MultiSelect';
+import { DATA_EXPORT, TYPE_OF_EXPORTS, MOCKED_ZIP_STRING, ZIP_NAME } from '../../consts';
+import { download } from '../../utils';
 
 const AdminDataExportPage = ({ offlineService }) => {
 
     const menu = document.getElementsByClassName('header ng-scope')[0];
-    const [typeOfExport, setTypeOfExport] = useState(null);
+    const [typeOfExport, setTypeOfExport] = useState("");
     const [optionsForDatas, setOptionsForDatas] = useState(DATA_EXPORT);
     const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -38,6 +39,14 @@ const AdminDataExportPage = ({ offlineService }) => {
       })
     }
 
+    const downloadZip = () => {
+      if (selectedFiles.length > 0) {
+        setTypeOfExport("");
+        setSelectedFiles([]);
+        download(ZIP_NAME, MOCKED_ZIP_STRING);
+      }
+    };
+
     useEffect(() => menu.style.display = '', [menu]);
 
     useEffect(() => {
@@ -49,10 +58,11 @@ const AdminDataExportPage = ({ offlineService }) => {
           );
         });
       } else {
+        setTypeOfExport("");
         setOptionsForDatas(DATA_EXPORT);
       }
     }, [typeOfExport]);
-    
+
     return (
         <>
             <div>
@@ -64,13 +74,14 @@ const AdminDataExportPage = ({ offlineService }) => {
                     Type
                   </label>
                 </div>
-                <div className='field-full-width' style={{marginBottom: '8px', width: '40%'}}>
+                <div className='field-full-width' style={{marginBottom: '16px', width: '40%'}}>
                     <Select
                       options={TYPE_OF_EXPORTS}
                       onChange={value => {
                         setSelectedFiles([]);
                         setTypeOfExport(value);
                       }}
+                      value={typeOfExport}
                     />
                 </div>
 
@@ -79,7 +90,7 @@ const AdminDataExportPage = ({ offlineService }) => {
                     Data
                   </label>
                 </div>
-                <div className='field-full-width' style={{marginBottom: '8px', width: '40%'}}>
+                <div className='field-full-width' style={{marginBottom: '16px', width: '40%'}}>
                     <MultiSelect
                       options={optionsForDatas}
                       selected={selectedFiles}
@@ -94,6 +105,7 @@ const AdminDataExportPage = ({ offlineService }) => {
                   type='button'
                   style={{ marginTop: '0.5em' }}
                   disabled={selectedFiles.length === 0}
+                  onClick={downloadZip}
                 >
                   Export
                 </button>

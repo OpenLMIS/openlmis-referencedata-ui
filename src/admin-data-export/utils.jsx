@@ -13,22 +13,14 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
-import React from 'react';
-import Breadcrumbs from '../react-components/breadcrumbs/breadcrumbs';
-import AdminDataExportPage from './components/AdminDataExportPage';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-
-const Routing = () => (
-    <div className="page-for-export">
-        <Router basename="/" hashType="hashbang">
-            <Breadcrumbs routes={[ { path: "/administration/dataExport", breadcrumb: 'Data Export' } ]} />
-            <Switch>
-                <Route exact path="/administration/dataExport">
-                    <AdminDataExportPage />
-                </Route>
-            </Switch>
-        </Router>
-    </div>
-);
-
-export default Routing;
+export const download = (filename, data) => {
+  // TODO - add mechanism to download blob 'application/zip' from backend API request
+  const uriContent = URL.createObjectURL(new Blob([data], {type : 'data:text/plain;base64'}));
+  const element = document.createElement('a');
+  element.setAttribute('href', uriContent);
+  element.setAttribute('download', filename);
+  element.style.display = 'none';
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
