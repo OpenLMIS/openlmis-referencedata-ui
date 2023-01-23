@@ -1,3 +1,9 @@
+5.6.9-SNAPSHOT / WIP
+==================
+
+New functionality that are backwards-compatible:
+* [OLMIS-7649](https://openlmis.atlassian.net/browse/OLMIS-7649): Prepare administrator page for data export
+
 5.6.8 / 2022-10-07
 ==================
 
