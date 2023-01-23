@@ -34,6 +34,7 @@
                     templateUrl: 'admin-data-export/admin-data-export.html'
                 }
             }
+            // TODO - add line for accessRights when 'export right' is available
         });
     }
 })();

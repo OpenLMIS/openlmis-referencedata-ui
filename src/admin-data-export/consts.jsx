@@ -17,12 +17,9 @@ export const TYPE_OF_EXPORTS = [
     {
         value: "Program",
         name: "Program"
-    },
-    {
-        value: "Facility",
-        name: "Facility"
     }
 ];
+
 export const DATA_EXPORT = [
         {
             "type": "Program", 
@@ -43,20 +40,8 @@ export const DATA_EXPORT = [
             "type": "Program", 
             "id": "TradeItems.csv",
             "name": "TradeItems.csv"
-        },
-        {
-            "type": "Facility", 
-            "id": "Facilities.csv",
-            "name": "Facilities.csv"
-        },
-        {
-            "type": "Facility", 
-            "id": "Test.csv",
-            "name": "Test.csv"
         }
 ];
-
-export const SELECT_OPTION_LABEL = "Select an option";
 
 // TODO - use the data returned from backend API, when backend is ready this const must be removed
 export const MOCKED_ZIP_STRING = `UEsDBBQAAAAAAGt6M1YAAAAAAAAAAAAAAAAJACAAemlwX2ZpbGUvVVQNAAdrUcljflHJY2tRyWN1eA
