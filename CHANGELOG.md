@@ -3,6 +3,7 @@
 
 New functionality that are backwards-compatible:
 * [OLMIS-7649](https://openlmis.atlassian.net/browse/OLMIS-7649): Prepare administrator page for data export
+* [OLMIS-7705](https://openlmis.atlassian.net/browse/OLMIS-7705): Implement sending to backend 'data export'
 
 5.6.8 / 2022-10-07
 ==================
