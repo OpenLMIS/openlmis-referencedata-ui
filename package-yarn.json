@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-toastify": "^8.2.0"
   },
   "engines": {
     "yarn": ">= 1.0.0"

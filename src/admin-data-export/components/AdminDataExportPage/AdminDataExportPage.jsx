@@ -13,12 +13,13 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { toast } from 'react-toastify';
 
+import getService from '../../../react-components/utils/angular-utils';
 import Select from '../../../react-components/inputs/select';
 import MultiSelect from '../../../react-components/inputs/multi-select';
-import { DATA_EXPORT, TYPE_OF_EXPORTS, MOCKED_ZIP_STRING, ZIP_NAME } from '../../consts';
-import { download } from '../../utils';
+import { DATA_EXPORT, TYPE_OF_EXPORTS } from '../../consts';
 
 const AdminDataExportPage = () => {
 
@@ -26,6 +27,13 @@ const AdminDataExportPage = () => {
     const [typeOfExport, setTypeOfExport] = useState("");
     const [optionsForDatas, setOptionsForDatas] = useState(DATA_EXPORT);
     const [selectedFiles, setSelectedFiles] = useState([]);
+
+    const serverService = useMemo(
+        () => {
+            return getService('adminDataExport');
+        },
+        []
+    );
 
     const toggleOption = ({ id }) => {
       setSelectedFiles(prevSelected => {
@@ -41,9 +49,21 @@ const AdminDataExportPage = () => {
 
     const downloadZip = () => {
       if (selectedFiles.length > 0) {
+
+        const data = selectedFiles.toString();
+        const token = localStorage.getItem('openlmis.ACCESS_TOKEN');
+
+        serverService.exportData(data)
+          .then(() => {
+            window.open(
+                `${serverService.urlFactory(`/api/exportData?format=csv&data=${data}&access_token=${token}`)}`,
+                "_blank"
+            );
+            toast.success('Data has been exported correctly');
+        });
+
         setTypeOfExport("");
         setSelectedFiles([]);
-        download(ZIP_NAME, MOCKED_ZIP_STRING);
       }
     };
 
@@ -100,7 +120,7 @@ const AdminDataExportPage = () => {
                 </div>
             </div>
             <div className="openlmis-toolbar">
-                <button 
+                <button
                   className='primary'
                   type='button'
                   style={{ marginTop: '0.5em' }}

@@ -22,33 +22,23 @@ export const TYPE_OF_EXPORTS = [
 
 export const DATA_EXPORT = [
         {
-            "type": "Program", 
-            "id": "Orderables.csv",
-            "name": "Orderables.csv"
+            "type": "Program",
+            "id": "orderable",
+            "name": "Orderable.csv"
         },
         {
-            "type": "Program", 
-            "id": "OrderableIdentifiers.csv",
-            "name": "OrderableIdentifiers.csv"
+            "type": "Program",
+            "id": "orderableIdentifier",
+            "name": "OrderableIdentifier.csv"
         },
         {
-            "type": "Program", 
-            "id": "ProgramOrderables.csv",
-            "name": "ProgramOrderables.csv"
+            "type": "Program",
+            "id": "programOrderable",
+            "name": "ProgramOrderable.csv"
         },
         {
-            "type": "Program", 
-            "id": "TradeItems.csv",
-            "name": "TradeItems.csv"
+            "type": "Program",
+            "id": "tradeItem",
+            "name": "TradeItem.csv"
         }
 ];
-
-// TODO - use the data returned from backend API, when backend is ready this const must be removed
-export const MOCKED_ZIP_STRING = `UEsDBBQAAAAAAGt6M1YAAAAAAAAAAAAAAAAJACAAemlwX2ZpbGUvVVQNAAdrUcljflHJY2tRyWN1eA
-sAAQTpAwAABOkDAABQSwMEFAAIAAgAVXozVgAAAAAAAAAAIwAAABIAIAB6aXBfZmlsZS9maWxlMS5jc3ZVVA0AB0NRyWNDUclj
-a1HJY3V4CwABBOkDAAAE6QMAAEtMKU4pTkwpLk5JVEiEshMVgDwIC4i4AFBLBwifQs6LGAAAACMAAABQSwECFAMUAAAAAABrej
-NWAAAAAAAAAAAAAAAACQAgAAAAAAAAAAAA/UEAAAAAemlwX2ZpbGUvVVQNAAdrUcljflHJY2tRyWN1eAsAAQTpAwAABOkDAABQ
-SwECFAMUAAgACABVejNWn0LOixgAAAAjAAAAEgAgAAAAAAAAAAAAtIFHAAAAemlwX2ZpbGUvZmlsZTEuY3N2VVQNAAdDUcljQ1
-HJY2tRyWN1eAsAAQTpAwAABOkDAABQSwUGAAAAAAIAAgC3AAAAvwAAAAAA`;
-
-export const ZIP_NAME = "export_results.zip";

@@ -13,35 +13,43 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
-import React from 'react';
-import { ToastContainer } from 'react-toastify';
-import ReactDOM from 'react-dom';
-import Routing from './Routing';
-import 'react-toastify/dist/ReactToastify.css';
+(function() {
 
-(function () {
     'use strict';
 
+    /**
+     * @ngdoc service
+     * @name admin-data-export.adminDataExport
+     *
+     * @description
+     * Communicates with the /api/serverConfiguration endpoint of the OpenLMIS server.
+     */
     angular
         .module('admin-data-export')
-        .directive('adminDataExport', adminDataExport);
+        .service('adminDataExport', service);
 
-        adminDataExport.$inject = [];
+    service.$inject = ['$resource', 'openlmisUrlFactory'];
 
-    function adminDataExport() {
-        return {
-            template: '<div id="adminDataExport" class="admin-data-export"></div>',
-            replace: true,
-            link: function () {
-                const app = document.getElementById('adminDataExport');
+    function service($resource, openlmisUrlFactory) {
 
-                ReactDOM.render(
-                    <>
-                        <Routing />,
-                        <ToastContainer theme="colored" />
-                    </>,
-                    app);
+        var resource = $resource(openlmisUrlFactory('/api/serverConfiguration/'), {}, {
+            exportData: {
+                url: openlmisUrlFactory('/api/exportData?format=csv&data=:data'),
+                method: 'GET'
             }
-        };
+        });
+
+        this.exportData = exportData;
+        this.urlFactory = urlFactory;
+
+        function exportData(data) {
+            return resource.exportData({
+                data: data
+            }).$promise;
+        }
+
+        function urlFactory(url) {
+            return openlmisUrlFactory(url);
+        }
     }
 })();
