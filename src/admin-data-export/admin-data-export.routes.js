@@ -20,9 +20,9 @@
         .module('admin-data-export')
         .config(routes);
 
-    routes.$inject = ['$stateProvider'];
+    routes.$inject = ['$stateProvider', 'ADMINISTRATION_RIGHTS'];
 
-    function routes($stateProvider) {
+    function routes($stateProvider, ADMINISTRATION_RIGHTS) {
         $stateProvider.state('openlmis.administration.dataExport', {
             url: '/dataExport',
             label: 'admin.dataExport.label',
@@ -33,8 +33,8 @@
                 '@': {
                     templateUrl: 'admin-data-export/admin-data-export.html'
                 }
-            }
-            // TODO - add line for accessRights when 'export right' is available
+            },
+            accessRights: [ADMINISTRATION_RIGHTS.DATA_EXPORT]
         });
     }
 })();
