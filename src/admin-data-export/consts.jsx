@@ -23,22 +23,22 @@ export const TYPE_OF_EXPORTS = [
 export const DATA_EXPORT = [
         {
             "type": "Program",
-            "id": "orderable",
-            "name": "Orderable.csv"
+            "id": "orderable.csv",
+            "name": "orderable.csv"
         },
         {
             "type": "Program",
-            "id": "orderableIdentifier",
-            "name": "OrderableIdentifier.csv"
+            "id": "orderableIdentifier.csv",
+            "name": "orderableIdentifier.csv"
         },
         {
             "type": "Program",
-            "id": "programOrderable",
-            "name": "ProgramOrderable.csv"
+            "id": "programOrderable.csv",
+            "name": "programOrderable.csv"
         },
         {
             "type": "Program",
-            "id": "tradeItem",
-            "name": "TradeItem.csv"
+            "id": "tradeItem.csv",
+            "name": "tradeItem.csv"
         }
 ];
