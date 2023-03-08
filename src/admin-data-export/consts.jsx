@@ -16,7 +16,7 @@
 export const TYPE_OF_EXPORTS = [
     {
         value: "Product",
-        name: "Product"
+        name: "Products"
     }
 ];
 
