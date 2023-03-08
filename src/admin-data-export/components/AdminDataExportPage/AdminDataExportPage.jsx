@@ -53,6 +53,7 @@ const AdminDataExportPage = () => {
         const adjustedElements = selectedFiles.map(element => element.replace('.csv', ''));
 
         const data = adjustedElements.toString();
+
         const token = localStorage.getItem('openlmis.ACCESS_TOKEN');
 
         serverService.exportData(data)
