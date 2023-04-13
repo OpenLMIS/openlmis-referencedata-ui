@@ -1,3 +1,9 @@
+5.6.10-SNAPSHOT / WIP
+==================
+
+New functionality that are backwards-compatible:
+* [OLMIS-7673](https://openlmis.atlassian.net/browse/OLMIS-7673): Add import page
+
 5.6.9-SNAPSHOT / WIP
 ==================
 
@@ -5,7 +11,6 @@ New functionality that are backwards-compatible:
 * [OLMIS-7649](https://openlmis.atlassian.net/browse/OLMIS-7649): Prepare administrator page for data export
 * [OLMIS-7705](https://openlmis.atlassian.net/browse/OLMIS-7705): Implement sending to backend 'data export'
 * [OLMIS-7707](https://openlmis.atlassian.net/browse/OLMIS-7707): Add the option of selecting export right + secure export page
-* [OLMIS-7673](https://openlmis.atlassian.net/browse/OLMIS-7673): Add import page
 
 5.6.8 / 2022-10-07
 ==================
