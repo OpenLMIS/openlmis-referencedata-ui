@@ -20,9 +20,9 @@
         .module('admin-data-import')
         .config(routes);
 
-    routes.$inject = ['$stateProvider'];
+    routes.$inject = ['$stateProvider', 'ADMINISTRATION_RIGHTS'];
 
-    function routes($stateProvider) {
+    function routes($stateProvider, ADMINISTRATION_RIGHTS) {
         $stateProvider.state('openlmis.administration.dataImport', {
             url: '/dataImport',
             label: 'admin.dataImport.label',
@@ -33,7 +33,8 @@
                 '@': {
                     templateUrl: 'admin-data-import/admin-data-import.html'
                 }
-            }
+            },
+            accessRights: [ADMINISTRATION_RIGHTS.DATA_IMPORT]
         });
     }
 })();

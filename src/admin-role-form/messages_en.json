@@ -71,5 +71,6 @@
     "adminRoleForm.systemNotificationsManage": "Manage system notifications",
     "adminRoleForm.lotsManage": "Manage lots",
     "adminRoleForm.orderCreate": "Create orders",
-    "adminRoleForm.dataExport": "Export Data"
+    "adminRoleForm.dataExport": "Export Data",
+    "adminRoleForm.dataImport": "Import Data"
 }

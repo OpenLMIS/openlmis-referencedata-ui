@@ -20,6 +20,7 @@ import getService from '../../../react-components/utils/angular-utils';
 import Select from '../../../react-components/inputs/select';
 import MultiSelect from '../../../react-components/inputs/multi-select';
 import { DATA_EXPORT, TYPE_OF_EXPORTS } from '../../consts';
+import Loading from '../../../react-components/modals/loading';
 
 const AdminDataExportPage = () => {
 
@@ -27,6 +28,7 @@ const AdminDataExportPage = () => {
     const [typeOfExport, setTypeOfExport] = useState("");
     const [optionsForDatas, setOptionsForDatas] = useState(DATA_EXPORT);
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const [displayLoading, setDisplayLoading] = useState(false);
 
     const serverService = useMemo(
         () => {
@@ -55,6 +57,7 @@ const AdminDataExportPage = () => {
         const data = adjustedElements.toString();
         const token = localStorage.getItem('openlmis.ACCESS_TOKEN');
 
+        setDisplayLoading(true);
         serverService.exportData(data)
           .then(() => {
             window.open(
@@ -62,7 +65,7 @@ const AdminDataExportPage = () => {
                 "_blank"
             );
             toast.success('Data has been exported correctly');
-        });
+        }).finally(() => setDisplayLoading(false));
 
         setTypeOfExport("");
         setSelectedFiles([]);
@@ -132,8 +135,11 @@ const AdminDataExportPage = () => {
                   Export
                 </button>
             </div>
+            {displayLoading && 
+              <Loading/>
+            }
         </>
-    )
+    );
 };
 
 export default AdminDataExportPage;
