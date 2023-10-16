@@ -14,7 +14,7 @@
  */
 
 import React from 'react';
-import Breadcrumbs from '../react-components/breadcrumbs/breadcrumbs';
+import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AdminDataImportPage from "./components/AdminDataExportPage";
 

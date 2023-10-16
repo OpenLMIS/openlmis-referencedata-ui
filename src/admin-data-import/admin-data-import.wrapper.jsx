@@ -37,7 +37,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
                 ReactDOM.render(
                     <>
-                        <Routing />,
+                        <Routing />
                         <ToastContainer theme="colored" />
                     </>,
                     app);

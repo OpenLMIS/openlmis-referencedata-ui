@@ -85,7 +85,7 @@ const AdminDataImportPage = () => {
                         <button type='button'>
                             <i className="fa-duotone fa-xmark"></i>
                             <i
-                                className='fa fa-times clear-icon clear'
+                                className='fa fa-times clear-icon clear clear-button'
                                 onClick={() => setSelectedFile('')}
                             />
                         </button>
