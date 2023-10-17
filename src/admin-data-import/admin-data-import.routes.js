@@ -23,7 +23,6 @@
     routes.$inject = ['$stateProvider', 'ADMINISTRATION_RIGHTS'];
 
     function routes($stateProvider, ADMINISTRATION_RIGHTS) {
-
         $stateProvider.state('openlmis.administration.dataImport', {
             url: '/dataImport',
             label: 'admin.dataImport.label',
