@@ -15,15 +15,16 @@
 
 import React, { useState, useMemo } from 'react';
 import { toast } from 'react-toastify';
-
 import getService from '../../../react-components/utils/angular-utils';
 import Select from '../../../react-components/inputs/select';
+import Loading from '../../../react-components/modals/loading';
 import {TYPE_OF_IMPORTS} from '../../consts';
 
 const AdminDataImportPage = () => {
 
     const [typeOfImport, setTypeOfImport] = useState('');
     const [selectedFile, setSelectedFile] = useState('');
+    const [displayLoading, setDisplayLoading] = useState(false);
 
     const serverService = useMemo(
         () => {
@@ -34,11 +35,13 @@ const AdminDataImportPage = () => {
 
     const importZip = () => {
         if (selectedFile) {
+            setDisplayLoading(true);
             serverService.importData(selectedFile)
+                .then(() => toast.success('Data has been imported correctly'))
                 .finally(() => {
-                    toast.success('Data has been imported correctly');
                     setSelectedFile('');
                     setTypeOfImport('');
+                    setDisplayLoading(false);
                 });
         }
     }
@@ -141,6 +144,9 @@ const AdminDataImportPage = () => {
                   Import
                 </button>
             </div>
+            {displayLoading && 
+              <Loading/>
+            }
         </>
     )
 };
