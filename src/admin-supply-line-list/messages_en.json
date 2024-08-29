@@ -7,5 +7,6 @@
     "adminSupplyLineList.program": "Program",
     "adminSupplyLineList.view": "View",
     "adminSupplyLineList.actions": "Action",
-    "adminSupplyLineList.servedFacilities": "Served Facilities"
+    "adminSupplyLineList.servedFacilities": "Served Facilities",
+    "adminSupplyLineList.noFacilitiesAreAssigned": "No facilities are assigned"
 }
