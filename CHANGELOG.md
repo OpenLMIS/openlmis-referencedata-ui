@@ -6,6 +6,9 @@ Improvements:
 New functionality:
 * [OLMIS-7976](https://openlmis.atlassian.net/browse/OLMIS-7976): Added homepage alerts component
 
+Bug fixes:
+* [OLMIS-7749](https://openlmis.atlassian.net/browse/OLMIS-7749): Added note in popover on Supply Line page if there are not memeber facilities
+
 5.6.12 / 2024-04-19
 ==================
 New functionality that are backwards-compatible:

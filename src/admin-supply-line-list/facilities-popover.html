@@ -1,5 +1,8 @@
 <ul class="list-unstyled">
-    <li ng-repeat="facility in supplyLine.supervisoryNode.requisitionGroup.memberFacilities">
+    <li ng-if="!vm.hasMemberFacilities(supplyLine)">
+        {{'adminSupplyLineList.noFacilitiesAreAssigned' | message}}
+    </li>
+    <li ng-if="vm.hasMemberFacilities(supplyLine)" ng-repeat="facility in supplyLine.supervisoryNode.requisitionGroup.memberFacilities">
         {{facility.name}}
     </li>
 </ul>
