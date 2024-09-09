@@ -1,5 +1,4 @@
 .admin-buq {
-
     .admin-buq-row {
         display: flex;
         flex-direction: row;
@@ -9,7 +8,7 @@
         margin-right: 0px;
     }
 
-      .admin-buq-main {
+    .admin-buq-main {
         overflow: auto;
         display: flex;
         flex-direction: column;
@@ -27,9 +26,9 @@
         padding: 1em 2em;
 
         .breadcrumb {
-          padding-left: 0;
-          padding-top: 0;
-          font-size: 14px;
+            @include padding-left(0);
+            padding-top: 0;
+            font-size: 14px;
         }
     }
 
@@ -40,23 +39,23 @@
     }
 
     .admin-buq-navigation {
-        border-bottom: #D9D9D9 1px solid;
+        border-bottom: #d9d9d9 1px solid;
         margin-bottom: 1em;
         list-style: none;
         display: flex;
-        padding-left: 0;
+        @include padding-left(0);
 
         .admin-buq-link {
-            background-color: #E4E4E4;
+            background-color: #e4e4e4;
             padding: 10px 15px;
             border-radius: 4px 4px 0 0;
-            margin-right: 2px;
+            @include margin-right(2px);
             cursor: pointer;
         }
 
         .admin-buq-link.active {
-            background-color: #FFFFFF;
-            border: #D9D9D9 1px solid;
+            background-color: #ffffff;
+            border: #d9d9d9 1px solid;
             border-bottom: none;
             color: $link-color;
         }
@@ -84,8 +83,8 @@
     }
 
     .admin-buq-table-add-button {
-        margin-right: 5px;
-        margin-left: auto;
+        @include margin-right(5px);
+        @include margin-left(auto);
     }
 }
 

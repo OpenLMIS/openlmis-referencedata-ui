@@ -10,7 +10,7 @@
     padding: 1em 2em;
 
     .breadcrumb {
-      padding-left: 0;
+      @include padding-left(0);
       font-size: 14px;
     }
   }
@@ -42,7 +42,7 @@
     .suggestions-results {
       z-index: 1;
       position: absolute;
-      left: 0;
+      @include left(0);
       max-height: 7em;
     }
   }
@@ -66,13 +66,13 @@
   white-space: break-spaces;
   transform: translate(-30%, 115%);
   bottom: 0;
-  padding: 8px 15px 8px 8px;
+  @include padding(8px, 15px, 8px, 8px);
   height: fit-content;
   width: 200px;
 
   &:before {
     top: -25%;
-    left: 28%;
+    @include left(28%);
     border-width: 8px;
     border-color: transparent transparent #fff transparent;
   }
