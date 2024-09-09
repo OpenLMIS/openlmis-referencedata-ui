@@ -28,10 +28,10 @@
         &.is-required:after {
             color: $brand-danger;
             content: '*';
-            margin-left: 0.25em;
+            @include margin-left(0.25em);
         }
     }
-    
+
     .prepare-buq-button {
         width: 100%;
         display: flex;
@@ -56,19 +56,19 @@
         border: 0;
         background: #ffffff;
         padding: 1em 2em;
-    
+
         .breadcrumb {
           padding-top: 1.5em;
-          padding-left: 0;
+          @include padding-left(0);
           font-size: 14px;
         }
     }
-    
+
     .prepare-buq-page-title {
         border-bottom: #bebebe 1px solid;
         padding: 3.2px 0em;
     }
-    
+
     .prepare-buq-table-actions {
         display: flex;
         justify-content: center;
@@ -107,7 +107,7 @@
 
         .comments-input-title {
             margin-bottom: 3px;
-            margin-left: 5px;
+            @include margin-left(5px);
         }
     }
 
@@ -135,7 +135,7 @@
         .react-table{
             th{
                 white-space: nowrap;
-                padding-right: 8px;
+                @include padding-right(8px);
             }
         }
     }
@@ -219,10 +219,10 @@
         &.is-required:after {
             color: $brand-danger;
             content: '*';
-            margin-left: 0.25em;
+            @include margin-left(0.25em);
         }
     }
-    
+
     .approve-buq-button {
         width: 100%;
         display: flex;

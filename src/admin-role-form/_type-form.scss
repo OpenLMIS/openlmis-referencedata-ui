@@ -14,7 +14,7 @@ dl.type-form {
 
     dd {
         flex: 1 1 calc(100% - 200px - 1em);
-        margin-left: 1em;
+        @include margin-left(1em);
     }
 
     & > dt:not(:first-of-type),
