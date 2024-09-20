@@ -22,13 +22,13 @@
             in vm.supervisoryNodes track by supervisoryNode.id"
             required></select>
 </form>
-
-<ul bs-active-pane="vm.selectedTab" bs-tabs>
-    <li bs-pane data-title="{{'adminRequisitionGroupAdd.programsAndSchedules' | message}}">
-        <ng-include src="'admin-requisition-group-add/programs-and-schedules.html'"></ng-include>
-    </li>
-    <li bs-pane data-title="{{'adminRequisitionGroupAdd.facilities' | message}}">
-        <ng-include src="'admin-requisition-group-add/member-facilities.html'"></ng-include>
-    </li>
-</ul>
+<nav>
+    <ul bs-active-pane="vm.selectedTab" bs-tabs>
+        <li bs-pane data-title="{{'adminRequisitionGroupAdd.programsAndSchedules' | message}}">
+            <ng-include src="'admin-requisition-group-add/programs-and-schedules.html'"></ng-include>
+        </li>
+        <li bs-pane data-title="{{'adminRequisitionGroupAdd.facilities' | message}}">
+            <ng-include src="'admin-requisition-group-add/member-facilities.html'"></ng-include>
+        </li>
+    </ul>
 </nav>

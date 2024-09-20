@@ -25,7 +25,7 @@
 
         $stateProvider.state('openlmis.administration.requisitionGroupAdd', {
             showInNavigation: false,
-            label: 'adminRequisitionGroupAdd.add',
+            label: 'adminRequisitionGroupAdd.addRequisitionGroup',
             url: '/requisitionGroupsAdd',
             controller: 'RequisitionGroupAddController',
             templateUrl: 'admin-requisition-group-add/requisition-group-add.html',

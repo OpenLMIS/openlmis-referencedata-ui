@@ -8,6 +8,7 @@ New functionality:
 
 Bug fixes:
 * [OLMIS-7749](https://openlmis.atlassian.net/browse/OLMIS-7749): Added note in popover on Supply Line page if there are not memeber facilities
+* [OLMIS-7900](https://openlmis.atlassian.net/browse/OLMIS-7900): Updated breadcrumbs and added missing nav tag to New Requisition Group page
 
 5.6.12 / 2024-04-19
 ==================
