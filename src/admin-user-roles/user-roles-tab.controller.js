@@ -30,11 +30,12 @@
 
     controller.$inject = [
         'user', 'supervisoryNodes', 'programs', 'warehouses', '$stateParams', '$q', 'tab', '$state', '$filter',
-        'notificationService', 'confirmService', 'roleAssignments', 'filteredRoles', 'roleRightsMap'
+        'notificationService', 'confirmService', 'roleAssignments', 'filteredRoles', 'roleRightsMap', 'messageService'
     ];
 
     function controller(user, supervisoryNodes, programs, warehouses, $stateParams, $q, tab, $state, $filter,
-                        notificationService, confirmService, roleAssignments, filteredRoles, roleRightsMap) {
+                        notificationService, confirmService, roleAssignments, filteredRoles, roleRightsMap,
+                        messageService) {
 
         var vm = this;
 
@@ -213,7 +214,16 @@
          * @param {Object} roleAssignment the role assignment to be removed
          */
         function removeRole(roleAssignment) {
-            confirmService.confirmDestroy('adminUserRoles.removeRole.question', 'adminUserRoles.removeRole.label')
+            var roleToBeRemoved = vm.filteredRoles.filter(function(role) {
+                return role.name === roleAssignment.roleName;
+            });
+
+            var confirmMessage = messageService.get('adminUserRoles.removeRole.question', {
+                roleName: roleAssignment.roleName,
+                remainingUsers: roleToBeRemoved[0].count > 0 ? roleToBeRemoved[0].count - 1 : 0
+            });
+
+            confirmService.confirmDestroy(confirmMessage, 'adminUserRoles.removeRole.label')
                 .then(function() {
                     user.removeRoleAssignment(roleAssignment);
                     reloadState();
