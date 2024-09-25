@@ -215,12 +215,19 @@
          */
         function removeRole(roleAssignment) {
             var roleToBeRemoved = vm.filteredRoles.filter(function(role) {
-                return role.name === roleAssignment.roleName;
+                return role.id === roleAssignment.roleId;
             });
+
+            var roleUsedByNumber =
+                roleToBeRemoved.length
+                    ? roleToBeRemoved[0].count > 0
+                        ? roleToBeRemoved[0].count - 1
+                        : 0
+                    : [];
 
             var confirmMessage = messageService.get('adminUserRoles.removeRole.question', {
                 roleName: roleAssignment.roleName,
-                remainingUsers: roleToBeRemoved[0].count > 0 ? roleToBeRemoved[0].count - 1 : 0
+                remainingUsers: roleUsedByNumber
             });
 
             confirmService.confirmDestroy(confirmMessage, 'adminUserRoles.removeRole.label')

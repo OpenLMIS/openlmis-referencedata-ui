@@ -66,6 +66,7 @@
             this.supervisoryNodeName = supervisoryNodeName;
             this.warehouseName = warehouseName;
             this.errors = [];
+            this.count = 2;
 
             validateRoleAssignment(this, user);
         }
