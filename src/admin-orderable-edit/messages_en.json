@@ -33,7 +33,7 @@
     "adminOrderableEdit.programs": "Programs",
     "adminOrderableEdit.editProduct": "Edit Product",
     "adminOrderableEdit.packSizeInformation": "Pack Size Information",
-    "adminOrderableEdit.dispensingUnit.info": "A dispensing unit is the basic unit that a patient is provided when the clinician or pharmacist gives them the product, i.e. 10 tap strip, each, etc.",
+    "adminOrderableEdit.dispensingUnit.info": "A dispensing unit is the basic unit that a patient is provided when the clinician or pharmacist gives them the product, i.e. 10 tab strip, each, etc.",
     "adminOrderableEdit.edit": "Edit",
     "adminOrderableEdit.saveKitUnpackList": "Save Kit Unpack List",
     "adminOrderableEdit.kitUnpackListSavedSuccessfully": "The kit unpack list was updated successfully",
