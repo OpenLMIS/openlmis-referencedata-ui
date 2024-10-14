@@ -45,9 +45,10 @@
                         <label for="search">
                             {{'selectProductsModal.searchProduct' | message}}
                         </label>
-                        <input type="text" id="search" name="search" ng-model="vm.searchText"
-                               ng-change="vm.search()"/>
-                        <p class="note">{{'selectProductsModal.searchByCodeInfo' | message}}</p>
+                        <div class='products-modal-input'>
+                            <input type="text" id="search" name="search" ng-model="vm.searchText" style="margin-right: 20px"/>
+                            <button class="primary" type="submit" ng-click="vm.search()">{{'requisitionInitiate.search' | message}}</button>
+                        </div>
                     </fieldset>
                     <br/>
                     <div class="openlmis-table-container">
@@ -75,9 +76,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                    <button id="cancel" ng-click="vm.close()">{{'selectProductsModal.cancel' | message}}</button>
-                    <button ng-if="vm.isUnpackKitState" class="primary" ng-click="vm.selectProducts()">{{'selectProductsModal.addProducts' | message}}</button>
-                    <button ng-if="!vm.isUnpackKitState" class="primary" type="submit" form="productForm">{{'selectProductsModal.addProducts' | message}}</button>
+                <button id="cancel" ng-click="vm.close()">{{'selectProductsModal.cancel' | message}}</button>
+                <button ng-if="vm.isUnpackKitState" class="primary" ng-click="vm.selectProducts()">{{'selectProductsModal.addProducts' | message}}</button>
+                <button ng-if="!vm.isUnpackKitState" class="primary" type="submit" form="productForm">{{'selectProductsModal.addProducts' | message}}</button>
             </div>
         </div>
     </div>
