@@ -75,7 +75,7 @@ describe('requisitionGroupService', function() {
         });
     });
 
-    ddescribe('getAll', function() {
+    describe('getAll', function() {
 
         it('should resolve to requisition groups and save it to storage', function() {
             this.offlineService.isOffline.andReturn(false);
