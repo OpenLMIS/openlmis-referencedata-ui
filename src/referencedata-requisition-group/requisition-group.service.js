@@ -28,10 +28,13 @@
         .module('referencedata-requisition-group')
         .factory('requisitionGroupService', service);
 
-    service.$inject = ['referencedataUrlFactory', '$resource'];
+    service.$inject = ['referencedataUrlFactory', '$resource', '$q', 'offlineService', 'localStorageFactory',
+        'localStorageService'];
 
-    function service(referencedataUrlFactory, $resource) {
+    function service(referencedataUrlFactory, $resource, $q, offlineService, localStorageFactory,
+                     localStorageService) {
 
+        var offlineRequisitionGroup = localStorageFactory('requisitionGroups');
         var resource = $resource(referencedataUrlFactory('/api/requisitionGroups/:id'), {}, {
             getAll: {
                 url: referencedataUrlFactory('/api/requisitionGroups'),
@@ -46,6 +49,10 @@
                 method: 'PUT'
             }
         });
+
+        this.cacheRequisitionGroups = cacheRequisitionGroups;
+        this.getRequisitionGroups = getRequisitionGroups;
+        this.clearRequisitionGroups = clearRequisitionGroups;
 
         return {
             get: get,
@@ -83,7 +90,14 @@
          * @return {Promise} Array of all programs
          */
         function getAll() {
-            return resource.getAll().$promise;
+            if (offlineService.isOffline()) {
+                return $q.resolve(getRequisitionGroups());
+            }
+            return resource.getAll().$promise.then(function(response) {
+                clearRequisitionGroups();
+                cacheRequisitionGroups(response);
+                return $q.resolve(response);
+            });
         }
 
         /**
@@ -132,6 +146,44 @@
          */
         function create(requisitionGroup) {
             return resource.save(null, requisitionGroup).$promise;
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf referencedata-requisition-group.requisitionGroupService
+         * @name cacheRequisitionGroups
+         *
+         * @description
+         * Caches given requisition groups in the local storage.
+         *
+         * @param {Object} requisitionGroups the requisition groups to be cached
+         */
+        function cacheRequisitionGroups(requisitionGroups) {
+            offlineRequisitionGroup.putAll(requisitionGroups);
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf referencedata-requisition-group.requisitionGroupService
+         * @name clearRequisitionGroups
+         *
+         * @description
+         * Deletes Requisition Groups stored in the browser cache.
+         */
+        function clearRequisitionGroups() {
+            localStorageService.remove('requisitionGroups');
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf referencedata-requisition-group.requisitionGroupService
+         * @name getRequisitionGroups
+         *
+         * @description
+         * Gets all Requisition Groups stored in the browser cache.
+         */
+        function getRequisitionGroups() {
+            return $q.resolve(offlineRequisitionGroup.getAll());
         }
     }
 })();

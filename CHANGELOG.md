@@ -2,6 +2,7 @@
 ==================
 Improvements:
 * [OLMIS-7954](https://openlmis.atlassian.net/browse/OLMIS-7954): Improved the scalability of local storage and login performance for /api/requisitionGroups request
+* [OLMIS-7992](https://openlmis.atlassian.net/browse/OLMIS-7992): Added requisition groups cache
 
 New functionality:
 * [OLMIS-7976](https://openlmis.atlassian.net/browse/OLMIS-7976): Added homepage alerts component
