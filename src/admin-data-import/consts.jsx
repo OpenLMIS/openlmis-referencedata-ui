@@ -18,5 +18,10 @@ export const TYPE_OF_IMPORTS = [
         value: "Product",
         name: "Products",
         info: "To import Products you need: orderable.csv, programOrderable.csv, tradeItem.csv"
+    },
+    {
+        value: "Facility",
+        name: "Facilities",
+        info: "To import Facilities you need: facility.csv, supportedProgram.csv"
     }
 ];
