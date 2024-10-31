@@ -3,9 +3,11 @@
 Improvements:
 * [OLMIS-7954](https://openlmis.atlassian.net/browse/OLMIS-7954): Improved the scalability of local storage and login performance for /api/requisitionGroups request
 * [OLMIS-7992](https://openlmis.atlassian.net/browse/OLMIS-7992): Added requisition groups cache
+* [OIS-24](https://openlmis.atlassian.net/browse/OIS-24): Adjusted all components styles to support RTL
 
 New functionality:
 * [OLMIS-7976](https://openlmis.atlassian.net/browse/OLMIS-7976): Added homepage alerts component
+* [OLMIS-7989](https://openlmis.atlassian.net/browse/OLMIS-7989): Added Facilities type to import and export data functionality
 
 Bug fixes:
 * [OLMIS-7749](https://openlmis.atlassian.net/browse/OLMIS-7749): Added note in popover on Supply Line page if there are not memeber facilities
@@ -111,7 +113,7 @@ Improvements:
 * Updated ui-layout version to 5.1.8.
 
 5.6.3 / 2020-05-12
-================== 
+==================
 
 New functionality:
 * [OLMIS-6901](https://openlmis.atlassian.net/browse/OLMIS-6901): Adding the lot and orderable-fulfills services with saving their values ​​to localstorage.
@@ -122,7 +124,7 @@ Improvements:
 * Updated ui-layout version to 5.1.7.
 
 5.6.2 / 2020-04-14
-================== 
+==================
 
 Bug fixes:
 * [OLMIS-6696](https://openlmis.atlassian.net/browse/OLMIS-6696): Fixed calling to permission strings twice upon login.
@@ -152,7 +154,7 @@ New functionality:
 * [OLMIS-6399](https://openlmis.atlassian.net/browse/OLMIS-6399): Adjusted UI after renaming openlmis.administration.systemNotification state to openlmis.administration.systemNotifications.
 * [OLMIS-6443](https://openlmis.atlassian.net/browse/OLMIS-6443): Reworked orderable view to allow editing.
 * [OLMIS-6442](https://openlmis.atlassian.net/browse/OLMIS-6442): Added UI for managing facility type approved products.
-* [OLMIS-6471](https://openlmis.atlassian.net/browse/OLMIS-6471): Added new LOTS_MANAGE right. 
+* [OLMIS-6471](https://openlmis.atlassian.net/browse/OLMIS-6471): Added new LOTS_MANAGE right.
 * [OLMIS-6441](https://openlmis.atlassian.net/browse/OLMIS-6441): Added UI for managing program orderables.
 * [OLMIS-6476](https://openlmis.atlassian.net/browse/OLMIS-6476): Added sorting of orderables by product name.
 * [OLMIS-6488](https://openlmis.atlassian.net/browse/OLMIS-6488): Added orderables caching.
