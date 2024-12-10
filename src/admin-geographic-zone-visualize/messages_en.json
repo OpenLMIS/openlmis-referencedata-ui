@@ -1,0 +1,9 @@
+{
+    "adminGeographicZoneVisualize.title": "Visualize Catchment Population",
+    "adminGeographicZoneVisualize.cancel": "Close",
+    "adminGeographicZoneVisualize.name": "Name",
+    "adminGeographicZoneVisualize.level": "Geographic Level",
+    "adminGeographicZoneVisualize.catchmentPopulation": "Catchment Population",
+    "adminGeographicZoneVisualize.summary": "Total Catchment Population",
+    "adminGeographicZoneVisualize.noRecords": "No child geo zones found."
+}

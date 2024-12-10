@@ -17,21 +17,29 @@
 
     'use strict';
 
-    angular.module('admin-geographic-zone-view').config(routes);
+    angular.module('admin-geographic-zone-visualize').config(routes);
 
     routes.$inject = ['modalStateProvider', 'ADMINISTRATION_RIGHTS'];
 
     function routes(modalStateProvider, ADMINISTRATION_RIGHTS) {
 
-        modalStateProvider.state('openlmis.administration.geographicZones.detail', {
-            controller: 'GeographicZoneViewController',
+        modalStateProvider.state('openlmis.administration.geographicZones.visualize', {
+            controller: 'GeographicZoneVisualizeController',
             controllerAs: 'vm',
-            templateUrl: 'admin-geographic-zone-view/geographic-zone-view.html',
-            url: '/geographicZones/:id',
+            templateUrl: 'admin-geographic-zone-visualize/geographic-zone-visualize.html',
+            url: '/geographicZones/visualize/:id',
             accessRights: [ADMINISTRATION_RIGHTS.GEOGRAPHIC_ZONES_MANAGE],
             resolve: {
                 geographicZone: function(geographicZoneService, $stateParams) {
                     return geographicZoneService.get($stateParams.id);
+                },
+                childGeographicZones: function(geographicZoneService, geographicZone) {
+                    return geographicZoneService.search({
+                        parent: geographicZone.id,
+                        sort: 'name'
+                    }).then(function(response) {
+                        return response.content;
+                    });
                 }
             },
             parentResolves: []

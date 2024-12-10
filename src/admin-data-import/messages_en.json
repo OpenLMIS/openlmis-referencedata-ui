@@ -1,3 +1,8 @@
 {
-    "admin.dataImport.label": "Data Import"
+    "admin.dataImport.label": "Data Import",
+    "admin.dataImport.selectFile": "Select File",
+    "admin.dataImport.type": "Type",
+    "admin.dataImport.zipFile": "Zip File",
+    "admin.dataImport.import": "Import",
+    "admin.dataImport.toast.success": "Data has been imported correctly"
 }

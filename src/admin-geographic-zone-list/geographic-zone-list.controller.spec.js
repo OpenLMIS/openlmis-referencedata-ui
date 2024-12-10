@@ -16,7 +16,13 @@
 describe('GeographicZoneListController', function() {
 
     beforeEach(function() {
-        module('admin-geographic-zone-list');
+        module('admin-geographic-zone-list', function($provide) {
+            $provide.value('featureFlagService', {
+                set: function() {},
+                get: function() {}
+            });
+            $provide.value('CATCHMENT_POPULATION_CALC_AUTO_FEATURE_FLAG', false);
+        });
 
         inject(function($injector) {
             this.$controller = $injector.get('$controller');

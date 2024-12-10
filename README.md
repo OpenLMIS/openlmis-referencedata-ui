@@ -77,3 +77,6 @@ Transifex has been integrated into the development and build process. In order t
 For the development environment in Docker, you can sync with Transifex by running the sync_transifex.sh script. This will upload your source messages file to the Transifex project and download translated messages files.
 
 The build process has syncing with Transifex seamlessly built-in.
+
+### Feature Flags
+- `CATCHMENT_POPULATION_CALC_AUTO`: By default __false__. . This feature flag controls whether the catchment population is automatically aggregated (`editable only in the lowest-level geo zones, such as districts, and then automatically propagated to higher levels like provinces and the country`) or allows for manual editing. You can modify the default value in the file: `catchment-population-auto-calc.flag.run.js`. Additionally, you can define which geographic level should be treated as the lowest (e.g., if a level lower than the district is introduced) in: `geographic-level.service.js`. You can also modify `CATCHMENT_POPULATION_CALC_AUTO` via `settings.env`.

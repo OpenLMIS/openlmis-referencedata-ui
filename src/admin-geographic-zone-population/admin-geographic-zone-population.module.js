@@ -18,17 +18,13 @@
     'use strict';
 
     /**
-     * @module admin-geographic-zone-list
+     * @module admin-geographic-zone-population
      *
      * @description
-     * Provides base admin state and controller for retrieving list of geographic zones from the OpenLMIS server.
+     * Provides geographic zone view screen for administrator.
      */
-    angular.module('admin-geographic-zone-list', [
-        'openlmis-pagination',
-        'openlmis-rights',
-        'referencedata-geographic-zone',
-        'admin-geographic-zone-population',
-        'ui.router'
+    angular.module('admin-geographic-zone-population', [
+        'referencedata-geographic-level',
+        'referencedata-geographic-zone'
     ]);
-
 })();

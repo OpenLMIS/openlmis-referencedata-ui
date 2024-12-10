@@ -25,7 +25,12 @@
      */
     angular.module('admin-geographic-zone-view', [
         'openlmis-rights',
+        'openlmis-modal-state',
+        'openlmis-state-tracker',
+        'openlmis-modal',
+        'referencedata-geographic-level',
         'referencedata-geographic-zone',
+        'admin-geographic-zone-population',
         'ui.router'
     ]);
 })();

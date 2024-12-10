@@ -26,7 +26,7 @@
         $stateProvider.state('openlmis.administration.geographicZones', {
             showInNavigation: true,
             label: 'adminGeographicZoneList.geographicZones',
-            url: '/geographicZones?name&parent&page&size&sort',
+            url: '/geographicZones?name&code&parent&levelNumber&page&size&sort',
             controller: 'GeographicZoneListController',
             templateUrl: 'admin-geographic-zone-list/geographic-zone-list.html',
             controllerAs: 'vm',

@@ -17,18 +17,20 @@
 
     'use strict';
 
-    /**
-     * @module admin-geographic-zone-list
-     *
-     * @description
-     * Provides base admin state and controller for retrieving list of geographic zones from the OpenLMIS server.
-     */
-    angular.module('admin-geographic-zone-list', [
-        'openlmis-pagination',
-        'openlmis-rights',
-        'referencedata-geographic-zone',
-        'admin-geographic-zone-population',
-        'ui.router'
-    ]);
+    angular
+        .module('admin-geographic-zone-view')
+        .run(setCatchmentPopulationAutoCalc);
 
+    setCatchmentPopulationAutoCalc.$inject = ['featureFlagService', 'CATCHMENT_POPULATION_CALC_AUTO_FEATURE_FLAG'];
+
+    /**
+     * @ngdoc function
+     * @name admin-geographic-zone-view.run:setCatchmentPopulationAutoCalc
+     * 
+     * @description
+     * This function sets the feature flag for catchment population auto calculation.
+     */
+    function setCatchmentPopulationAutoCalc(featureFlagService, CATCHMENT_POPULATION_CALC_AUTO_FEATURE_FLAG) {
+        featureFlagService.set(CATCHMENT_POPULATION_CALC_AUTO_FEATURE_FLAG, '${CATCHMENT_POPULATION_CALC_AUTO}', false);
+    }
 })();

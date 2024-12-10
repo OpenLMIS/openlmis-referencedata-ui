@@ -13,33 +13,44 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
-describe('GeographicZoneViewController', function() {
-
+describe('GeographicZoneVisualizeController', function() {
     beforeEach(function() {
-        module('admin-geographic-zone-view', function($provide) {
-            $provide.value('featureFlagService', {
-                set: function() {},
-                get: function() {}
-            });
-        });
+        module('admin-geographic-zone-visualize');
 
         inject(function($injector) {
             this.$controller = $injector.get('$controller');
+            this.stateTrackerService = jasmine.createSpyObj('stateTrackerService', ['goToPreviousState']);
             this.GeographicZoneDataBuilder = $injector.get('GeographicZoneDataBuilder');
         });
 
         this.geographicZone = new this.GeographicZoneDataBuilder().build();
+        this.childGeographicZones = [
+            new this.GeographicZoneDataBuilder().build(),
+            new this.GeographicZoneDataBuilder().build()
+        ];
 
-        this.vm = this.$controller('GeographicZoneViewController', {
-            geographicZone: this.geographicZone
+        this.vm = this.$controller('GeographicZoneVisualizeController', {
+            geographicZone: this.geographicZone,
+            childGeographicZones: this.childGeographicZones,
+            stateTrackerService: this.stateTrackerService
         });
+
         this.vm.$onInit();
     });
 
-    describe('onInit', function() {
-
-        it('should expose geographic zone', function() {
+    describe('$onInit', function() {
+        it('should expose geographicZone and childGeographicZones', function() {
             expect(this.vm.geographicZone).toEqual(this.geographicZone);
+            expect(this.vm.childGeographicZones).toEqual(this.childGeographicZones);
+        });
+    });
+
+    describe('cancel', function() {
+        it('should call stateTrackerService.goToPreviousState when cancel is triggered', function() {
+            this.vm.cancel();
+
+            expect(this.stateTrackerService.goToPreviousState).toHaveBeenCalled();
         });
     });
 });
+

@@ -5,7 +5,10 @@
     "adminGeographicZoneList.search": "Search",
     "adminGeographicZoneList.noGeographicZones": "No geographic zones found.",
     "adminGeographicZoneList.code": "Code",
+    "adminGeographicZoneList.catchmentPopulation": "Catchment Population",
     "adminGeographicZoneList.level": "Level",
     "adminGeographicZoneList.view": "View",
+    "adminGeographicZoneList.edit": "Edit",
+    "adminGeographicZoneList.visualizePopulation": "Visualize Population",
     "adminGeographicZoneList.actions": "Actions"
 }
