@@ -22,8 +22,8 @@
         .service('GeographicLevelService', GeographicLevelService);
 
     /**
-     * @ngdoc constant
-     * @name referencedata-geographic-level.constant:GEOGRAPHIC_LEVEL
+     * @ngdoc object
+     * @name referencedata-geographic-level.GEOGRAPHIC_LEVEL
      * 
      * @description
      * This constant provides the geographic level number.
