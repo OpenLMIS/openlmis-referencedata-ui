@@ -6,10 +6,21 @@
             <input type="text" id="name" ng-model="vm.name"/>
         </fieldset>
         <fieldset class="form-group">
+            <label for="code">{{'adminGeographicZoneList.code' | message}}</label>
+            <input type="text" id="code" ng-model="vm.code"/>
+        </fieldset>
+        <fieldset class="form-group">
             <label for="parent">{{'adminGeographicZoneList.parent' | message}}</label>
             <select id="parent"
                     ng-options="parent.id as parent.name for parent in vm.geographicZones"
                     ng-model="vm.parent">
+            </select>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="levelNumber">{{'adminGeographicZoneList.level' | message}}</label>
+            <select id="levelNumber"
+                    ng-options="(level.levelNumber | json) as level.name for level in vm.geographicLevels"
+                    ng-model="vm.levelNumber">
             </select>
         </fieldset>
         <input type="submit" value="{{'adminGeographicZoneList.search' | message}}"/>
@@ -22,6 +33,7 @@
             <tr>
                 <th>{{'adminGeographicZoneList.name' | message}}</th>
                 <th>{{'adminGeographicZoneList.code' | message}}</th>
+                <th>{{'adminGeographicZoneList.catchmentPopulation' | message}}</th>
                 <th>{{'adminGeographicZoneList.level' | message}}</th>
                 <th>{{'adminGeographicZoneList.parent' | message}}</th>
                 <th>{{'adminGeographicZoneList.actions' | message}}</th>
@@ -31,10 +43,13 @@
             <tr ng-repeat="geographicZone in vm.filteredGeographicZones">
                 <td>{{geographicZone.name}}</td>
                 <td>{{geographicZone.code}}</td>
-                <td>{{geographicZone.level.code}}</td>
+                <td>{{geographicZone.catchmentPopulation}}</td>
+                <td>{{geographicZone.level.name}}</td>
                 <td>{{geographicZone.parent.name}}</td>
                 <td>
-                    <button ui-sref="openlmis.administration.geographicZones.view({id: geographicZone.id})">{{'adminGeographicZoneList.view' | message}}</button>
+                    <button ng-if="vm.isEditable(geographicZone)" class="primary" ui-sref="openlmis.administration.geographicZones.detail({id: geographicZone.id})">{{'adminGeographicZoneList.edit' | message}}</button>
+                    <button ng-if="!vm.isEditable(geographicZone)" class="primary" ui-sref="openlmis.administration.geographicZones.detail({id: geographicZone.id})">{{'adminGeographicZoneList.view' | message}}</button>
+                    <button ng-if="!vm.isTheLowestLevel(geographicZone)" ui-sref="openlmis.administration.geographicZones.visualize({id: geographicZone.id})">{{'adminGeographicZoneList.visualizePopulation' | message}}</button>
                 </td>
             </tr>
         </tbody>

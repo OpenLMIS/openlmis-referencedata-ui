@@ -17,18 +17,36 @@
 
     'use strict';
 
+    angular
+        .module('referencedata-geographic-level')
+        .service('GeographicLevelService', GeographicLevelService);
+
     /**
-     * @module admin-geographic-zone-list
-     *
+     * @ngdoc object
+     * @name referencedata-geographic-level.GEOGRAPHIC_LEVEL
+     * 
      * @description
-     * Provides base admin state and controller for retrieving list of geographic zones from the OpenLMIS server.
+     * This constant provides the geographic level number.
      */
-    angular.module('admin-geographic-zone-list', [
-        'openlmis-pagination',
-        'openlmis-rights',
-        'referencedata-geographic-zone',
-        'admin-geographic-zone-population',
-        'ui.router'
-    ]);
+    var GEOGRAPHIC_LEVEL = {
+        NATIONAL: 1,
+        PROVINCE: 2,
+        DISTRICT: 3
+    };
+
+    function GeographicLevelService() {
+        return {
+            /**
+             * @ngdoc function
+             * @name referencedata-geographic-level.service:getTheLowestLevelNumber
+             * 
+             * @description
+             * This function returns the lowest level number. Lowest in this case means the most detailed level.
+             */
+            getTheLowestLevelNumber: function() {
+                return GEOGRAPHIC_LEVEL.DISTRICT;
+            }
+        };
+    }
 
 })();

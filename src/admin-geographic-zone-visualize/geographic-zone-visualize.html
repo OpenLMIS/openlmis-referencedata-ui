@@ -1,0 +1,48 @@
+<div class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>{{'adminGeographicZoneVisualize.title' | message}}</h2>
+            </div>
+            <div class="modal-body">
+                <div class="visualization">
+                    <p> {{'adminGeographicZoneVisualize.name' | message}}:
+                        <b> {{vm.geographicZone.name | message}} </b>
+                    </p>
+                    <p> {{'adminGeographicZoneVisualize.level' | message}}:
+                        <b> {{vm.geographicZone.level.name | message}} </b>
+                    </p>
+                    <p> {{'adminGeographicZoneVisualize.summary' | message}}:
+                        <b> {{vm.geographicZone.catchmentPopulation | message}} </b>
+                    </p>
+                    <div class="table">
+                        <section class="openlmis-table-container">
+                            <table>
+                                <caption ng-if="!vm.childGeographicZones || vm.childGeographicZones.length === 0">
+                                    {{'adminGeographicZoneVisualize.noRecords' | message}}
+                                </caption>
+                                <thead>
+                                    <tr>
+                                        <th>{{'adminGeographicZoneVisualize.name' | message}}</th>
+                                        <th>{{'adminGeographicZoneVisualize.level' | message}}</th>
+                                        <th>{{'adminGeographicZoneVisualize.catchmentPopulation' | message}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="childZone in vm.childGeographicZones">
+                                        <td>{{childZone.name}}</td>
+                                        <td>{{childZone.level.name}}</td>
+                                        <td>{{childZone.catchmentPopulation}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel" ng-click="vm.cancel()">{{'adminGeographicZoneVisualize.cancel' | message}}</button>
+            </div>
+        </div>
+    </div>
+</div>

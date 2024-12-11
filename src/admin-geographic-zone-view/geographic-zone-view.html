@@ -1,34 +1,50 @@
-<h2>{{vm.geographicZone.name}}</h2>
-<form id="viewGeographicZone">
-    <fieldset class="form-group">
-        <label for="name">{{'adminGeographicZoneView.geographicZoneName' | message}}</label>
-        <input id="name" class="form-control" ng-model="vm.geographicZone.name" required disabled/>
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="code">{{'adminGeographicZoneView.geographicZoneCode' | message}}</label>
-        <input id="code" class="form-control" ng-model="vm.geographicZone.code" required disabled/>
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="level">{{'adminGeographicZoneView.geographicLevel' | message}}</label>
-        <input id="level" class="form-control" ng-model="vm.geographicZone.level.code" required disabled/>
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="parent">{{'adminGeographicZoneView.parent' | message}}</label>
-        <input id="parent" class="form-control" ng-model="vm.geographicZone.parent.name" disabled/>
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="catchmentPopulation">{{'adminGeographicZoneView.catchmentPopulation' | message}}</label>
-        <input id="catchmentPopulation" class="form-control" ng-model="vm.geographicZone.catchmentPopulation" disabled/>
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="longitude">{{'adminGeographicZoneView.longitude' | message}}</label>
-        <input id="longitude" class="form-control" ng-model="vm.geographicZone.longitude" disabled/>
-    </fieldset>
-    <fieldset class="form-group">
-        <label for="latitude">{{'adminGeographicZoneView.latitude' | message}}</label>
-        <input id="latitude" class="form-control" ng-model="vm.geographicZone.latitude" disabled/>
-    </fieldset>
-</form>
-<div class="openlmis-toolbar">
-    <button ui-sref="openlmis.administration.geographicZones" ui-sref-opts="{reload: true}">{{'adminGeographicZoneView.cancel' | message}}</button>
+<div class="modal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>{{'adminGeographicZoneView.title' | message}}</h2>
+            </div>
+            <div class="modal-body">
+                <form id="edit-geographic-zone" ng-submit="vm.save()">
+                    <fieldset class="form-group">
+                        <label for="name">{{'adminGeographicZoneView.geographicZoneName' | message}}</label>
+                        <input id="name" class="form-control" ng-model="vm.geographicZone.name" required disabled />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="code">{{'adminGeographicZoneView.geographicZoneCode' | message}}</label>
+                        <input id="code" class="form-control" ng-model="vm.geographicZone.code" required disabled />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="level">{{'adminGeographicZoneView.geographicLevel' | message}}</label>
+                        <input id="level" class="form-control" ng-model="vm.geographicZone.level.code" required
+                            disabled />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="parent">{{'adminGeographicZoneView.parent' | message}}</label>
+                        <input id="parent" class="form-control" ng-model="vm.geographicZone.parent.name" disabled />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="catchmentPopulation">{{'adminGeographicZoneView.catchmentPopulation' |
+                            message}}</label>
+                        <input id="catchmentPopulation" class="form-control"
+                            ng-model="vm.geographicZone.catchmentPopulation" ng-disabled="!vm.isEditable" />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="longitude">{{'adminGeographicZoneView.longitude' | message}}</label>
+                        <input id="longitude" class="form-control" ng-model="vm.geographicZone.longitude" disabled />
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="latitude">{{'adminGeographicZoneView.latitude' | message}}</label>
+                        <input id="latitude" class="form-control" ng-model="vm.geographicZone.latitude" disabled />
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel" ng-click="vm.cancel()">{{'adminGeographicZoneView.cancel' | message}}</button>
+                <button class="primary" ng-if="vm.isEditable" type="submit"
+                    form="edit-geographic-zone">{{'adminGeographicZoneView.save' |
+                    message}}</button>
+            </div>
+        </div>
+    </div>
 </div>

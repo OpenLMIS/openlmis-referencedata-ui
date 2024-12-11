@@ -33,11 +33,13 @@ const AdminDataImportPage = () => {
         []
     );
 
+    const { formatMessage } = useMemo(() => getService('messageService'), []);
+
     const importZip = () => {
         if (selectedFile) {
             setDisplayLoading(true);
             serverService.importData(selectedFile)
-                .then(() => toast.success('Data has been imported correctly'))
+                .then(() => toast.success(formatMessage('admin.dataImport.toast.success')))
                 .finally(() => {
                     setSelectedFile('');
                     setTypeOfImport('');
@@ -67,7 +69,7 @@ const AdminDataImportPage = () => {
                             onClick={handleClick}
                             disabled={!typeOfImport}
                         >
-                            Select File
+                            {formatMessage('admin.dataImport.selectFile')}
                         </button>
                         <input
                         style={{display: 'none'}}
@@ -102,11 +104,11 @@ const AdminDataImportPage = () => {
         <>
             <div>
                 <h2 id='data-export-header'>
-                  Data Import
+                  {formatMessage('admin.dataImport.label')}
                 </h2>
                 <div className='required' style={{marginBottom: '4px', fontFamily: 'Arial', fontSize: '16px'}}>
                   <label id='type-header'>
-                    Type
+                    {formatMessage('admin.dataImport.type')}
                   </label>
                 </div>
                 <div className='field-full-width' style={{marginBottom: '16px', width: '40%'}}>
@@ -126,7 +128,7 @@ const AdminDataImportPage = () => {
                 </div>
                 <div className='required' style={{marginBottom: '4px', fontFamily: 'Arial', fontSize: '16px'}}>
                   <label id='type-header'>
-                   Zip File
+                   {formatMessage('admin.dataImport.zipFile')}
                   </label>
                 </div>
                 <div className='field-full-width' style={{marginBottom: '16px', width: '40%'}}>
@@ -141,7 +143,7 @@ const AdminDataImportPage = () => {
                   disabled={selectedFile.length === 0}
                   onClick={importZip}
                 >
-                  Import
+                  {formatMessage('admin.dataImport.import')}
                 </button>
             </div>
             {displayLoading &&

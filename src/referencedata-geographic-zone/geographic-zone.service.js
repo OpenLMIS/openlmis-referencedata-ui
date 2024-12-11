@@ -40,12 +40,17 @@
             search: {
                 url: referencedataUrlFactory('/api/geographicZones/search'),
                 method: 'POST'
+            },
+            update: {
+                url: referencedataUrlFactory('/api/geographicZones/:id'),
+                method: 'PUT'
             }
         });
 
         this.get = get;
         this.getAll = getAll;
         this.search = search;
+        this.update = update;
 
         /**
          * @ngdoc method
@@ -103,6 +108,23 @@
             delete queryParams.sort;
 
             return resource.search(paginationParams, queryParams).$promise;
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf referencedata-geographic-zone.geographicZoneService
+         * @name update
+         *
+         * @description
+         * Updates geographic zone.
+         *
+         * @param  {Object}  geographicZone the geographic zone object
+         * @return {Promise}               the updated geographic zone object
+         */
+        function update(geographicZone) {
+            return resource.update({
+                id: geographicZone.id
+            }, geographicZone).$promise;
         }
     }
 })();

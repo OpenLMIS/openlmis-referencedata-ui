@@ -28,12 +28,30 @@
         .module('admin-geographic-zone-view')
         .controller('GeographicZoneViewController', controller);
 
-    controller.$inject = ['geographicZone'];
+    controller.$inject = [
+        'geographicZone',
+        'confirmService',
+        'geographicZoneService',
+        'stateTrackerService',
+        'loadingModalService',
+        'notificationService',
+        'geoZoneCatchmentPopulationService'
+    ];
 
-    function controller(geographicZone) {
+    function controller(
+        geographicZone,
+        confirmService,
+        geographicZoneService,
+        stateTrackerService,
+        loadingModalService,
+        notificationService,
+        geoZoneCatchmentPopulationService
+    ) {
 
         var vm = this;
 
+        vm.save = save;
+        vm.cancel = stateTrackerService.goToPreviousState;
         vm.$onInit = onInit;
 
         /**
@@ -48,6 +66,16 @@
         vm.geographicZone = undefined;
 
         /**
+         * @ngdoc property
+         * @propertyOf admin-geographic-zone-view.controller:GeographicZoneViewController
+         * @name isEditable
+         * 
+         * @description
+         * Determines if the geographic zone is editable.
+         */
+        vm.isEditable = false;
+
+        /**
          * @ngdoc method
          * @methodOf admin-geographic-zone-view.controller:GeographicZoneViewController
          * @name $onInit
@@ -57,6 +85,30 @@
          */
         function onInit() {
             vm.geographicZone = geographicZone;
+            vm.isEditable = geoZoneCatchmentPopulationService.isEditable(geographicZone);
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf admin-geographic-zone-view.controller:GeographicZoneViewController
+         * @name save
+         * 
+         * @description
+         * Method that saves geographic zone.
+         */
+        function save() {
+            confirmService.confirm('adminGeographicZoneView.saveConfirmation').then(function() {
+                loadingModalService.open();
+                geographicZoneService.update(vm.geographicZone)
+                    .then(function() {
+                        notificationService.success('adminGeographicZoneView.save.success');
+                        stateTrackerService.goToPreviousState();
+                    })
+                    .catch(function() {
+                        loadingModalService.close();
+                        notificationService.error('adminGeographicZoneView.save.error');
+                    });
+            });
         }
     }
 })();

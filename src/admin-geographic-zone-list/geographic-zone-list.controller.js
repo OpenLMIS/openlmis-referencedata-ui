@@ -28,13 +28,27 @@
         .module('admin-geographic-zone-list')
         .controller('GeographicZoneListController', controller);
 
-    controller.$inject = ['$state', '$stateParams', 'filteredGeographicZones', 'geographicZones'];
+    controller.$inject = [
+        '$state',
+        '$stateParams',
+        'filteredGeographicZones',
+        'geographicZones',
+        'geoZoneCatchmentPopulationService'
+    ];
 
-    function controller($state, $stateParams, filteredGeographicZones, geographicZones) {
+    function controller(
+        $state,
+        $stateParams,
+        filteredGeographicZones,
+        geographicZones,
+        geoZoneCatchmentPopulationService
+    ) {
         var vm = this;
 
         vm.$onInit = onInit;
         vm.search = search;
+        vm.isEditable = geoZoneCatchmentPopulationService.isEditable;
+        vm.isTheLowestLevel = geoZoneCatchmentPopulationService.isTheLowestLevel;
 
         /**
          * @ngdoc property
@@ -46,6 +60,17 @@
          * Contains filtered geographic zones.
          */
         vm.filteredGeographicZones = undefined;
+
+        /**
+         * @ngdoc property
+         * @propertyOf admin-geographic-zone-list.controller:GeographicZoneListController
+         * @name geographicLevels
+         * @type {Array}
+         * 
+         * @description
+         * Contains list of all geographic levels.
+         */
+        vm.geographicLevels = [];
 
         /**
          * @ngdoc property
@@ -81,6 +106,26 @@
         vm.parent = undefined;
 
         /**
+         * @ngdoc property
+         * @propertyOf admin-geographic-zone-list.controller:GeographicZoneListController
+         * @name levelNumber
+         * 
+         * @description
+         * Contains level param for searching geographic zones.
+         */
+        vm.levelNumber = undefined;
+
+        /**
+         * @ngdoc property
+         * @propertyOf admin-geographic-zone-list.controller:GeographicZoneListController
+         * @name code
+         * 
+         * @description
+         * Contains code param for searching geographic zones.
+         */
+        vm.code = undefined;
+
+        /**
          * @ngdoc method
          * @methodOf admin-geographic-zone-list.controller:GeographicZoneListController
          * @name $onInit
@@ -91,7 +136,10 @@
         function onInit() {
             vm.filteredGeographicZones = filteredGeographicZones;
             vm.geographicZones = geographicZones;
+            vm.geographicLevels = createUniqueGeographicLevels(geographicZones);
             vm.parent = $stateParams.parent;
+            vm.levelNumber = $stateParams.levelNumber;
+            vm.code = $stateParams.code;
             vm.name = $stateParams.name;
         }
 
@@ -108,10 +156,34 @@
 
             stateParams.name = vm.name;
             stateParams.parent = vm.parent;
+            stateParams.levelNumber = vm.levelNumber;
+            stateParams.code = vm.code;
 
             $state.go('openlmis.administration.geographicZones', stateParams, {
                 reload: true
             });
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf admin-geographic-zone-list.controller:GeographicZoneListController
+         * @name createUniqueGeographicLevels
+         *
+         * @description
+         * Creates an array of unique geographic levels from the geographicZones list.
+         */
+        function createUniqueGeographicLevels(geographicZones) {
+            var levels = [];
+
+            angular.forEach(geographicZones, function(zone) {
+                if (!levels.some(function(level) {
+                    return level.levelNumber === zone.level.levelNumber;
+                })) {
+                    levels.push(zone.level);
+                }
+            });
+
+            return levels;
         }
     }
 

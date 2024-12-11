@@ -1,4 +1,5 @@
 {
+    "adminGeographicZoneView.title": "Geographic Zone",
     "adminGeographicZoneView.viewGeographicZone": "View Geographic Zone",
     "adminGeographicZoneView.geographicZoneName": "Geographic Zone Name",
     "adminGeographicZoneView.geographicZoneCode": "Geographic Zone Code",
@@ -8,5 +9,9 @@
     "adminGeographicZoneView.longitude": "Longitude",
     "adminGeographicZoneView.latitude": "Latitude",
     "adminGeographicZoneView.actions": "Actions",
-    "adminGeographicZoneView.cancel": "Cancel"
+    "adminGeographicZoneView.cancel": "Cancel",
+    "adminGeographicZoneView.save": "Save",
+    "adminGeographicZoneView.saveConfirmation": "Are you sure you want to save the changes?",
+    "adminGeographicZoneView.save.success": "Geographic Zone has been saved successfully!",
+    "adminGeographicZoneView.save.error": "Error while saving Geographic Zone!"
 }
