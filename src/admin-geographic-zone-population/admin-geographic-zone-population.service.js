@@ -23,17 +23,22 @@
 
     geoZoneCatchmentPopulationService.$inject = [
         'featureFlagService',
-        'GeographicLevelService',
+        'GeoLevelResource',
         'CATCHMENT_POPULATION_CALC_AUTO_FEATURE_FLAG'
     ];
 
     function geoZoneCatchmentPopulationService(
         featureFlagService,
-        GeographicLevelService,
+        GeoLevelResource,
         CATCHMENT_POPULATION_CALC_AUTO_FEATURE_FLAG
     ) {
         const isCatchmentPopulationAutoCalc = featureFlagService.get(CATCHMENT_POPULATION_CALC_AUTO_FEATURE_FLAG);
-        const lowestLevel = GeographicLevelService.getTheLowestLevelNumber();
+        let lowestLevel = null;
+
+        new GeoLevelResource().getTheLowestGeoLevel()
+            .then(function(geoLevel) {
+                lowestLevel = geoLevel.levelNumber;
+            });
 
         return {
             isEditable: function(geographicZone) {
