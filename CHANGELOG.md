@@ -1,4 +1,4 @@
-5.6.14-SNAPSHOT / WIP
+5.6.14 / 2024-12-17
 ==================
 * [OLMIS-8053](https://openlmis.atlassian.net/browse/OLMIS-8053): Enable the integration of country-level population data into the system
 
