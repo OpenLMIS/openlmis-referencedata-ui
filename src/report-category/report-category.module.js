@@ -18,21 +18,16 @@
     'use strict';
 
     /**
-     * @ngdoc object
-     * @name openlmis-rights.REPORT_RIGHTS
+     * @module report-category
      *
      * @description
-     * This is constant for report rights.
+     * Responsible for providing report category info to other modules.
      */
-    angular
-        .module('openlmis-rights')
-        .constant('REPORT_RIGHTS', rights());
-
-    function rights() {
-        return {
-            REPORTS_VIEW: 'REPORTS_VIEW',
-            REPORT_TEMPLATES_EDIT: 'REPORT_TEMPLATES_EDIT'
-        };
-    }
+    angular.module('report-category', [
+        'openlmis-i18n',
+        'ngResource',
+        'openlmis-repository',
+        'openlmis-urls'
+    ]);
 
 })();

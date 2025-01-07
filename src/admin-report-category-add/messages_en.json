@@ -1,0 +1,11 @@
+{
+    "adminReportCategoryAdd.titleAdd": "Add Report Category",
+    "adminReportCategoryAdd.titleEdit": "Edit Report Category",
+    "adminReportCategoryAdd.name": "Name",
+    "adminReportCategoryAdd.add": "Add",
+    "adminReportCategoryAdd.save": "Save",
+    "adminReportCategoryAdd.cancel": "Cancel",
+    "adminReportCategoryAdd.fieldRequired": "This field is required",
+    "adminReportCategoryAdd.success": "Rreport category created successfully",
+    "adminReportCategoryAdd.error": "Failed to create report category"
+}

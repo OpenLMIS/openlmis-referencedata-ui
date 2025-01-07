@@ -14,25 +14,21 @@
  */
 
 (function() {
-
     'use strict';
 
     /**
-     * @ngdoc object
-     * @name openlmis-rights.REPORT_RIGHTS
-     *
-     * @description
-     * This is constant for report rights.
-     */
-    angular
-        .module('openlmis-rights')
-        .constant('REPORT_RIGHTS', rights());
-
-    function rights() {
-        return {
-            REPORTS_VIEW: 'REPORTS_VIEW',
-            REPORT_TEMPLATES_EDIT: 'REPORT_TEMPLATES_EDIT'
-        };
-    }
-
+   * @module admin-report-category-add
+   *
+   * @description
+   * Responsible for add reports screen.
+   */
+    angular.module('admin-report-category-add', [
+        'ngResource',
+        'openlmis-i18n',
+        'openlmis-rights',
+        'openlmis-urls',
+        'openlmis-permissions',
+        'openlmis-pagination',
+        'ui.router'
+    ]);
 })();
