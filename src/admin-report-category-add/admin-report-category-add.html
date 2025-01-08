@@ -1,0 +1,32 @@
+<div class="modal" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 ng-if="!vm.editMode">{{:: 'adminReportCategoryAdd.titleAdd' | message}}</h2>
+        <h2 ng-if="vm.editMode">{{:: 'adminReportCategoryAdd.titleEdit' | message}}</h2>
+      </div>
+      <div class="modal-body">
+        <form id="addReport">
+          <fieldset class="form-group">
+            <label for="name" class="is-required">{{:: 'adminReportCategoryAdd.name' | message}}</label>
+            <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('name')}">
+              <input type="text" id="name" style="width: 100%" ng-model="vm.reportCategory.name"
+                ng-change="vm.validateField(vm.reportCategory.name, 'name')" required />
+            </div>
+            <ul class="openlmis-invalid" ng-if="vm.invalidFields.has('name')">
+              <li>{{'adminReportCategoryAdd.fieldRequired' | message}}</li>
+            </ul>
+          </fieldset>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button id="cancel" ng-click="vm.goToPreviousState()">
+          {{:: 'adminReportCategoryAdd.cancel' | message}}
+        </button>
+        <button class="primary" ng-click="vm.add()">{{vm.editMode ? 'adminReportCategoryAdd.save' :
+          'adminReportCategoryAdd.add' | message}}</button>
+
+      </div>
+    </div>
+  </div>
+</div>

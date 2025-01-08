@@ -18,21 +18,20 @@
     'use strict';
 
     /**
-     * @ngdoc object
-     * @name openlmis-rights.REPORT_RIGHTS
+     * @module admin-report-list
      *
      * @description
-     * This is constant for report rights.
+     * Provides a view for the list of reports.
      */
-    angular
-        .module('openlmis-rights')
-        .constant('REPORT_RIGHTS', rights());
-
-    function rights() {
-        return {
-            REPORTS_VIEW: 'REPORTS_VIEW',
-            REPORT_TEMPLATES_EDIT: 'REPORT_TEMPLATES_EDIT'
-        };
-    }
+    angular.module('admin-report-list', [
+        'openlmis-table',
+        'openlmis-admin',
+        'openlmis-rights',
+        'ui.router',
+        'ngResource',
+        'openlmis-i18n',
+        'openlmis-urls',
+        'openlmis-permissions'
+    ]);
 
 })();

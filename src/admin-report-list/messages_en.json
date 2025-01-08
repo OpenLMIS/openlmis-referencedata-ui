@@ -1,0 +1,19 @@
+{
+    "adminReportList.navRoute": "Reports",
+    "adminReportList.pageHeader": "Reports",
+    "adminReportList.noDashboardReport": "No Dashboard Reports found.",
+    "adminReportList.filter.name": "Name",
+    "adminReportList.column.name": "Name",
+    "adminReportList.column.category": "Category",
+    "adminReportList.column.type": "Type",
+    "adminReportList.column.showOnHomePage": "Show on Home Page",
+    "adminReportList.column.enabled": "Enabled",
+    "adminReportList.column.actions": "Actions",
+    "adminReportList.action.edit": "Edit",
+    "adminReportList.action.delete": "Delete",
+    "adminReportList.addDashboardReport": "Add Dashboard Report",
+    "adminReportList.deleteReport.question": "Are you sure you want to remove ${reportName} report?",
+    "adminReportList.delete": "Delete",
+    "adminReportList.deleteReport.success": "Dashboard report deleted successfully",
+    "adminReportList.deleteReport.fail": "Failed to delete dashboard report"
+}

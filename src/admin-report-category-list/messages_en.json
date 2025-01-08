@@ -1,0 +1,15 @@
+{
+    "adminReportCategoriesList.navRoute": "Report Categories",
+    "adminReportCategoriesList.pageHeader": "Report Categories",
+    "adminReportCategoriesList.noReportCategory": "No Report Categories found.",
+    "adminReportCategoriesList.filter.name": "Name",
+    "adminReportCategoriesList.column.name": "Name",
+    "adminReportCategoriesList.column.actions": "Actions",
+    "adminReportCategoriesList.action.delete": "Delete",
+    "adminReportCategoriesList.action.edit": "Edit",
+    "adminReportCategoriesList.addReportCategory": "Add Category",
+    "adminReportCategoriesList.deleteReport.question": "Are you sure you want to remove ${categoryName} category?",
+    "adminReportCategoriesList.delete": "Delete",
+    "adminReportCategoriesList.deleteReport.success": "Report category deleted successfully.",
+    "adminReportCategoriesList.deleteReport.fail": "Failed to delete report category."
+}

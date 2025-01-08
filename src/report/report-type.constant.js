@@ -19,20 +19,39 @@
 
     /**
      * @ngdoc object
-     * @name openlmis-rights.REPORT_RIGHTS
+     * @name report.REPORT_TYPES
      *
      * @description
-     * This is constant for report rights.
+     * This is constant for report types.
      */
     angular
-        .module('openlmis-rights')
-        .constant('REPORT_RIGHTS', rights());
+        .module('report')
+        .constant('REPORT_TYPES', types());
 
-    function rights() {
-        return {
-            REPORTS_VIEW: 'REPORTS_VIEW',
-            REPORT_TEMPLATES_EDIT: 'REPORT_TEMPLATES_EDIT'
+    function types() {
+        var REPORT_TYPES = {
+            SUPERSET: 'SUPERSET',
+            POWERBI: 'POWERBI',
+            getTypes: getTypes
         };
+        return REPORT_TYPES;
+
+        /**
+         * @ngdoc method
+         * @methodOf report.REPORT_TYPES
+         * @name getTypes
+         *
+         * @description
+         * Returns all available report types as a list.
+         *
+         * @return  {Array} the list of available report types
+         */
+        function getTypes() {
+            return [
+                REPORT_TYPES.SUPERSET,
+                REPORT_TYPES.POWERBI
+            ];
+        }
     }
 
 })();

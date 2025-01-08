@@ -18,21 +18,37 @@
     'use strict';
 
     /**
-     * @ngdoc object
-     * @name openlmis-rights.REPORT_RIGHTS
+     * @ngdoc service
+     * @name report-category.ReportCategory
      *
      * @description
-     * This is constant for report rights.
+     * Represents a single ReportCategory.
      */
     angular
-        .module('openlmis-rights')
-        .constant('REPORT_RIGHTS', rights());
+        .module('report-category')
+        .factory('ReportCategory', ReportCategory);
 
-    function rights() {
-        return {
-            REPORTS_VIEW: 'REPORTS_VIEW',
-            REPORT_TEMPLATES_EDIT: 'REPORT_TEMPLATES_EDIT'
-        };
+    function ReportCategory() {
+
+        return ReportCategory;
+
+        /**
+         * @ngdoc method
+         * @methodOf report-category.ReportCategory
+         * @name ReportCategory
+         *
+         * @description
+         * Creates a new instance of the ReportCategory class.
+         *
+         * @param  {String}  id                 the id
+         * @param  {String}  name               the report category name
+         * @return {ReportCategory}             the ReportCategory object
+         */
+        function ReportCategory(id, name) {
+            this.id = id;
+            this.name = name;
+        }
+
     }
 
 })();

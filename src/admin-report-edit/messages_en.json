@@ -1,0 +1,17 @@
+{
+    "adminReportEdit.titleAdd": "Add Dashboard Report",
+    "adminReportEdit.titleEdit": "Edit Dashboard Report",
+    "adminReportEdit.URL": "URL",
+    "adminReportEdit.name": "Name",
+    "adminReportEdit.category": "Category",
+    "adminReportEdit.enabled": "Enabled",
+    "adminReportEdit.edit": "Edit",
+    "adminReportEdit.cancel": "Cancel",
+    "adminReportEdit.save": "Save",
+    "adminReportEdit.fieldRequired": "This field is required",
+    "adminReportEdit.success": "Dashboard report edited successfully",
+    "adminReportEdit.error": "Failed to edit dashboard report",
+    "adminReportEdit.showOnHomePage": "Show on home page",
+    "adminReportEdit.type": "Type",
+    "adminReportEdit.confirmChangeOfHomePageReport": "Are you sure you want ${newReport} report to replace the ${actualReport} report on the home page?"
+}
