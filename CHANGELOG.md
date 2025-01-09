@@ -2,6 +2,7 @@
 ==================
 New functionality:
 * [SELV3-782](https://openlmis.atlassian.net/browse/SELV3-782): Added Reports Management Page in Administration
+* [SELV3-784](https://openlmis.atlassian.net/browse/SELV3-784): Added Home Page Report Component to home page
 
 5.6.14 / 2024-12-17
 ==================
