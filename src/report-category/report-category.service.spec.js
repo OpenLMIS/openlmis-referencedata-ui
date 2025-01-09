@@ -29,10 +29,12 @@ describe('reportCategoryService', function() {
         this.reportCategory1 = new this.ReportCategoryDataBuilder().build();
         this.reportCategory2 = new this.ReportCategoryDataBuilder().build();
 
-        this.reportCategories = [
-            this.reportCategory1,
-            this.reportCategory2
-        ];
+        this.reportCategories = {
+            content: [
+                this.reportCategory1,
+                this.reportCategory2
+            ]
+        };
     });
 
     it('should create report category', function() {

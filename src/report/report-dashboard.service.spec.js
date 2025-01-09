@@ -30,10 +30,12 @@ describe('reportDashboardService', function() {
         this.reportDashboard = new this.ReportDashboardDataBuilder().build();
         this.reportDashboard2 = new this.ReportDashboardDataBuilder().build();
 
-        this.reportDashboards = [
-            this.reportDashboard,
-            this.reportDashboard2
-        ];
+        this.reportDashboards  = {
+            content: [
+                this.reportDashboard,
+                this.reportDashboard2
+            ]
+        };
 
     });
 
