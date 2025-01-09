@@ -23,7 +23,7 @@
      * @description
      * Responsible for providing report info to other modules.
      */
-    angular.module('report', [
+    angular.module('report-dashboard', [
         'openlmis-i18n',
         'ngResource',
         'openlmis-repository',

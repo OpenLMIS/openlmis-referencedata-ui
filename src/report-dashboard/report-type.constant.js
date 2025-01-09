@@ -19,13 +19,13 @@
 
     /**
      * @ngdoc object
-     * @name report.REPORT_TYPES
+     * @name report-dashboard.REPORT_TYPES
      *
      * @description
      * This is constant for report types.
      */
     angular
-        .module('report')
+        .module('report-dashboard')
         .constant('REPORT_TYPES', types());
 
     function types() {
@@ -38,7 +38,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf report.REPORT_TYPES
+         * @methodOf report-dashboard.REPORT_TYPES
          * @name getTypes
          *
          * @description

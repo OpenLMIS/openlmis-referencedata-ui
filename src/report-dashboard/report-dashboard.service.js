@@ -19,13 +19,13 @@
 
     /**
      * @ngdoc service
-     * @name report.reportDashboardService
+     * @name report-dashboard.reportDashboardService
      *
      * @description
      * Responsible for retrieving dashboard report information from server.
      */
     angular
-        .module('report')
+        .module('report-dashboard')
         .service('reportDashboardService', service);
 
     service.$inject = ['openlmisUrlFactory', '$resource'];

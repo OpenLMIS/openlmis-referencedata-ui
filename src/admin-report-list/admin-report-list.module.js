@@ -31,7 +31,8 @@
         'ngResource',
         'openlmis-i18n',
         'openlmis-urls',
-        'openlmis-permissions'
+        'openlmis-permissions',
+        'report-dashboard'
     ]);
 
 })();

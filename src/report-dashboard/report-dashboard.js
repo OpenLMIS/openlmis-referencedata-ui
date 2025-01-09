@@ -19,13 +19,13 @@
 
     /**
      * @ngdoc service
-     * @name report.ReportDashboard
+     * @name report-dashboard.ReportDashboard
      *
      * @description
      * Represents a single ReportDashboard.
      */
     angular
-        .module('report')
+        .module('report-dashboard')
         .factory('ReportDashboard', ReportDashboard);
 
     function ReportDashboard() {
@@ -34,7 +34,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf report.ReportDashboard
+         * @methodOf report-dashboard.ReportDashboard
          * @name ReportDashboard
          *
          * @description

@@ -16,7 +16,7 @@
 describe('reportDashboardService', function() {
 
     beforeEach(function() {
-        module('report');
+        module('report-dashboard');
 
         inject(function($injector) {
             this.$httpBackend = $injector.get('$httpBackend');
