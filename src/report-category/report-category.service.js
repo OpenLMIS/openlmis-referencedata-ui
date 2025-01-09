@@ -43,8 +43,7 @@
             },
             getAll: {
                 method: 'GET',
-                url: openlmisUrlFactory('/api/reports/reportCategories'),
-                isArray: true
+                url: openlmisUrlFactory('/api/reports/reportCategories')
             },
             get: {
                 method: 'GET',

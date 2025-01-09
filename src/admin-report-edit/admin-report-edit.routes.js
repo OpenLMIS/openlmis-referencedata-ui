@@ -32,20 +32,24 @@
             accessRights: [ADMINISTRATION_RIGHTS.REPORTS_MANAGE],
             resolve: {
                 dashboardReport: function($stateParams, reportDashboardService) {
-                    return reportDashboardService.get($stateParams.id)
-                        .then(function(response) {
-                            return response;
-                        })
-                        .catch(function(error) {
-                            throw new Error('Error while getting dashboard report', error);
-                        });
+                    if ($stateParams.id) {
+                        return reportDashboardService.get($stateParams.id)
+                            .then(function(response) {
+                                return response;
+                            })
+                            .catch(function(error) {
+                                throw new Error('Error while getting dashboard report', error);
+                            });
+                    }
+                    return undefined;
                 },
                 categories: function(reportCategoryService) {
                     return reportCategoryService.getAll().then(function(categories) {
-                        return categories;
+                        return categories.content;
                     });
                 }
-            }
+            },
+            parentResolves: ['reportsList']
         });
     }
 })();

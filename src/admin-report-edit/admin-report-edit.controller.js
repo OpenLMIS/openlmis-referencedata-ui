@@ -28,11 +28,11 @@
 
     ReportEditController.$inject = ['reportDashboardService', 'loadingModalService', '$state', 'dashboardReport',
         'categories', 'notificationService', 'REPORT_TYPES', 'messageService', 'confirmService',
-        'stateTrackerService'];
+        'stateTrackerService', 'reportsList'];
 
     function ReportEditController(reportDashboardService, loadingModalService, $state, dashboardReport,
                                   categories, notificationService, REPORT_TYPES, messageService, confirmService,
-                                  stateTrackerService) {
+                                  stateTrackerService, reportsList) {
         var vm = this;
 
         vm.$onInit = onInit;
@@ -94,9 +94,10 @@
          */
         vm.editMode = undefined;
 
+        vm.reportsList = reportsList;
+
         function onInit() {
             vm.editMode = !!dashboardReport;
-
             categories.map(function(category) {
                 if (vm.report && category.id === vm.report.category.id) {
                     vm.report.category = category;
@@ -105,27 +106,37 @@
             vm.types = REPORT_TYPES.getTypes();
         }
 
-        function confirmEdit() {
-            if (vm.report.showOnHomePage === true && dashboardReport && dashboardReport.showOnHomePage !== true) {
-                reportDashboardService.getHomePageReport()
-                    .then(function(actualHomePageReport) {
-                        if (actualHomePageReport) {
-                            var confirmMessage = messageService.get('adminReportEdit.confirmChangeOfHomePageReport', {
-                                newReport: vm.report.name,
-                                actualReport: actualHomePageReport.name
-                            });
+        function getActualHomePageReportName() {
+            var homePageReport = reportsList.filter(function(item) {
+                if (item.showOnHomePage) {
+                    return item.name;
+                }
+            });
 
-                            confirmService.confirm(confirmMessage,
-                                'adminReportEdit.save',
-                                'adminReportEdit.cancel')
-                                .then(function() {
-                                    edit();
-                                });
-                        }
+            return homePageReport[0] ? homePageReport[0].name : undefined;
+        }
+
+        function confirmEdit() {
+            if (checkConditionToConfirmMessage()) {
+                var confirmMessage = messageService.get('adminReportEdit.confirmChangeOfHomePageReport', {
+                    newReport: vm.report.name,
+                    actualReport: getActualHomePageReportName()
+                });
+
+                confirmService.confirm(confirmMessage,
+                    'adminReportEdit.save',
+                    'adminReportEdit.cancel')
+                    .then(function() {
+                        edit();
                     });
             } else {
                 edit();
             }
+        }
+
+        function checkConditionToConfirmMessage() {
+            return vm.report.showOnHomePage === true && (!dashboardReport || (dashboardReport &&
+            dashboardReport.showOnHomePage !== true && getActualHomePageReportName() !== undefined));
         }
 
         function edit() {

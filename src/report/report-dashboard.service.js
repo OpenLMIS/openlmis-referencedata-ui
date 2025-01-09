@@ -39,13 +39,11 @@
             },
             getAll: {
                 method: 'GET',
-                url: openlmisUrlFactory('/api/reports/dashboardReports'),
-                isArray: true
+                url: openlmisUrlFactory('/api/reports/dashboardReports')
             },
             getAllForUser: {
                 method: 'GET',
-                url: openlmisUrlFactory('/api/reports/dashboardReports/availableReports'),
-                isArray: true
+                url: openlmisUrlFactory('/api/reports/dashboardReports/availableReports')
             },
             getHomePageReport: {
                 method: 'GET',
