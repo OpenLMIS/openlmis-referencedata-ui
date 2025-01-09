@@ -18,7 +18,7 @@
     'use strict';
 
     angular
-        .module('report')
+        .module('report-dashboard')
         .factory('ReportDashboardDataBuilder', ReportDashboardDataBuilder);
 
     ReportDashboardDataBuilder.$inject = ['ReportDashboard', 'REPORT_TYPES', 'ReportCategoryDataBuilder'];

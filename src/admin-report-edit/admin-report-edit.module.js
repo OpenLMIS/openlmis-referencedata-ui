@@ -29,6 +29,7 @@
         'openlmis-urls',
         'openlmis-permissions',
         'openlmis-pagination',
-        'ui.router'
+        'ui.router',
+        'report-dashboard'
     ]);
 })();
