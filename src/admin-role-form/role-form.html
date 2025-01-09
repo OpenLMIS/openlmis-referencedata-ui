@@ -12,7 +12,7 @@
         <legend>Rights</legend>
         <label ng-repeat="right in vm.rights" class="checkbox">
            <input type="checkbox" ng-model="right.checked" ng-required="vm.isNoneSelected()"/>
-           {{right.name | right}}
+           {{right.name | right:vm.type}}
         </label>
     </fieldset>
 </form>

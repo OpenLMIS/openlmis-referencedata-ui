@@ -41,15 +41,38 @@
         .module('admin-role-form')
         .filter('right', roleRightFilter);
 
-    roleRightFilter.$inject = ['messageService', '$filter'];
+    roleRightFilter.$inject = ['messageService', '$filter', 'ROLE_TYPES'];
 
-    function roleRightFilter(messageService, $filter) {
-        return function(rightName) {
+    function roleRightFilter(messageService, $filter, ROLE_TYPES) {
+        return function(rightName, roleType) {
             if (!rightName) {
                 return undefined;
             }
+
+            if (roleType === ROLE_TYPES.REPORTS) {
+                return createReportRightName(rightName);
+            }
+
             return messageService.get('adminRoleForm.' + $filter('camelCase')(rightName));
         };
+    }
+
+    /**
+     * @ngdoc method
+     * @methodOf admin-role-form.filter:right
+     * @name createReportRightName
+     * 
+     * @description
+     * Formats the given right name into more user-friendly string. First, it replaces all underscores. Then, it
+     * lowercases the string, splits it by spaces, capitalizes the first letter of each word, and joins them back.
+     */
+    function createReportRightName(rightName) {
+        return rightName
+            .replace(/_/g, ' ')
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
     }
 
 })();
