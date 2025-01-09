@@ -18,20 +18,17 @@
     'use strict';
 
     /**
-     * @module openlmis-home
+     * @ngdoc component
+     * @name openlmis-home-page-report.component:openlmisHomePageReport
      *
      * @description
-     * Responsible for primary navigation elements within the OpenLMIS-UI.
-     */
-    angular.module('openlmis-home', [
-        'openlmis-i18n',
-        'openlmis-templates',
-        'openlmis-pagination',
-        'referencedata-system-notification',
-        'openlmis-message',
-        'openlmis-home-alerts-panel',
-        'ui.router',
-        'openlmis-home-page-report'
-    ]);
-
+     * Component responsible for displaying home page report
+    */
+    angular
+        .module('openlmis-home-page-report')
+        .component('openlmisHomePageReport', {
+            templateUrl: 'openlmis-home-page-report/home-page-report.html',
+            controller: 'OpenlmisHomePageReportController',
+            controllerAs: 'vm'
+        });
 })();
