@@ -27,7 +27,7 @@
             showInNavigation: true,
             label: 'adminReportList.navRoute',
             url: '/reports?page&size&sort=name,asc',
-            controller: 'ReportListController',
+            controller: 'DashboardReportListController',
             templateUrl: 'admin-report-list/admin-report-list.html',
             controllerAs: 'vm',
             accessRights: [ADMINISTRATION_RIGHTS.REPORTS_MANAGE],
