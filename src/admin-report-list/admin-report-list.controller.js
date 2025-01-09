@@ -18,7 +18,7 @@
 
     /**
      * @ngdoc controller
-     * @name admin-report-list.controller:ReportListController
+     * @name admin-report-list.controller:DashboardReportListController
      *
      * @description
      * Controller for managing dashboard reports list view.
@@ -26,7 +26,7 @@
 
     angular
         .module('admin-report-list')
-        .controller('ReportListController', controller);
+        .controller('DashboardReportListController', controller);
 
     controller.$inject = ['$state', 'reportsList', 'TABLE_CONSTANTS', 'confirmService',
         'reportDashboardService', 'messageService', 'loadingModalService', 'notificationService'];
@@ -41,7 +41,7 @@
 
         /**
          * @ngdoc property
-         * @propertyOf admin-report-list.controller:ReportListController
+         * @propertyOf admin-report-list.controller:DashboardReportListController
          * @name tableConfig
          * @type {Object}
          *
@@ -52,7 +52,7 @@
 
         /**
          * @ngdoc property
-         * @propertyOf admin-report-list.controller:ReportListController
+         * @propertyOf admin-report-list.controller:DashboardReportListController
          * @name reportName
          * @type {String}
          *
@@ -63,7 +63,7 @@
 
         /**
          * @ngdoc property
-         * @propertyOf admin-report-list.controller:ReportListController
+         * @propertyOf admin-report-list.controller:DashboardReportListController
          * @name reportsList
          * @type {Array}
          *
@@ -74,11 +74,11 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-report-list.controller:ReportListController
+         * @methodOf admin-report-list.controller:DashboardReportListController
          * @name $onInit
          *
          * @description
-         * Method that is executed on initiating ReportListController.
+         * Method that is executed on initiating DashboardReportListController.
          */
         function onInit() {
             vm.reportsList = reportsList;
@@ -87,7 +87,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-report-list.controller:ReportListController
+         * @methodOf admin-report-list.controller:DashboardReportListController
          * @name redirectToAddReport
          *
          * @description
@@ -99,7 +99,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-report-list.controller:ReportListController
+         * @methodOf admin-report-list.controller:DashboardReportListController
          * @name deleteReport
          *
          * @description
@@ -128,7 +128,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-report-list.controller:ReportListController
+         * @methodOf admin-report-list.controller:DashboardReportListController
          * @name getTableConfig
          *
          * @description
