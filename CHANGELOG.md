@@ -1,4 +1,4 @@
-5.6.15-SNAPSHOT / wip
+5.6.15 / 2025-01-13
 ==================
 New functionality:
 * [SELV3-782](https://openlmis.atlassian.net/browse/SELV3-782): Added Reports Management Page in Administration
