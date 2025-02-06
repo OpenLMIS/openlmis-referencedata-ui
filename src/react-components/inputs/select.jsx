@@ -13,7 +13,7 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import getService from '../utils/angular-utils';
 
 const Select = ({ options = [], value, onChange, objectKey, defaultOption='react.select.defaultMessage', isTranslatable = true, ...props }) => {
