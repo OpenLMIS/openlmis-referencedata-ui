@@ -26,7 +26,7 @@ export const TYPE_OF_IMPORTS = [
     },
     {
         value: "GeographicZone",
-        name: "Geographic Zones",
-        info: "To import Geographic Zones you need a ZIP with a geographicZones.csv file."
+        name: "Population",
+        info: "To import Population you need a ZIP with a geographicZone.csv file."
     }
 ];
