@@ -24,7 +24,7 @@
      * Responsible for displaying dashboard home page report
      */
     angular.module('openlmis-home-page-report', [
-        'report-dashboard'
-        // 'openlmis-superset'
+        'report-dashboard',
+        'openlmis-superset'
     ]);
 })();

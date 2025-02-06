@@ -18,26 +18,26 @@
 
     /**
      * @ngdoc controller
-     * @name admin-requisition-group-add.controller:RequisitionGroupAddController
+     * @name admin-requisition-group-edit.controller:RequisitionGroupEditController
      *
      * @description
      * Exposes method for creating/updating requisitionGroup to the modal view.
      */
     angular
-        .module('admin-requisition-group-add')
-        .controller('RequisitionGroupAddController', controller);
+        .module('admin-requisition-group-edit')
+        .controller('RequisitionGroupEditController', controller);
 
     controller.$inject = ['$q', '$state', '$stateParams',
         'requisitionGroup', 'facilities', 'facilitiesMap',
         'programs', 'supervisoryNodes', 'processingSchedules',
         'RequisitionGroup', 'requisitionGroupService', 'stateTrackerService',
-        'loadingModalService', 'notificationService', 'facilityService'];
+        'loadingModalService', 'notificationService', 'facilityService', 'memberFacilities'];
 
     function controller($q, $state, $stateParams,
                         requisitionGroup, facilities, facilitiesMap,
                         programs, supervisoryNodes, processingSchedules,
                         RequisitionGroup, requisitionGroupService, stateTrackerService,
-                        loadingModalService, notificationService, facilityService) {
+                        loadingModalService, notificationService, facilityService, memberFacilities) {
         var vm = this;
 
         vm.$onInit = onInit;
@@ -46,10 +46,11 @@
         vm.addProgramSchedule = addProgramSchedule;
         vm.removeProgramSchedule = removeProgramSchedule;
         vm.save = save;
+        vm.searchForFacilities = searchForFacilities;
 
         /**
          * @ngdoc property
-         * @propertyOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @propertyOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @type {RequisitionGroup}
          * @name requisitionGroup
          *
@@ -60,7 +61,7 @@
 
         /**
          * @ngdoc property
-         * @propertyOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @propertyOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @type {Array}
          * @name facilities
          *
@@ -71,7 +72,7 @@
 
         /**
          * @ngdoc property
-         * @propertyOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @propertyOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @type {Object}
          * @name facilitiesMap
          *
@@ -82,7 +83,7 @@
 
         /**
          * @ngdoc property
-         * @propertyOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @propertyOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @type {Array}
          * @name supervisoryNodes
          *
@@ -93,7 +94,7 @@
 
         /**
          * @ngdoc property
-         * @propertyOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @propertyOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @type {Array}
          * @name processingSchedules
          *
@@ -104,7 +105,7 @@
 
         /**
          * @ngdoc property
-         * @propertyOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @propertyOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @type {Array}
          * @name programs
          *
@@ -125,16 +126,30 @@
         vm.selectedTab = undefined;
 
         /**
+         * @ngdoc property
+         * @propertyOf admin-requisition-group-view.controller:RequisitionGroupViewController
+         * @name memberFacilitiesEditPage
+         * @type {any[]}
+         *
+         * @description
+         * Contains current selected page
+         */
+        vm.memberFacilitiesEditPage = undefined;
+
+        vm.memberFacilities = undefined;
+
+        /**
          * @ngdoc method
-         * @methodOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @methodOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @name $onInit
          *
          * @description
-         * Initialization method of the RequisitionGroupAddController.
+         * Initialization method of the RequisitionGroupEditController.
          */
         function onInit() {
             vm.facilitiesMap = facilitiesMap;
             vm.requisitionGroup = requisitionGroup;
+            vm.memberFacilities = memberFacilities;
             vm.facilities = facilities;
             vm.supervisoryNodes = supervisoryNodes;
             vm.processingSchedules = processingSchedules;
@@ -145,7 +160,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @methodOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @name addFacility
          *
          * @description
@@ -156,6 +171,7 @@
         function addFacility() {
             return facilityService.get(vm.selectedFacility.id)
                 .then(function(facility) {
+                    memberFacilities.push(facility);
                     return vm.requisitionGroup.addFacility(facility);
                 })
                 .then(function() {
@@ -169,7 +185,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @methodOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @name removeFacility
          *
          * @description
@@ -186,7 +202,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @methodOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @name addProgramSchedule
          *
          * @description
@@ -216,7 +232,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @methodOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @name removeProgramSchedule
          *
          * @description
@@ -233,7 +249,7 @@
 
         /**
          * @ngdoc method
-         * @methodOf admin-requisition-group-add.controller:RequisitionGroupAddController
+         * @methodOf admin-requisition-group-edit.controller:RequisitionGroupEditController
          * @name save
          *
          * @description
@@ -242,19 +258,26 @@
         function save() {
             loadingModalService.open();
 
-            var result;
-            if (vm.requisitionGroup.id) {
-                result = requisitionGroupService.update(vm.requisitionGroup);
-            } else {
-                result = requisitionGroupService.create(vm.requisitionGroup);
-            }
-            return result.then(function(requisitionGroup) {
-                notificationService.success('adminRequisitionGroupAdd.requisitionGroupSavedSuccessfully');
-                stateTrackerService.goToPreviousState();
-                return requisitionGroup;
-            }).catch(function() {
-                notificationService.error('adminRequisitionGroupAdd.requisitionGroupFailedToSave');
-                loadingModalService.close();
+            return requisitionGroupService.update(vm.requisitionGroup)
+                .then(function(requisitionGroup) {
+                    notificationService.success('adminRequisitionGroupAdd.requisitionGroupSavedSuccessfully');
+                    stateTrackerService.goToPreviousState();
+                    return requisitionGroup;
+                })
+                .catch(function() {
+                    notificationService.error('adminRequisitionGroupAdd.requisitionGroupFailedToSave');
+                    loadingModalService.close();
+                });
+        }
+
+        function searchForFacilities() {
+            var stateParams = angular.copy($stateParams);
+
+            stateParams.facilityName = vm.facilityName;
+            stateParams.tab = 1;
+
+            $state.go('openlmis.administration.requisitionGroupList.edit', stateParams, {
+                reload: true
             });
         }
 

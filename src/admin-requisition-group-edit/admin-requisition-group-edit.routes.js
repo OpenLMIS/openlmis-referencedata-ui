@@ -27,12 +27,12 @@
             label: 'adminRequisitionGroupEdit.edit',
             views: {
                 '@openlmis': {
-                    controller: 'RequisitionGroupAddController',
+                    controller: 'RequisitionGroupEditController',
                     controllerAs: 'vm',
                     templateUrl: 'admin-requisition-group-edit/requisition-group-edit.html'
                 }
             },
-            url: '/edit/:id?tab&facilityName&memberFacilitiesPage&memberFacilitiesSize',
+            url: '/edit/:id?tab&facilityName&memberFacilitiesEditPage&memberFacilitiesEditSize',
             accessRights: [ADMINISTRATION_RIGHTS.REQUISITION_GROUPS_MANAGE],
             resolve: {
                 requisitionGroup: function(RequisitionGroup, requisitionGroupService, facilityService, $stateParams) {
@@ -83,7 +83,7 @@
                 },
                 memberFacilities: function($stateParams, paginationService, requisitionGroup, facilityFactory) {
                     return paginationService.registerList(null, $stateParams, function(stateParams) {
-                        if (stateParams.memberFacilitiesPage !== undefined && stateParams.memberFacilitiesSize) {
+                        if (stateParams.page !== undefined && stateParams.size) {
                             $stateParams.tab = 1;
                         }
                         return facilityFactory.searchAndOrderFacilities(
