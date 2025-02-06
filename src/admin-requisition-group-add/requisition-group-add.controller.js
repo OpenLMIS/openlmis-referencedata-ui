@@ -31,13 +31,13 @@
         'requisitionGroup', 'facilities', 'facilitiesMap',
         'programs', 'supervisoryNodes', 'processingSchedules',
         'RequisitionGroup', 'requisitionGroupService', 'stateTrackerService',
-        'loadingModalService', 'notificationService', 'facilityService'];
+        'loadingModalService', 'notificationService', 'facilityService', 'memberFacilities'];
 
     function controller($q, $state, $stateParams,
                         requisitionGroup, facilities, facilitiesMap,
                         programs, supervisoryNodes, processingSchedules,
                         RequisitionGroup, requisitionGroupService, stateTrackerService,
-                        loadingModalService, notificationService, facilityService) {
+                        loadingModalService, notificationService, facilityService, memberFacilities) {
         var vm = this;
 
         vm.$onInit = onInit;
@@ -46,6 +46,7 @@
         vm.addProgramSchedule = addProgramSchedule;
         vm.removeProgramSchedule = removeProgramSchedule;
         vm.save = save;
+        vm.searchForFacilities = searchForFacilities;
 
         /**
          * @ngdoc property
@@ -125,6 +126,21 @@
         vm.selectedTab = undefined;
 
         /**
+         * @ngdoc property
+         * @propertyOf admin-requisition-group-view.controller:RequisitionGroupViewController
+         * @name memberFacilitiesPage
+         * @type {any[]}
+         *
+         * @description
+         * Contains current selected page
+         */
+        vm.memberFacilitiesPage = undefined;
+
+        vm.memberFacilities = undefined;
+
+        vm.editGroupMode = undefined;
+
+        /**
          * @ngdoc method
          * @methodOf admin-requisition-group-add.controller:RequisitionGroupAddController
          * @name $onInit
@@ -135,6 +151,9 @@
         function onInit() {
             vm.facilitiesMap = facilitiesMap;
             vm.requisitionGroup = requisitionGroup;
+            vm.editGroupMode = memberFacilities !== null;
+            vm.memberFacilities = vm.editGroupMode ? memberFacilities : vm.requisitionGroup.memberFacilities;
+            vm.memberFacilitiesPage = vm.editGroupMode ? vm.memberFacilitiesPage : vm.requisitionGroup.memberFacilities;
             vm.facilities = facilities;
             vm.supervisoryNodes = supervisoryNodes;
             vm.processingSchedules = processingSchedules;
@@ -156,6 +175,9 @@
         function addFacility() {
             return facilityService.get(vm.selectedFacility.id)
                 .then(function(facility) {
+                    if (vm.editGroupMode) {
+                        memberFacilities.push(facility);
+                    }
                     return vm.requisitionGroup.addFacility(facility);
                 })
                 .then(function() {
@@ -255,6 +277,17 @@
             }).catch(function() {
                 notificationService.error('adminRequisitionGroupAdd.requisitionGroupFailedToSave');
                 loadingModalService.close();
+            });
+        }
+
+        function searchForFacilities() {
+            var stateParams = angular.copy($stateParams);
+
+            stateParams.facilityName = vm.facilityName;
+            stateParams.tab = 1;
+
+            $state.go('openlmis.administration.requisitionGroupList.edit', stateParams, {
+                reload: true
             });
         }
 

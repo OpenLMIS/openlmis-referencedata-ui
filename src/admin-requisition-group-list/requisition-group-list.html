@@ -53,7 +53,7 @@
                 <td>{{requisitionGroup.memberFacilities.length}}</td>
                 <td>
                     <button class="primary" ui-sref="openlmis.administration.requisitionGroupView({id: requisitionGroup.id})">{{'adminRequisitionGroupList.view' | message}}</button>
-                    <button ui-sref=".edit({id: requisitionGroup.id})">{{'adminRequisitionGroupList.edit' | message}}</button>
+                    <button ui-sref=".edit({id: requisitionGroup.id, memberFacilitiesPage: 0, memberFacilitiesSize: 10})">{{'adminRequisitionGroupList.edit' | message}}</button>
                 </td>
             </tr>
         </tbody>

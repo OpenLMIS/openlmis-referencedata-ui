@@ -32,7 +32,7 @@
                     templateUrl: 'admin-requisition-group-edit/requisition-group-edit.html'
                 }
             },
-            url: '/edit/:id',
+            url: '/edit/:id?tab&facilityName&memberFacilitiesPage&memberFacilitiesSize',
             accessRights: [ADMINISTRATION_RIGHTS.REQUISITION_GROUPS_MANAGE],
             resolve: {
                 requisitionGroup: function(RequisitionGroup, requisitionGroupService, facilityService, $stateParams) {
@@ -80,6 +80,18 @@
                 },
                 facilitiesMap: function(facilities, ObjectMapper) {
                     return new ObjectMapper().map(facilities);
+                },
+                memberFacilities: function($stateParams, paginationService, requisitionGroup, facilityFactory) {
+                    return paginationService.registerList(null, $stateParams, function(stateParams) {
+                        if (stateParams.memberFacilitiesPage !== undefined && stateParams.memberFacilitiesSize) {
+                            $stateParams.tab = 1;
+                        }
+                        return facilityFactory.searchAndOrderFacilities(
+                            requisitionGroup.memberFacilities, $stateParams.facilityName, 'name'
+                        );
+                    }, {
+                        paginationId: 'memberFacilitiesEdit'
+                    });
                 }
             }
         });

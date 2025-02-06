@@ -61,6 +61,9 @@
                 },
                 facilitiesMap: function(facilities, ObjectMapper) {
                     return new ObjectMapper().map(facilities);
+                },
+                memberFacilities: function() {
+                    return null;
                 }
             }
         });
