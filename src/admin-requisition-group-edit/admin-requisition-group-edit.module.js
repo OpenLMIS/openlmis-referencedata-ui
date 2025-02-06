@@ -18,7 +18,7 @@
     'use strict';
 
     /**
-     * @module admin-requisition-group-add
+     * @module admin-requisition-group-edit
      *
      * @description
      * Provides base admin requisition group state and controller for creating new requisition groups.
