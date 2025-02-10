@@ -156,6 +156,7 @@
             vm.programs = programs;
             vm.selectedTab = $stateParams.tab ? parseInt($stateParams.tab) : 0;
             vm.selectedProgramSchedule = {};
+            vm.facilityName = $stateParams.facilityName ? $stateParams.facilityName : '';
         }
 
         /**
