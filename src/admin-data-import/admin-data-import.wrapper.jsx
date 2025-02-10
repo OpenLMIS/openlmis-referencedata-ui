@@ -26,21 +26,33 @@ import 'react-toastify/dist/ReactToastify.css';
         .module('admin-data-import')
         .directive('adminDataImport', adminDataImport);
 
-        adminDataImport.$inject = [];
+    adminDataImport.$inject = ['$compile', '$rootScope'];
 
-    function adminDataImport() {
+    function adminDataImport($compile, $rootScope) {
         return {
-            template: '<div id="adminDataImport" class="admin-data-import"></div>',
+            template: '<div id="adminDataImport" class="admin-data-import">' +
+                '<div class="page-for-import"></div>' +
+                '</div>',
             replace: true,
-            link: function () {
+            link: function (scope, element) {
                 const app = document.getElementById('adminDataImport');
-
                 ReactDOM.render(
                     <>
                         <Routing />
                         <ToastContainer theme="colored" />
                     </>,
-                    app);
+                    app
+                );
+
+                const pageForImport = element.find('.page-for-import');
+
+                if (pageForImport.length) {
+                    const angularElement = angular.element('<openlmis-breadcrumbs></openlmis-breadcrumbs>');
+
+                    pageForImport.prepend(angularElement);
+
+                    $compile(angularElement)(scope);
+                }
             }
         };
     }

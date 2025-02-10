@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 import getService from '../../../react-components/utils/angular-utils';
 import Select from '../../../react-components/inputs/select';
 import Loading from '../../../react-components/modals/loading';
-import {TYPE_OF_IMPORTS} from '../../consts';
+import { TYPE_OF_IMPORTS } from '../../consts';
 
 const AdminDataImportPage = () => {
 
@@ -72,12 +72,12 @@ const AdminDataImportPage = () => {
                             {formatMessage('admin.dataImport.selectFile')}
                         </button>
                         <input
-                        style={{display: 'none'}}
-                        ref={hiddenFileInput}
-                        type='file'
-                        onChange={handleChange}
-                        disabled={!typeOfImport}
-                        accept=".zip, .rar, .7z"
+                            style={{ display: 'none' }}
+                            ref={hiddenFileInput}
+                            type='file'
+                            onChange={handleChange}
+                            disabled={!typeOfImport}
+                            accept=".zip, .rar, .7z"
                         />
                     </>
                 }
@@ -104,50 +104,51 @@ const AdminDataImportPage = () => {
         <>
             <div>
                 <h2 id='data-export-header'>
-                  {formatMessage('admin.dataImport.label')}
+                    {formatMessage('admin.dataImport.label')}
                 </h2>
-                <div className='required' style={{marginBottom: '4px', fontFamily: 'Arial', fontSize: '16px'}}>
-                  <label id='type-header'>
-                    {formatMessage('admin.dataImport.type')}
-                  </label>
+                <div className='required' style={{ marginBottom: '4px', fontFamily: 'Arial', fontSize: '16px' }}>
+                    <label id='type-header'>
+                        {formatMessage('admin.dataImport.type')}
+                    </label>
                 </div>
-                <div className='field-full-width' style={{marginBottom: '16px', width: '40%'}}>
+                <div className='field-full-width' style={{ marginBottom: '16px', width: '40%' }}>
                     <Select
-                      options={TYPE_OF_IMPORTS}
-                      onChange={value => {
-                        setSelectedFile('');
-                        setTypeOfImport(value);
-                      }}
-                      value={typeOfImport}
+                        isTranslatable={true}
+                        options={TYPE_OF_IMPORTS}
+                        onChange={value => {
+                            setSelectedFile('');
+                            setTypeOfImport(value);
+                        }}
+                        value={typeOfImport}
                     />
                     {TYPE_OF_IMPORTS.map(type => {
-                        if(type.value === typeOfImport){
-                            return <p style={{maxWidth: '544px'}} key={type.value}>{type.info}</p>
+                        if (type.value === typeOfImport) {
+                            return <p style={{ maxWidth: '544px' }} key={type.value}>{formatMessage(type.info)}</p>
                         }
                     })}
                 </div>
-                <div className='required' style={{marginBottom: '4px', fontFamily: 'Arial', fontSize: '16px'}}>
-                  <label id='type-header'>
-                   {formatMessage('admin.dataImport.zipFile')}
-                  </label>
+                <div className='required' style={{ marginBottom: '4px', fontFamily: 'Arial', fontSize: '16px' }}>
+                    <label id='type-header'>
+                        {formatMessage('admin.dataImport.zipFile')}
+                    </label>
                 </div>
-                <div className='field-full-width' style={{marginBottom: '16px', width: '40%'}}>
+                <div className='field-full-width' style={{ marginBottom: '16px', width: '40%' }}>
                     <FileUploader />
                 </div>
             </div>
             <div className="openlmis-toolbar">
                 <button
-                  className='primary'
-                  type='button'
-                  style={{ marginTop: '0.5em' }}
-                  disabled={selectedFile.length === 0}
-                  onClick={importZip}
+                    className='primary'
+                    type='button'
+                    style={{ marginTop: '0.5em' }}
+                    disabled={selectedFile.length === 0}
+                    onClick={importZip}
                 >
-                  {formatMessage('admin.dataImport.import')}
+                    {formatMessage('admin.dataImport.import')}
                 </button>
             </div>
             {displayLoading &&
-              <Loading/>
+                <Loading />
             }
         </>
     )

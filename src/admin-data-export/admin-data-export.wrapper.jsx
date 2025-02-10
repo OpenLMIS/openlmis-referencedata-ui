@@ -26,13 +26,15 @@ import 'react-toastify/dist/ReactToastify.css';
         .module('admin-data-export')
         .directive('adminDataExport', adminDataExport);
 
-        adminDataExport.$inject = [];
+    adminDataExport.$inject = ['$compile', '$rootScope'];
 
-    function adminDataExport() {
+    function adminDataExport($compile, $rootScope) {
         return {
-            template: '<div id="adminDataExport" class="admin-data-export"></div>',
+            template: '<div id="adminDataExport" class="admin-data-export">' +
+                '<div class="page-for-export"></div>' +
+                '</div>',
             replace: true,
-            link: function () {
+            link: function (scope, element) {
                 const app = document.getElementById('adminDataExport');
 
                 ReactDOM.render(
@@ -40,7 +42,18 @@ import 'react-toastify/dist/ReactToastify.css';
                         <Routing />,
                         <ToastContainer theme="colored" />
                     </>,
-                    app);
+                    app
+                );
+
+                const pageForExport = element.find('.page-for-export');
+
+                if (pageForExport.length) {
+                    const angularElement = angular.element('<openlmis-breadcrumbs></openlmis-breadcrumbs>');
+
+                    pageForExport.prepend(angularElement);
+
+                    $compile(angularElement)(scope);
+                }
             }
         };
     }

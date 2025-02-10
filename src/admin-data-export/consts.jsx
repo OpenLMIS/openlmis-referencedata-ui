@@ -16,15 +16,15 @@
 export const TYPE_OF_EXPORTS = [
     {
         value: "Product",
-        name: "Products"
+        name: "admin.dataExport.types.products"
     },
     {
         value: "Facility",
-        name: "Facilities"
+        name: "admin.dataExport.types.facilities"
     },
     {
         value: 'Population',
-        name: 'Population'
+        name: 'admin.dataExport.types.population'
     }
 ];
 

@@ -13,27 +13,20 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
-import React, { useMemo } from 'react';
-import Breadcrumbs from './components/Breadcrumbs/Breadcrumbs';
+import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import AdminDataImportPage from "./components/AdminDataExportPage";
-import getService from '../../react-components/utils/angular-utils';
 
-const Routing = () => {
-    const { formatMessage } = useMemo(() => getService('messageService'), []);
-
-    return (
-        <div className="page-for-import">
-            <Router basename="/" hashType="hashbang">
-                <Breadcrumbs routes={[ { path: "/administration/dataImport", breadcrumb: formatMessage('admin.dataImport.label') } ]} />
-                <Switch>
-                    <Route exact path="/administration/dataImport">
-                        <AdminDataImportPage />
-                    </Route>
-                </Switch>
-            </Router>
-        </div>
-    );
-};
+const Routing = () => (
+    <div className="page-for-import">
+        <Router basename="/" hashType="hashbang">
+            <Switch>
+                <Route exact path="/administration/dataImport">
+                    <AdminDataImportPage />
+                </Route>
+            </Switch>
+        </Router>
+    </div>
+);
 
 export default Routing;

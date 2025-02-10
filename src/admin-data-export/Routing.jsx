@@ -14,14 +14,12 @@
  */
 
 import React from 'react';
-import Breadcrumbs from '../admin-data-import/components/Breadcrumbs/Breadcrumbs';
 import AdminDataExportPage from './components/AdminDataExportPage';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 const Routing = () => (
     <div className="page-for-export">
         <Router basename="/" hashType="hashbang">
-            <Breadcrumbs routes={[ { path: "/administration/dataExport", breadcrumb: 'Data Export' } ]} />
             <Switch>
                 <Route exact path="/administration/dataExport">
                     <AdminDataExportPage />

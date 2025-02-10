@@ -18,16 +18,16 @@ export const TYPE_OF_IMPORTS = [
     {
         value: "Product",
         name: "admin.dataImport.types.products",
-        info: "To import Products you need: orderable.csv, programOrderable.csv, tradeItem.csv"
+        info: "admin.dataImport.types.products.info"
     },
     {
         value: "Facility",
         name: "admin.dataImport.types.facilities",
-        info: "To import Facilities you need: facility.csv, supportedProgram.csv"
+        info: "admin.dataImport.types.facilities.info"
     },
     {
         value: "GeographicZone",
         name: "admin.dataImport.types.population",
-        info: "To import Population you need a ZIP with a geographicZone.csv file."
+        info: "admin.dataImport.types.population.info"
     }
 ];
