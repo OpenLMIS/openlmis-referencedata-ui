@@ -29,6 +29,7 @@ const AdminDataExportPage = () => {
     const [optionsForDatas, setOptionsForDatas] = useState(DATA_EXPORT);
     const [selectedFiles, setSelectedFiles] = useState([]);
     const [displayLoading, setDisplayLoading] = useState(false);
+    const { formatMessage } = useMemo(() => getService('messageService'), []);
 
     const serverService = useMemo(
         () => {
@@ -92,16 +93,17 @@ const AdminDataExportPage = () => {
         <>
             <div>
                 <h2 id='data-export-header'>
-                  Data Export
+                  { formatMessage('admin.dataExport.label') }
                 </h2>
                 <div className='required' style={{marginBottom: '4px', fontFamily: 'Arial', fontSize: '16px'}}>
                   <label id='type-header'>
-                    Type
+                    { formatMessage('admin.dataExport.type') }
                   </label>
                 </div>
                 <div className='field-full-width' style={{marginBottom: '16px', width: '40%'}}>
                     <Select
                       options={TYPE_OF_EXPORTS}
+                      isTranslatable={true}
                       onChange={value => {
                         setSelectedFiles([]);
                         setTypeOfExport(value);
@@ -112,7 +114,7 @@ const AdminDataExportPage = () => {
 
                 <div className='required' style={{marginBottom: '4px', fontFamily: 'Arial', fontSize: '16px'}}>
                   <label id='type-header'>
-                    Data
+                    { formatMessage('admin.dataExport.data') }
                   </label>
                 </div>
                 <div className='field-full-width' style={{marginBottom: '16px', width: '40%'}}>
@@ -132,10 +134,10 @@ const AdminDataExportPage = () => {
                   disabled={selectedFiles.length === 0}
                   onClick={downloadZip}
                 >
-                  Export
+                  { formatMessage('admin.dataExport.export') }
                 </button>
             </div>
-            {displayLoading && 
+            {displayLoading &&
               <Loading/>
             }
         </>

@@ -13,20 +13,21 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
+
 export const TYPE_OF_IMPORTS = [
     {
         value: "Product",
-        name: "Products",
-        info: "To import Products you need: orderable.csv, programOrderable.csv, tradeItem.csv"
+        name: "admin.dataImport.types.products",
+        info: "admin.dataImport.types.products.info"
     },
     {
         value: "Facility",
-        name: "Facilities",
-        info: "To import Facilities you need: facility.csv, supportedProgram.csv"
+        name: "admin.dataImport.types.facilities",
+        info: "admin.dataImport.types.facilities.info"
     },
     {
         value: "GeographicZone",
-        name: "Geographic Zones",
-        info: "To import Geographic Zones you need a ZIP with a geographicZones.csv file."
+        name: "admin.dataImport.types.population",
+        info: "admin.dataImport.types.population.info"
     }
 ];

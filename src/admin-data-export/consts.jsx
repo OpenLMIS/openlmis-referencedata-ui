@@ -16,11 +16,15 @@
 export const TYPE_OF_EXPORTS = [
     {
         value: "Product",
-        name: "Products"
+        name: "admin.dataExport.types.products"
     },
     {
         value: "Facility",
-        name: "Facilities"
+        name: "admin.dataExport.types.facilities"
+    },
+    {
+        value: 'Population',
+        name: 'admin.dataExport.types.population'
     }
 ];
 
@@ -54,5 +58,10 @@ export const DATA_EXPORT = [
             "type": "Facility",
             "id": "supportedProgram.csv",
             "name": "supportedProgram.csv"
+        },
+        {
+            "type": "Population",
+            "id": "geographicZone.csv",
+            "name": "geographicZone.csv"
         }
 ];

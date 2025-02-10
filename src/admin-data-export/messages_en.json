@@ -1,3 +1,9 @@
 {
-    "admin.dataExport.label": "Data Export"
+    "admin.dataExport.label": "Data Export",
+    "admin.dataExport.type": "Type",
+    "admin.dataExport.data": "Data",
+    "admin.dataExport.export": "Export",
+    "admin.dataExport.types.products": "Products",
+    "admin.dataExport.types.population": "Population",
+    "admin.dataExport.types.facilities": "Facilities"
 }
