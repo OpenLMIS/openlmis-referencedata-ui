@@ -1,15 +1,3 @@
-<section class="requisition-group-facilities">
-    <form class="form-inline" ng-submit="vm.addFacility()" reload-form>
-        <div class="form-group">
-            <label for="facility-select">{{'adminRequisitionGroupAdd.facility' | message}}</label>
-            <select id="facility-select" ng-options="facility as facility.name for facility in vm.facilities" required
-                ng-model="vm.selectedFacility">
-            </select>
-        </div>
-
-        <button type="submit" class="add">{{'adminRequisitionGroupAdd.add' | message}}</button>
-    </form>
-</section>
 <section class="openlmis-table-container">
     <form ng-submit="vm.searchForFacilities()">
         <fieldset class="form-group">
@@ -18,6 +6,17 @@
         </fieldset>
         <button class="primary" type="submit">{{'adminRequisitionGroupAdd.search' | message}}</button>
     </form>
+    <section class="is-primary">
+        <form class="form-inline" ng-submit="vm.addFacility()" reload-form>
+            <div class="form-group">
+                <label for="facility-select">{{'adminRequisitionGroupAdd.facility' | message}}</label>
+                <select id="facility-select" ng-options="facility as facility.name for facility in vm.facilities" required
+                    ng-model="vm.selectedFacility">
+                </select>
+            </div>
+            <button type="submit" class="add">{{'adminRequisitionGroupAdd.add' | message}}</button>
+        </form>
+    </section>
     <table>
         <caption ng-if="!vm.memberFacilitiesEditPage ||
                 vm.memberFacilitiesEditPage.length === 0">

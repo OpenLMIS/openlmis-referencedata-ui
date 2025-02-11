@@ -5,3 +5,13 @@
 .requisition-group-programs > .form-inline {
   flex-wrap: wrap;
 }
+
+.toolbar {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: flex-end;
+  .filters {
+    @include margin-right(auto !important);
+  }
+}
