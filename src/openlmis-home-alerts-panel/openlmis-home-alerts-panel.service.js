@@ -20,11 +20,12 @@
         .module('openlmis-home-alerts-panel')
         .service('openlmisHomeAlertsPanelService', openlmisHomeAlertsPanelService);
 
-    openlmisHomeAlertsPanelService.$inject = ['$resource', 'openlmisUrlFactory'];
+    openlmisHomeAlertsPanelService.$inject = ['$resource', 'openlmisUrlFactory', 'messageService'];
 
-    function openlmisHomeAlertsPanelService($resource, openlmisUrlFactory) {
+    function openlmisHomeAlertsPanelService($resource, openlmisUrlFactory, messageService) {
+        var STATUS_PREFIX = 'status';
         var requisitionStatusesResource = $resource(
-            openlmisUrlFactory(' /api'), {}, {
+            openlmisUrlFactory('/api'), {}, {
                 get: {
                     method: 'GET',
                     url: openlmisUrlFactory('/api/requisitions/statusesStatsData')
@@ -33,7 +34,7 @@
         );
 
         var orderStatusesResource = $resource(
-            openlmisUrlFactory(' /api/orders/statusesStatsData'), {}, {
+            openlmisUrlFactory('/api/orders/statusesStatsData'), {}, {
                 get: {
                     method: 'GET',
                     url: openlmisUrlFactory('/api/orders/statusesStatsData')
@@ -55,28 +56,23 @@
             return orderStatusesResource.get().$promise;
         }
 
-        function getMappedStatussesStats(statusesStats, importantData) {
+        function getMappedStatussesStats(tableName, statusesStats, importantData) {
             var mappedStatussesStats = [];
 
-            for (var key in statusesStats) {
-                var keySnakeCase = snakeCaseToNatural(key);
+            for (var statName in statusesStats) {
                 mappedStatussesStats.push({
-                    key: keySnakeCase,
-                    value: statusesStats[key],
-                    isImportant: importantData.indexOf(keySnakeCase) !== -1
+                    key: getTranslatedKey(tableName, statName),
+                    value: statusesStats[statName],
+                    isImportant: importantData.indexOf(statName) !== -1
                 });
             }
 
             return mappedStatussesStats;
         }
 
-        function snakeCaseToNatural(text) {
-            var words = text.split('_');
-            var naturalText = words.map(function(word) {
-                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-            }).join(' ');
-
-            return naturalText;
+        function getTranslatedKey(tableName, statName) {
+            var key = tableName + '.' + STATUS_PREFIX + '.' + statName;
+            return messageService.get(key);
         }
     }
 })();
