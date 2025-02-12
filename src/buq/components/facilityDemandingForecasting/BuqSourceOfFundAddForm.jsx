@@ -8,6 +8,7 @@ import ResponsiveButton from "../../../react-components/buttons/responsive-butto
 import { isEmpty } from "../../../react-components/utils/helpers";
 import useLocalStorage from "../../../react-hooks/useLocalStorage";
 import {
+  BUQ_CURRENCY,
   STORAGE_SOURCE_OF_FUND_FINANCE_NAME,
   STORAGE_SOURCE_OF_FUND_NAME,
 } from "../../utils/constants";
@@ -196,7 +197,7 @@ const BuqSourceOfFundAddForm = ({
         accessor: "indicatedSourceOfFund",
       },
       {
-        Header: "Amount Used in Last Financial Year in TZS",
+        Header: `Amount Used in Last Financial Year in ${BUQ_CURRENCY}`,
         accessor: "amountUsedInLastFinancialYear",
         Cell: ({ row }) => (
           <NumericDecimalInput
@@ -211,7 +212,7 @@ const BuqSourceOfFundAddForm = ({
         ),
       },
       {
-        Header: "Projected Fund in TZS",
+        Header: `Projected Fund in ${BUQ_CURRENCY}`,
         accessor: "projectedFund",
         Cell: ({ row }) => (
           <NumericDecimalInput
@@ -243,11 +244,11 @@ const BuqSourceOfFundAddForm = ({
           />
         </div>
         <div className="table-sum-up">
-          <p>{`Total Projected Fund: ${totalProjectedFund} TZS`}</p>
+          <p>{`Total Projected Fund: ${totalProjectedFund} ${BUQ_CURRENCY}`}</p>
           <p>{`Total Forecasted Cost: ${totalCost
             .toFixed(2)
-            .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ")} TZS`}</p>
-          <p>{`Gap: ${financialGap} TZS`}</p>
+            .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ")} ${BUQ_CURRENCY}`}</p>
+          <p>{`Gap: ${financialGap} ${BUQ_CURRENCY}`}</p>
         </div>
         <div className="bottom-bar">
           <div>

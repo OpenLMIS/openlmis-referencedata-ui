@@ -13,7 +13,7 @@ import ConfirmModalBody from '../../../react-components/ConfirmModalBody';
 import ModalErrorMessage from '../../../react-components/ModalErrorMessage';
 import useBuqCommonFuncs from '../../../react-hooks/useBuqCommonFunctions';
 import useLocalStorage from '../../../react-hooks/useLocalStorage';
-import { STORAGE_SOURCE_OF_FUND_FINANCE_NAME, STORAGE_SOURCE_OF_FUND_NAME, BUQ_STATUS } from '../../utils/constants';
+import { STORAGE_SOURCE_OF_FUND_FINANCE_NAME, STORAGE_SOURCE_OF_FUND_NAME, BUQ_STATUS, BUQ_CURRENCY } from '../../utils/constants';
 import { isEmpty, objectNotEmpty } from '../../../react-components/utils/helpers';
 import { findRegion } from '../../utils/helpers';
 import RejectionCommentsForm from './RejectionCommentsForm';
@@ -500,7 +500,7 @@ const FacilityDemandingForecasting = ({
             }
             <ActionBar
                 totalCost={totalCost.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')}
-                currency='TZS'
+                currency={BUQ_CURRENCY}
                 onSubmitText='Add Source of Fund'
                 openSourceOfFund={() => setDisplaySoFModal(true)}
                 onCancelAction={isInApproval ? (isInFinalApproval ? backToPreviousPage : backToApprovePage) : backToCreatePage}

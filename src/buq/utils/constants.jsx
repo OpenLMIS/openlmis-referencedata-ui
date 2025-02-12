@@ -44,3 +44,5 @@ export const STORAGE_USER_ID_NAME = "openlmis.USER_ID"
 export const STORAGE_USER_PROGRAMS_NAME = "openlmis.userPrograms";
 export const STORAGE_USER_RIGHTS_NAME = "openlmis.ROLE_ASSIGNMENTS";
 export const STORAGE_MOH_APPROVAL_PARAMS = "openlmis.MOH_APPROVAL_PARAMS";
+const systemCurrencySymbol = '@@CURRENCY_SYMBOL'
+export const BUQ_CURRENCY = systemCurrencySymbol.substr(0, 2) !== '@@' ? systemCurrencySymbol : '$';
