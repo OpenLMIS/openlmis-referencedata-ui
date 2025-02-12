@@ -2,6 +2,10 @@
 ==================
 Improvements:
 * [OLMIS-8044](https://openlmis.atlassian.net/browse/OLMIS-8044): Added translations to home page alerts component
+* [OLMIS-8029](https://openlmis.atlassian.net/browse/OLMIS-8029): Made buq currency configurable and set it to $
+* [OLMIS-8056](https://openlmis.atlassian.net/browse/OLMIS-8056): Added missing filter and pagination in requisiiton group edit
+New functionality:
+* [OLMIS-8082](https://openlmis.atlassian.net/browse/OLMIS-8082): Added UI for exporting population and added translations to the import/export component
 
 5.6.15 / 2025-01-13
 ==================
