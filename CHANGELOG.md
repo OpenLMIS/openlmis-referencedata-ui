@@ -1,5 +1,7 @@
 5.6.16-SNAPSHOT / WIP
 ==================
+Improvements:
+* [OLMIS-8044](https://openlmis.atlassian.net/browse/OLMIS-8044): Added translations to home page alerts component
 
 5.6.15 / 2025-01-13
 ==================
