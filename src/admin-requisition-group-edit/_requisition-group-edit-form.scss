@@ -6,12 +6,15 @@
   flex-wrap: wrap;
 }
 
-.toolbar {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: flex-end;
-  .filters {
-    @include margin-right(auto !important);
+#requisition-group-edit-table {
+  .toolbar {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: flex-end;
+    .filters {
+      @include margin-right(auto !important);
+    }
   }
 }
+
