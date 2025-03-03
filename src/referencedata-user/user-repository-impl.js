@@ -69,19 +69,27 @@
          */
         function create(user) {
             var authUserResource = this.authUserResource,
-                userContactDetailsResource = this.userContactDetailsResource;
+                userContactDetailsResource = this.userContactDetailsResource,
+                referenceDataUserResource = this.referenceDataUserResource;
 
-            return this.referenceDataUserResource
-                .update(user.getBasicInformation())
-                .then(function(referenceDataUser) {
-                    user.id = referenceDataUser.id;
-                    return $q.all([
-                        userContactDetailsResource.update(user.getContactDetails()),
-                        authUserResource.create(user.getAuthDetails())
-                    ]).then(function(responses) {
-                        return combineResponses(referenceDataUser, responses[0], responses[1]);
+            return referenceDataUserResource.update(user.getBasicInformation()).then(function(referenceDataUser) {
+                user.id = referenceDataUser.id;
+
+                return userContactDetailsResource.update(user.getContactDetails()).then(function(contactDetails) {
+                    return authUserResource.create(user.getAuthDetails()).then(function(authDetails) {
+                        return combineResponses(referenceDataUser, contactDetails, authDetails);
                     });
-                });
+                })
+                    .catch(function(error) {
+                        return referenceDataUserResource.deleteUser(user.id).then(function() {
+                            return $q.reject(error);
+                        })
+                            .catch(function(deleteError) {
+                                console.error('Failed to rollback user creation:', deleteError);
+                                return $q.reject(error);
+                            });
+                    });
+            });
         }
 
         /**

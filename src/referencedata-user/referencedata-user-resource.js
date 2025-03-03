@@ -37,6 +37,7 @@
         classExtender.extend(ReferenceDataUserResource, OpenlmisResource);
 
         ReferenceDataUserResource.prototype.update = update;
+        ReferenceDataUserResource.prototype.deleteUser = deleteUser;
 
         return ReferenceDataUserResource;
 
@@ -60,6 +61,10 @@
                 update: {
                     url: resourceUrl,
                     method: 'PUT'
+                },
+                delete: {
+                    url: openlmisUrlFactory('api/users/:id'),
+                    method: 'DELETE'
                 }
             });
         }
@@ -83,5 +88,11 @@
             return $q.reject();
         }
 
+        function deleteUser(userId) {
+            return this.resource
+                .delete({
+                    id: userId
+                }).$promise;
+        }
     }
 })();
