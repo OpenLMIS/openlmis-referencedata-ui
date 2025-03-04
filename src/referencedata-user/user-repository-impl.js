@@ -82,6 +82,7 @@
                 })
                     .catch(function(error) {
                         return referenceDataUserResource.deleteUser(user.id).then(function() {
+                            user.id = undefined;
                             return $q.reject(error);
                         })
                             .catch(function(deleteError) {
