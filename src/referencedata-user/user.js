@@ -119,7 +119,6 @@
 
         function save() {
             this.active = this.enabled;
-
             if (this.id) {
                 return this.repository.update(this);
             }
