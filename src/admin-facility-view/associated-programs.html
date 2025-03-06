@@ -23,7 +23,6 @@
                 <th>{{'adminFacilityView.active' | message}}</th>
                 <th openlmis-popover="{{'adminFacilityView.startDate.description' | message}}">{{'adminFacilityView.startDate' | message}}</th>
                 <th>{{'adminFacilityView.locallyFulfill' | message}}</th>
-                <th>{{'adminFacilityView.action' | message}}</th>
             </tr>
         </thead>
         <tbody>
@@ -32,11 +31,6 @@
                 <td><input type="checkbox" ng-model="program.supportActive"/></td>
                 <td><input type="date" ng-model="program.supportStartDate"/></td>
                 <td><input type="checkbox" ng-model="program.supportLocallyFulfilled"/></td>
-                <td>
-                    <button class="danger" ng-click="vm.deleteProgramAssociate(program)">
-                        {{'adminFacilityView.deleteProgramAssociate' | message}}
-                    </button>
-                </td>
             </tr>
         </tbody>
     </table>
