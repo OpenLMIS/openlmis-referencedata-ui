@@ -16,7 +16,6 @@
     "adminFacilityView.savePrograms": "Save Programs",
     "adminFacilityView.enabled": "Enabled",
     "adminFacilityView.startDate.description": "The program start date determines the first date available for users to enter requisitions related to the program.",
-    "adminFacilityView.deleteProgramAssociate": "Remove",
     "adminFacilityView.action": "Action",
     "adminFacilityView.question" : "Are you sure you want to remove?",
     "adminFacilityView.deleteAssociatedPrograms.success": "Program Associated deleted successfully",
