@@ -10,10 +10,6 @@
     <select id="parentSupervisoryNode" class="form-control" ng-model="vm.supervisoryNode.parentNode" ng-options="supervisoryNode as supervisoryNode.name for supervisoryNode in vm.getAvailableParentNodes() track by supervisoryNode.id"></select>
     <label for="description">{{'adminSupervisoryNodeEdit.description' | message}}</label>
     <textarea id="description" ng-model="vm.supervisoryNode.description"></textarea>
-    <label class="checkbox">
-        <input id="skip-approval" type="checkbox" ng-model="vm.supervisoryNode.extraData.skipSecondApproval" />
-        {{'adminSupervisoryNodeEdit.skipSecondApproval' | message}}
-    </label>&nbsp;
 </form>
 <label>{{'adminSupervisoryNodeEdit.childNodes' | message}}</label>
 <section class="openlmis-table-container">
