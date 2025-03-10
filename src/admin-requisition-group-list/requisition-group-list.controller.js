@@ -163,7 +163,7 @@
          * Takes the user to the add requisition group page.
          */
         function goToAddRequisitionGroup() {
-            $state.go('openlmis.administration.requisitionGroupAdd');
+            $state.go('openlmis.administration.requisitionGroupList.add');
         }
     }
 })();
