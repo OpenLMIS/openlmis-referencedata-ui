@@ -15,7 +15,7 @@
 
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import AdminDataImportPage from "./components/AdminDataExportPage";
+import AdminDataImportPage from "./components/AdminDataImportPage";
 
 const Routing = () => (
     <div className="page-for-import">

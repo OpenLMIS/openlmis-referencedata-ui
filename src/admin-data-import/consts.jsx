@@ -29,5 +29,10 @@ export const TYPE_OF_IMPORTS = [
         value: "GeographicZone",
         name: "admin.dataImport.types.population",
         info: "admin.dataImport.types.population.info"
+    },
+    {
+        value: "Users",
+        name: "admin.dataImport.types.users",
+        info: "admin.dataImport.types.users.info"
     }
 ];

@@ -8,7 +8,9 @@
     "admin.dataImport.types.products": "Products",
     "admin.dataImport.types.population": "Population",
     "admin.dataImport.types.facilities": "Facilities",
+    "admin.dataImport.types.users": "Users",
     "admin.dataImport.types.products.info": "To import Products you need: orderable.csv, programOrderable.csv, tradeItem.csv",
     "admin.dataImport.types.population.info": "To import Population you need a ZIP with a geographicZone.csv file",
-    "admin.dataImport.types.facilities.info": "To import Facilities you need: facility.csv, supportedProgram.csv"
+    "admin.dataImport.types.facilities.info": "To import Facilities you need: facility.csv, supportedProgram.csv",
+    "admin.dataImport.types.users.info": "To import Facilities you need: users.csv"
 }
