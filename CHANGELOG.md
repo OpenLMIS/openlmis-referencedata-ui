@@ -10,6 +10,7 @@ Bug fixes:
 * [OLMIS-8095](https://openlmis.atlassian.net/browse/OLMIS-8095): Fixed user creation validation. And prevented user with wrong contact data from being stored in the system.
 * [OLMIS-8105](https://openlmis.atlassian.net/browse/OLMIS-8105): removed not working, deleting supported programs feature. From Tanzania
 * [OLMIS-8106](https://openlmis.atlassian.net/browse/OLMIS-8106): Removed unused skipSecondApproval variable
+* [OLMIS-8107](https://openlmis.atlassian.net/browse/OLMIS-8107): Fixed breadcrumbs in add mode and removing facilities from table in edit mode.
 
 5.6.15 / 2025-01-13
 ==================

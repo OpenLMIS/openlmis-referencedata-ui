@@ -197,6 +197,7 @@
         function removeFacility(facility) {
             return vm.requisitionGroup.removeFacility(facility)
                 .then(function() {
+                    vm.memberFacilities = vm.requisitionGroup.memberFacilities;
                     vm.selectedFacility = undefined;
                 });
         }

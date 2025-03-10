@@ -23,13 +23,16 @@
 
     function routes($stateProvider, ADMINISTRATION_RIGHTS) {
 
-        $stateProvider.state('openlmis.administration.requisitionGroupAdd', {
-            showInNavigation: false,
+        $stateProvider.state('openlmis.administration.requisitionGroupList.add', {
             label: 'adminRequisitionGroupAdd.addRequisitionGroup',
-            url: '/requisitionGroupsAdd',
-            controller: 'RequisitionGroupAddController',
-            templateUrl: 'admin-requisition-group-add/requisition-group-add.html',
-            controllerAs: 'vm',
+            views: {
+                '@openlmis': {
+                    controller: 'RequisitionGroupAddController',
+                    controllerAs: 'vm',
+                    templateUrl: 'admin-requisition-group-add/requisition-group-add.html'
+                }
+            },
+            url: '/add',
             accessRights: [ADMINISTRATION_RIGHTS.REQUISITION_GROUPS_MANAGE],
             resolve: {
                 requisitionGroup: function(RequisitionGroup) {
