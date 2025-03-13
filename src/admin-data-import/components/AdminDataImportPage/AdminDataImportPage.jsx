@@ -19,12 +19,14 @@ import getService from '../../../react-components/utils/angular-utils';
 import Select from '../../../react-components/inputs/select';
 import Loading from '../../../react-components/modals/loading';
 import { TYPE_OF_IMPORTS } from '../../consts';
+import ImportSummaryModal from './ImportSummaryModal.jsx';
 
 const AdminDataImportPage = () => {
-
     const [typeOfImport, setTypeOfImport] = useState('');
     const [selectedFile, setSelectedFile] = useState('');
     const [displayLoading, setDisplayLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [importModalContent, setImportModalContent] = useState([]);
 
     const serverService = useMemo(
         () => {
@@ -39,7 +41,16 @@ const AdminDataImportPage = () => {
         if (selectedFile) {
             setDisplayLoading(true);
             serverService.importData(selectedFile)
-                .then(() => toast.success(formatMessage('admin.dataImport.toast.success')))
+                .then((response) => {
+                    if (response && response.results) {
+                        setImportModalContent(response.results);
+                        setIsModalOpen(true);
+                    }
+                    toast.success(formatMessage('admin.dataImport.toast.success'))
+                })
+                .catch((error) => {
+                    console.error("Error caught:", error);
+                })
                 .finally(() => {
                     setSelectedFile('');
                     setTypeOfImport('');
@@ -86,6 +97,7 @@ const AdminDataImportPage = () => {
                         <input
                             type='text'
                             value={selectedFile.name}
+                            readOnly
                         />
                         <button type='button'>
                             <i className="fa-duotone fa-xmark"></i>
@@ -102,6 +114,13 @@ const AdminDataImportPage = () => {
 
     return (
         <>
+            {
+                isModalOpen &&
+                <ImportSummaryModal
+                    results={importModalContent}
+                />
+            }
+
             <div>
                 <h2 id='data-export-header'>
                     {formatMessage('admin.dataImport.label')}

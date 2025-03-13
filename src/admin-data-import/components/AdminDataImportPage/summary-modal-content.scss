@@ -1,0 +1,45 @@
+.import-summary {
+    @include padding-x(.5rem);
+    p {
+        margin: 12px 0;
+        font-size: 15px;
+    }
+
+    .success {
+        color: green;
+    }
+
+    .error {
+        color: red;
+    }
+}
+
+.failed-entries-table {
+    @include padding-x(.5rem);
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    word-break: break-word;
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+}
+
+$modal-max-height: 600px;
+.modal-main {
+    max-height: $modal-max-height;
+    translate: 0 -150px;
+    overflow: hidden;
+
+    #import-summary-modal-body {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        max-height: $modal-max-height - 150px;
+    }
+}

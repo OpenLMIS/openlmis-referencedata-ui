@@ -5,5 +5,6 @@
     "admin.dataExport.export": "Export",
     "admin.dataExport.types.products": "Products",
     "admin.dataExport.types.population": "Population",
-    "admin.dataExport.types.facilities": "Facilities"
+    "admin.dataExport.types.facilities": "Facilities",
+    "admin.dataExport.types.users": "Users"
 }

@@ -37,8 +37,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': undefined
-                },
-                isArray: true
+                }
             }
         });
 
