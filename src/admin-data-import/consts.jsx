@@ -31,8 +31,10 @@ export const TYPE_OF_IMPORTS = [
         info: "admin.dataImport.types.population.info"
     },
     {
-        value: "Users",
+        value: "User",
         name: "admin.dataImport.types.users",
         info: "admin.dataImport.types.users.info"
     }
 ];
+
+export const IMPORT_SUMMARY_HEADER_TRANSLATION_PREFIX = 'referenceData.import.column.header';

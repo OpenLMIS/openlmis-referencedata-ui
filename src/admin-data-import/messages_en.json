@@ -12,5 +12,13 @@
     "admin.dataImport.types.products.info": "To import Products you need: orderable.csv, programOrderable.csv, tradeItem.csv",
     "admin.dataImport.types.population.info": "To import Population you need a ZIP with a geographicZone.csv file",
     "admin.dataImport.types.facilities.info": "To import Facilities you need: facility.csv, supportedProgram.csv",
-    "admin.dataImport.types.users.info": "To import Facilities you need: users.csv"
+    "admin.dataImport.types.users.info": "To import Facilities you need: user.csv",
+    "admin.dataImport.modal.summary": "Import Summary",
+    "admin.dataImport.modal.totalEntries": "Total Entries",
+    "admin.dataImport.modal.successfulEntries": "Successful Entries",
+    "admin.dataImport.modal.failedEntries": "Failed Entries",
+    "admin.dataImport.modal.details": "Details",
+    "admin.dataImport.modal.errors": "Errors",
+    "admin.dataImport.modal.cancel": "Cancel",
+    "admin.dataImport.modal.confirm": "Confirm"
 }

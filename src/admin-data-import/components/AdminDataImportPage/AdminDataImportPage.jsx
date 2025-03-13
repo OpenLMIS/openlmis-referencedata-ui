@@ -19,17 +19,14 @@ import getService from '../../../react-components/utils/angular-utils';
 import Select from '../../../react-components/inputs/select';
 import Loading from '../../../react-components/modals/loading';
 import { TYPE_OF_IMPORTS } from '../../consts';
-import Modal from '../../../react-components/modals/Modal.jsx'
-import { MOCK_RESPONSE } from './mock_response.jsx';
-import SummaryModalContent from './SummaryModalContent.jsx';
+import ImportSummaryModal from './ImportSummaryModal.jsx';
 
 const AdminDataImportPage = () => {
-
     const [typeOfImport, setTypeOfImport] = useState('');
     const [selectedFile, setSelectedFile] = useState('');
     const [displayLoading, setDisplayLoading] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(true);
-    const [modalContent, setModalContent] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [importModalContent, setImportModalContent] = useState([]);
 
     const serverService = useMemo(
         () => {
@@ -44,17 +41,20 @@ const AdminDataImportPage = () => {
         if (selectedFile) {
             setDisplayLoading(true);
             serverService.importData(selectedFile)
-                .then(() => toast.success(formatMessage('admin.dataImport.toast.success')))
+                .then((response) => {
+                    if (response && response.results) {
+                        setImportModalContent(response.results);
+                        setIsModalOpen(true);
+                    }
+                    toast.success(formatMessage('admin.dataImport.toast.success'))
+                })
+                .catch((error) => {
+                    console.error("Error caught:", error);
+                })
                 .finally(() => {
                     setSelectedFile('');
                     setTypeOfImport('');
                     setDisplayLoading(false);
-                    // TODO: remove this, after BE is deployed !!!
-                    if (typeOfImport === 'Users') {
-                        const response = MOCK_RESPONSE;
-                        setModalContent(response.results);
-                        setIsModalOpen(true);
-                    }
                 });
         }
     }
@@ -97,6 +97,7 @@ const AdminDataImportPage = () => {
                         <input
                             type='text'
                             value={selectedFile.name}
+                            readOnly
                         />
                         <button type='button'>
                             <i className="fa-duotone fa-xmark"></i>
@@ -113,22 +114,13 @@ const AdminDataImportPage = () => {
 
     return (
         <>
-            <Modal isOpen={isModalOpen}>
-                <div className="react-modal-header">
-                    <span className='modal-title'>Users import result</span>
-                </div>
-                <div className="react-modal-body">
-                    {<SummaryModalContent results={MOCK_RESPONSE.results} />}
-                </div>
-                <div className="react-modal-footer">
-                    <button
-                        type="button"
-                        className="btn"
-                        onClick={() => setIsModalOpen(false)}
-                    > Confirm
-                    </button>
-                </div>
-            </Modal>
+            {
+                isModalOpen &&
+                <ImportSummaryModal
+                    results={importModalContent}
+                />
+            }
+
             <div>
                 <h2 id='data-export-header'>
                     {formatMessage('admin.dataImport.label')}

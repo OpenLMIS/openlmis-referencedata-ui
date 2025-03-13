@@ -6,6 +6,7 @@ Improvements:
 * [OLMIS-8056](https://openlmis.atlassian.net/browse/OLMIS-8056): Added missing filter and pagination in requisiiton group edit
 New functionality:
 * [OLMIS-8082](https://openlmis.atlassian.net/browse/OLMIS-8082): Added UI for exporting population and added translations to the import/export component
+* [OLMIS-8108](https://openlmis.atlassian.net/browse/OLMIS-8108): Added improved UI for data import. And users export/import type.
 Bug fixes:
 * [OLMIS-8095](https://openlmis.atlassian.net/browse/OLMIS-8095): Fixed user creation validation. And prevented user with wrong contact data from being stored in the system.
 * [OLMIS-8105](https://openlmis.atlassian.net/browse/OLMIS-8105): removed not working, deleting supported programs feature. From Tanzania

@@ -27,7 +27,7 @@ export const TYPE_OF_EXPORTS = [
         name: 'admin.dataExport.types.population'
     },
     {
-        value: 'Users',
+        value: 'User',
         name: 'admin.dataExport.types.users'
     }
 ];
@@ -69,8 +69,8 @@ export const DATA_EXPORT = [
             "name": "geographicZone.csv"
         },
         {
-            "type": "Users",
-            "id": "users.csv",
-            "name": "users.csv"
+            "type": "User",
+            "id": "user.csv",
+            "name": "user.csv"
         }
 ];
