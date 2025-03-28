@@ -18,15 +18,15 @@ services:
       - ui-components
       - ui-layout
   auth-ui:
-    image: openlmis/auth-ui:6.2.15-RC2
+    image: openlmis/auth-ui:6.2.15
     volumes:
       - '/openlmis-auth-ui'
   ui-components:
-    image: openlmis/ui-components:7.2.13-RC2
+    image: openlmis/ui-components:7.2.13
     volumes:
       - '/openlmis-ui-components'
   ui-layout:
-    image: openlmis/ui-layout:5.2.8-RC2
+    image: openlmis/ui-layout:5.2.8
     volumes:
       - '/openlmis-ui-layout'
   image:
