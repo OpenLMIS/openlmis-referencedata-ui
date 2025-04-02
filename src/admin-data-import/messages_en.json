@@ -12,7 +12,7 @@
     "admin.dataImport.types.products.info": "To import Products you need: orderable.csv, programOrderable.csv, tradeItem.csv",
     "admin.dataImport.types.population.info": "To import Population you need a ZIP with a geographicZone.csv file",
     "admin.dataImport.types.facilities.info": "To import Facilities you need: facility.csv, supportedProgram.csv",
-    "admin.dataImport.types.users.info": "To import Users you need: user.csv",
+    "admin.dataImport.types.users.info": "To import Users you need: user.csv, roleAssignment.csv",
     "admin.dataImport.modal.summary": "Import Summary",
     "admin.dataImport.modal.totalEntries": "Total Entries",
     "admin.dataImport.modal.successfulEntries": "Successful Entries",
@@ -26,5 +26,12 @@
     "referenceData.import.column.header.username": "Username",
     "notification.error.user.notFound": "User with id cannot be found.",
     "notification.error.user.notActiveOrNotFound": "The user with the provided ID is not active or cannot be found",
-    "notification.error.fieldIsInvariant": "Email verified field is an invariant and should not be changed."
+    "notification.error.fieldIsInvariant": "Email verified field is an invariant and should not be changed.",
+    "referenceData.import.column.header.role": "Role",
+    "referenceData.error.roleAssignment.roleType.notInAcceptableTypes": "Role type is not in acceptable types",
+    "referenceData.error.user.import.user.notFound": "User not found",
+    "referenceData.error.user.import.role.notFound": "Role not found",
+    "referenceData.error.user.import.program.notFound": "Program not found",
+    "referenceData.error.user.import.supervisoryNode.notFound": "Supervisory node not found",
+    "referenceData.error.user.import.warehouse.notFound": "Warehouse not found"
 }

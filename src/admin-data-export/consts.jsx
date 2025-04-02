@@ -72,5 +72,10 @@ export const DATA_EXPORT = [
             "type": "User",
             "id": "user.csv",
             "name": "user.csv"
+        },
+        {
+            "type": "User",
+            "id": "roleAssignment.csv",
+            "name": "roleAssignment.csv"
         }
 ];
