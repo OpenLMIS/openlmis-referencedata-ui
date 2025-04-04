@@ -54,6 +54,34 @@
          * Holds current page of roles.
          */
         vm.rolesPage = undefined;
+
+        /**
+         * @ngdoc method
+         * @methodOf admin-role-list.controller:RoleListController
+         * @name printRoleType
+         * 
+         * @description
+         * Determines the string to display for the role type.
+         * If the role has valid rights, it returns the rights type.
+         * If the role has no rights, it logs an error message and returns appropriate placeholder text.
+         */
+        vm.printRoleType = function(role) {
+            if (!role || !role.rights || role.rights.length === 0) {
+                // eslint-disable-next-line no-console
+                console.error(
+                    'Role Type Not Applicable: Rights array is missing or empty for role:',
+                    role.name,
+                    'Role Data:',
+                    role
+                );
+
+                return 'NOT_APPLICABLE';
+            }
+
+            // The role has valid rights, so we can safely return the first type.
+            return role.rights[0].type;
+        };
+
     }
 
 })();

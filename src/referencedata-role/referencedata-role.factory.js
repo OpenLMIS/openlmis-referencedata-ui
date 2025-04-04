@@ -51,6 +51,14 @@
 
             referencedataRoleService.getAll().then(function(roles) {
                 angular.forEach(roles, function(role) {
+                    if (!role || !role.rights || role.rights.length === 0) {
+                        const errorMessage =
+                        'Role Type Not Applicable: Rights array is missing or empty for role:' +
+                        role.name;
+
+                        deferred.reject(errorMessage);
+                    }
+
                     role.type = role.rights[0].type;
                 });
                 deferred.resolve(roles);
