@@ -13,6 +13,7 @@
     "admin.dataImport.types.population.info": "To import Population you need a ZIP with a geographicZone.csv file",
     "admin.dataImport.types.facilities.info": "To import Facilities you need: facility.csv, supportedProgram.csv",
     "admin.dataImport.types.users.info": "To import Users you need: user.csv, roleAssignment.csv",
+    "admin.dataImport.types.users.additionalInfo": "Please be careful when importing user roles. All current roles will be removed and replaced with the ones in the file. See the documentation for more information.",
     "admin.dataImport.modal.summary": "Import Summary",
     "admin.dataImport.modal.totalEntries": "Total Entries",
     "admin.dataImport.modal.successfulEntries": "Successful Entries",
