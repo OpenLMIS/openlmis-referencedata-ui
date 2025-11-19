@@ -165,7 +165,7 @@
         }
 
         function validateEditReport() {
-            var fieldsToValidate = ['name', 'url', 'category'];
+            var fieldsToValidate = ['name', 'url', 'category', 'type'];
             fieldsToValidate.forEach(function(fieldName) {
                 validateField(vm.report[fieldName], fieldName);
             });
