@@ -1,5 +1,10 @@
-5.6.17-SNAPSHOT / WIP
+Upcoming Version (WIP)
 ==================
+New functionality:
+* [OLMIS-8125](https://openlmis.atlassian.net/browse/OLMIS-8125): Added User Roles import/export
+Bug fixes:
+* [SELV3-782](https://openlmis.atlassian.net/browse/SELV3-782): Improved validation in modal when creating new Report
+
 
 5.6.16 / 2025-03-31
 ==================
