@@ -45,7 +45,7 @@
         return {
             getRequisitionsStatusesData: getRequisitionsStatusesData,
             getOrdersStatusesData: getOrdersStatusesData,
-            getMappedStatussesStats: getMappedStatussesStats
+            getMappedStatusesStats: getMappedStatusesStats
         };
 
         function getRequisitionsStatusesData() {
@@ -56,18 +56,30 @@
             return orderStatusesResource.get().$promise;
         }
 
-        function getMappedStatussesStats(tableName, statusesStats, importantData) {
-            var mappedStatussesStats = [];
+        function getMappedStatusesStats(tableName, statusesStats, importantData) {
+            var requisitionOrder = [
+                'SKIPPED', 'INITIATED', 'SUBMITTED', 'AUTHORIZED', 'IN_APPROVAL',
+                'APPROVED', 'REJECTED', 'RELEASED', 'RELEASED_WITHOUT_ORDER'
+            ];
+            var orderOrder = [
+                'CREATING', 'ORDERED', 'FULFILLING', 'READY_TO_PACK',
+                'SHIPPED', 'IN_ROUTE', 'RECEIVED', 'TRANSFER_FAILED'
+            ];
 
-            for (var statName in statusesStats) {
-                mappedStatussesStats.push({
-                    key: getTranslatedKey(tableName, statName),
-                    value: statusesStats[statName],
-                    isImportant: importantData.indexOf(statName) !== -1
-                });
-            }
+            var order = tableName === 'requisition' ? requisitionOrder : orderOrder;
 
-            return mappedStatussesStats;
+            var sortedStats = [];
+            order.forEach(function(status) {
+                if (statusesStats[status] !== undefined) {
+                    sortedStats.push({
+                        key: getTranslatedKey(tableName, status),
+                        value: statusesStats[status],
+                        isImportant: importantData.indexOf(status) !== -1
+                    });
+                }
+            });
+
+            return sortedStats;
         }
 
         function getTranslatedKey(tableName, statName) {
