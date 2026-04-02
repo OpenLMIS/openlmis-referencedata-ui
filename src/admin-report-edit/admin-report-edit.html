@@ -18,16 +18,6 @@
             </ul>
           </fieldset>
           <fieldset class="form-group">
-            <label for="URL" class="is-required">{{:: 'adminReportEdit.URL' | message}}</label>
-            <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('url')}">
-              <input type="text" id="URL" style="width: 100%" ng-model="vm.report.url"
-                ng-change="vm.validateField(vm.report.url, 'url')" required />
-            </div>
-            <ul class="openlmis-invalid" ng-if="vm.invalidFields.has('url')">
-              <li>{{'adminReportEdit.fieldRequired' | message}}</li>
-            </ul>
-          </fieldset>
-          <fieldset class="form-group">
             <label for="category" class="is-required">{{:: 'adminReportEdit.category' | message}}</label>
             <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('category')}">
               <select id="category" ng-change="vm.validateField(vm.report.category, 'category')"
@@ -41,7 +31,7 @@
           <fieldset class="form-group">
             <label for="type" class="is-required">{{:: 'adminReportEdit.type' | message}}</label>
             <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('type')}">
-              <select id="type" ng-change="vm.validateField(vm.report.type, 'type')"
+              <select id="type" ng-change="vm.onTypeChange()"
                 ng-model="vm.report.type" ng-options="type for type in vm.types"
                 required></select>
             </div>
@@ -49,6 +39,26 @@
               <li>{{'adminReportEdit.fieldRequired' | message}}</li>
             </ul>
           </fieldset>
+          <fieldset class="form-group" ng-if="vm.report.type === 'SUPERSET'">
+            <label for="embeddedUuid">{{:: 'adminReportEdit.embeddedUuid' | message}}</label>
+            <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('supersetField')}">
+              <input type="text" id="embeddedUuid" style="width: 100%" ng-model="vm.report.embeddedUuid"
+                ng-change="vm.validateSupersetFields()" />
+            </div>
+          </fieldset>
+          <fieldset class="form-group">
+            <label for="URL" ng-class="{'is-required': vm.report.type !== 'SUPERSET'}">{{:: 'adminReportEdit.URL' | message}}</label>
+            <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('url')}">
+              <input type="text" id="URL" style="width: 100%" ng-model="vm.report.url"
+                ng-change="vm.validateField(vm.report.url, 'url'); vm.validateSupersetFields()" />
+            </div>
+            <ul class="openlmis-invalid" ng-if="vm.invalidFields.has('url')">
+              <li>{{'adminReportEdit.fieldRequired' | message}}</li>
+            </ul>
+          </fieldset>
+          <ul class="openlmis-invalid" ng-if="vm.invalidFields.has('supersetField')">
+            <li>{{'adminReportEdit.supersetFieldRequired' | message}}</li>
+          </ul>
           <fieldset class="form-group">
             <label for="enabled">
               <input id="enabled" type="checkbox" ng-model="vm.report.enabled" />

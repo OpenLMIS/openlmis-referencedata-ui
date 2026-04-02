@@ -38,6 +38,8 @@
         vm.$onInit = onInit;
         vm.confirmEdit = confirmEdit;
         vm.validateField = validateField;
+        vm.validateSupersetFields = validateSupersetFields;
+        vm.onTypeChange = onTypeChange;
         vm.invalidFields = new Set();
 
         /**
@@ -165,12 +167,39 @@
         }
 
         function validateEditReport() {
-            var fieldsToValidate = ['name', 'url', 'category', 'type'];
+            var fieldsToValidate = ['name', 'category', 'type'];
             fieldsToValidate.forEach(function(fieldName) {
                 validateField(vm.report[fieldName], fieldName);
             });
 
+            if (vm.report.type === 'SUPERSET') {
+                if (!vm.report.url && !vm.report.embeddedUuid) {
+                    vm.invalidFields.add('supersetField');
+                } else {
+                    vm.invalidFields.delete('supersetField');
+                }
+            } else {
+                validateField(vm.report.url, 'url');
+            }
+
             return vm.invalidFields.size === 0;
+        }
+
+        function validateSupersetFields() {
+            if (vm.report.type === 'SUPERSET') {
+                if (vm.report.url || vm.report.embeddedUuid) {
+                    vm.invalidFields.delete('supersetField');
+                    vm.invalidFields.delete('url');
+                }
+            }
+        }
+
+        function onTypeChange() {
+            validateField(vm.report.type, 'type');
+            vm.invalidFields.delete('supersetField');
+            if (vm.report.type === 'SUPERSET') {
+                vm.invalidFields.delete('url');
+            }
         }
 
         function isNotEmpty(value) {
