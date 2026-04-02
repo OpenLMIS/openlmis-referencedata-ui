@@ -1,5 +1,12 @@
 Upcoming Version (WIP)
 ==================
+Improvements:
+* [OLMIS-8217](https://openlmis.atlassian.net/browse/OLMIS-8217): Improve home facility alerts panel UI and functionality. 
+  * Display actual facility name instead of `My Facility data`
+  * Remove panels providing hardcoded `0` instead of relevant information
+  * Hide panel when user has no home facility
+  * Reorder requisition and order statuses
+  * Other minor layout/font improvements
 
 5.6.18 / 2026-02-05
 ==================
