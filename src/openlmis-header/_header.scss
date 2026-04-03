@@ -131,6 +131,10 @@ body > header {
     flex-direction: row-reverse;
     align-items: center;
     @include margin-left(auto);
+
+    > .navbar-right{
+        margin-top: 0;
+    }
   }
 }
 
