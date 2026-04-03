@@ -6,5 +6,6 @@
     "adminRoleList.roles": "Roles",
     "adminRoleList.edit": "Edit",
     "adminRoleList.roleType": "Role Type",
-    "adminRoleList.numberOfUsers": "Number of Users"
+    "adminRoleList.numberOfUsers": "Number of Users",
+    "adminRoleList.notApplicable": "NOT APPLICABLE"
 }
