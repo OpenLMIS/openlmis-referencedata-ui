@@ -1,6 +1,7 @@
 Upcoming Version (WIP)
 ==================
 Improvements:
+* [OLMIS-8219](https://openlmis.atlassian.net/browse/OLMIS-8219): Vertically align logout button and language picker in navbar
 * [OLMIS-8217](https://openlmis.atlassian.net/browse/OLMIS-8217): Improve home facility alerts panel UI and functionality. 
   * Display actual facility name instead of `My Facility data`
   * Remove panels providing hardcoded `0` instead of relevant information
