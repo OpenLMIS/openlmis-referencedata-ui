@@ -39,7 +39,7 @@
               <li>{{'adminReportEdit.fieldRequired' | message}}</li>
             </ul>
           </fieldset>
-          <fieldset class="form-group" ng-if="vm.report.type === 'SUPERSET'">
+          <fieldset class="form-group" ng-if="vm.report.type === vm.REPORT_TYPES.SUPERSET">
             <label for="embeddedUuid">{{:: 'adminReportEdit.embeddedUuid' | message}}</label>
             <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('supersetField')}">
               <input type="text" id="embeddedUuid" style="width: 100%" ng-model="vm.report.embeddedUuid"
@@ -47,7 +47,7 @@
             </div>
           </fieldset>
           <fieldset class="form-group">
-            <label for="URL" ng-class="{'is-required': vm.report.type !== 'SUPERSET'}">{{:: 'adminReportEdit.URL' | message}}</label>
+            <label for="URL" ng-class="{'is-required': vm.report.type !== vm.REPORT_TYPES.SUPERSET}">{{:: 'adminReportEdit.URL' | message}}</label>
             <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('url')}">
               <input type="text" id="URL" style="width: 100%" ng-model="vm.report.url"
                 ng-change="vm.validateField(vm.report.url, 'url'); vm.validateSupersetFields()" />

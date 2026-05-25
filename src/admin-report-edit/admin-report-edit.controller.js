@@ -98,6 +98,8 @@
 
         vm.reportsList = reportsList;
 
+        vm.REPORT_TYPES = REPORT_TYPES;
+
         function onInit() {
             vm.editMode = !!dashboardReport;
             categories.map(function(category) {
@@ -172,7 +174,7 @@
                 validateField(vm.report[fieldName], fieldName);
             });
 
-            if (vm.report.type === 'SUPERSET') {
+            if (vm.report.type === REPORT_TYPES.SUPERSET) {
                 if (!vm.report.url && !vm.report.embeddedUuid) {
                     vm.invalidFields.add('supersetField');
                 } else {
@@ -186,7 +188,7 @@
         }
 
         function validateSupersetFields() {
-            if (vm.report.type === 'SUPERSET') {
+            if (vm.report.type === REPORT_TYPES.SUPERSET) {
                 if (vm.report.url || vm.report.embeddedUuid) {
                     vm.invalidFields.delete('supersetField');
                     vm.invalidFields.delete('url');
@@ -197,7 +199,7 @@
         function onTypeChange() {
             validateField(vm.report.type, 'type');
             vm.invalidFields.delete('supersetField');
-            if (vm.report.type === 'SUPERSET') {
+            if (vm.report.type === REPORT_TYPES.SUPERSET) {
                 vm.invalidFields.delete('url');
             }
         }
