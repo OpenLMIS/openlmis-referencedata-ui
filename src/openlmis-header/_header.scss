@@ -3,6 +3,8 @@ $font-size-openlmis-header-title: $font-size-extra-large !default;
 body > header {
   border: 0px;
   padding: 0px;
+  position: relative;
+  z-index: $z-index-header-sticky;
   > * {
     width: 100%;
     margin: 0px;
