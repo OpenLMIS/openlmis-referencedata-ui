@@ -1,4 +1,4 @@
-Upcoming Version (WIP)
+5.6.19 / 2026-06-09
 ==================
 Improvements:
 * [OLMIS-8219](https://openlmis.atlassian.net/browse/OLMIS-8219): Vertically align logout button and language picker in navbar
