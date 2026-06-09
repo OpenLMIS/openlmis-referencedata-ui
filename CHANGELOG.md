@@ -1,3 +1,8 @@
+5.6.18-sp1 / 2026-06-09
+==================
+Improvements:
+* Translations build
+
 5.6.18 / 2026-02-05
 ==================
 Improvements:
