@@ -56,5 +56,6 @@
     "adminOrderableEdit.programOrderableRemovedSuccessfully": "Program orderable removed successfully",
     "adminOrderableEdit.failedToRemoveProgramOrderable": "Failed to remove program orderable",
     "adminOrderableEdit.confirmToRemoveProgramOrderable": "Are you sure you want to remove the program orderable?",
-    "adminOrderableEdit.failedToUpdateProduct": "Failed to update product"
+    "adminOrderableEdit.failedToUpdateProduct": "Failed to update product",
+    "adminOrderableEdit.quantityTooLarge": "Quantity is too large to be stored."
 }

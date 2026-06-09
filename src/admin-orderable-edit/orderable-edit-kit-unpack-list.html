@@ -22,8 +22,9 @@
                 <tr ng-repeat="child in vm.childrenPage">
                     <td>{{vm.orderablesMap[child.orderable.id].productCode}}</td>
                     <td>{{vm.orderablesMap[child.orderable.id].fullProductName}}</td>
-                    <td><input positive-integer id="quantity_{{$index}}" max="100" ng-model="child.quantity"
-                            required>
+                    <td ng-attr-openlmis-invalid="{{child.$errors.quantityTooLarge || undefined}}">
+                        <input positive-integer java-integer id="quantity_{{$index}}" ng-model="child.quantity"
+                                required>
                     </td>
                     <td><button ng-click="vm.removeChild(child)" id="remove_{{$index}}" type="button"
                             class="danger">

@@ -76,7 +76,8 @@ describe('OrderableEditKitUnpackListController', function() {
             orderable: this.orderable,
             children: this.children,
             orderables: this.orderables,
-            orderablesMap: this.orderablesMap
+            orderablesMap: this.orderablesMap,
+            $scope: this.$rootScope.$new()
         });
         this.vm.$onInit();
     });
