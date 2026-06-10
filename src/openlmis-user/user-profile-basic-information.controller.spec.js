@@ -31,6 +31,7 @@ describe('UserProfileBasicInformationController', function() {
             this.loginService = $injector.get('loginService');
             this.$state = $injector.get('$state');
             this.authUserService = $injector.get('authUserService');
+            this.stateTrackerService = $injector.get('stateTrackerService');
         });
 
         this.user = new this.UserDataBuilder().build();
@@ -53,6 +54,7 @@ describe('UserProfileBasicInformationController', function() {
         spyOn(this.$state, 'go');
         spyOn(this.alertService, 'info');
         spyOn(this.authUserService, 'sendVerificationEmail').andReturn(this.$q.when(true));
+        spyOn(this.stateTrackerService, 'goToPreviousState').andReturn(true);
 
         this.vm = this.$controller('UserProfileBasicInformationController', {
             user: this.user,
@@ -122,25 +124,12 @@ describe('UserProfileBasicInformationController', function() {
 
     });
 
-    describe('restoreProfile', function() {
+    describe('goToPreviousState', function() {
 
-        beforeEach(function() {
-            this.vm.$onInit();
-            this.vm.restoreProfile();
-        });
+        it('should redirect to the home page', function() {
+            this.vm.goToPreviousState('openlmis.home');
 
-        it('should open loading modal', function() {
-            expect(this.loadingModalService.open).toHaveBeenCalled();
-        });
-
-        it('should reload the state', function() {
-            expect(this.$state.go).toHaveBeenCalledWith('openlmis.profile.basicInformation', undefined, {
-                reload: true
-            });
-        });
-
-        it('should show a notification', function() {
-            expect(this.notificationService.success).toHaveBeenCalledWith('openlmisUser.cancel.restoreSuccessful');
+            expect(this.stateTrackerService.goToPreviousState).toHaveBeenCalledWith('openlmis.home');
         });
 
     });

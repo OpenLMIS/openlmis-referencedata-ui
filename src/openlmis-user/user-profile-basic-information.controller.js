@@ -31,18 +31,18 @@
     controller.$inject = [
         'user', 'homeFacility', 'loadingModalService', 'notificationService',
         'userPasswordModalFactory', 'loginService', '$rootScope', '$state', 'alertService',
-        'authUserService', 'pendingVerificationEmail'
+        'authUserService', 'pendingVerificationEmail', 'stateTrackerService'
     ];
 
     function controller(user, homeFacility, loadingModalService, notificationService,
                         userPasswordModalFactory, loginService, $rootScope, $state, alertService,
-                        authUserService, pendingVerificationEmail) {
+                        authUserService, pendingVerificationEmail, stateTrackerService) {
 
         var vm = this;
 
         vm.$onInit = onInit;
         vm.updateProfile = updateProfile;
-        vm.restoreProfile = restoreProfile;
+        vm.goToPreviousState = stateTrackerService.goToPreviousState;
         vm.changePassword = changePassword;
         vm.sendVerificationEmail = sendVerificationEmail;
 
@@ -116,22 +116,6 @@
                     notificationService.error('openlmisUser.updateProfile.updateFailed');
                     loadingModalService.close();
                 });
-        }
-
-        /**
-         * @ngdoc method
-         * @propertyOf openlmis-user.controller:UserProfileBasicInformationController
-         * @name restoreProfile
-         *
-         * @description
-         * Restore user profile.
-         */
-        function restoreProfile() {
-            loadingModalService.open();
-            $state.go('openlmis.profile.basicInformation', undefined, {
-                reload: true
-            });
-            notificationService.success('openlmisUser.cancel.restoreSuccessful');
         }
 
         /**

@@ -42,7 +42,7 @@
 
 </form>
 <div class="openlmis-toolbar">
-    <button ng-click="vm.restoreProfile()">{{'openlmisUser.cancel' | message}}</button>
+    <button id="cancel" ng-click="vm.goToPreviousState('openlmis.home')">{{'openlmisUser.cancel' | message}}</button>
     <div class="button-group primary">
         <button ng-if="vm.pendingVerificationEmail" ng-click="vm.sendVerificationEmail()">{{ 'openlmisUser.sendVerificationEmail' | message }}</button>
         <button ng-click="vm.changePassword()">{{'openlmisUser.changePassword' | message}}</button>
