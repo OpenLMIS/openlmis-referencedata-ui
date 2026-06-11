@@ -38,6 +38,7 @@
         vm.goToUserList = goToUserList;
         vm.saveUserRoles = saveUserRoles;
         vm.getRoleTypeLabel = getRoleTypeLabel;
+        vm.isRoleTypeActive = isRoleTypeActive;
 
         /**
          * @ngdoc property
@@ -125,6 +126,22 @@
          */
         function getRoleTypeLabel(type) {
             return ROLE_TYPES.getLabel(type);
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf admin-user-roles.controller:UserRolesController
+         * @name isRoleTypeActive
+         *
+         * @description
+         * Indicates whether the tab for the given role type is active, regardless of the currently
+         * selected page of the role assignments list.
+         *
+         * @param  {String}  type the role type name
+         * @return {Boolean}      true if the role type tab is active, false otherwise
+         */
+        function isRoleTypeActive(type) {
+            return $state.includes('openlmis.administration.users.roles.' + type);
         }
     }
 })();
