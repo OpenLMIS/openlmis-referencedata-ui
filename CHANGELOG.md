@@ -13,6 +13,8 @@ Improvements:
   * Other minor layout/font improvements
 New functionality:
 * [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Added Embedded UUID field to the dashboard report admin form. For Superset reports, either URL or Embedded UUID is required; for other report types, URL remains required.
+Bug fixes:
+* [OLMIS-8121](https://openlmis.atlassian.net/browse/OLMIS-8121): Fix typo in the report category success notification.
 
 5.6.18 / 2026-02-05
 ==================
