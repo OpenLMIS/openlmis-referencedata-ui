@@ -31,18 +31,18 @@
     controller.$inject = [
         'user', 'homeFacility', 'loadingModalService', 'notificationService',
         'userPasswordModalFactory', 'loginService', '$rootScope', '$state', 'alertService',
-        'authUserService', 'pendingVerificationEmail', 'stateTrackerService'
+        'authUserService', 'pendingVerificationEmail'
     ];
 
     function controller(user, homeFacility, loadingModalService, notificationService,
                         userPasswordModalFactory, loginService, $rootScope, $state, alertService,
-                        authUserService, pendingVerificationEmail, stateTrackerService) {
+                        authUserService, pendingVerificationEmail) {
 
         var vm = this;
 
         vm.$onInit = onInit;
         vm.updateProfile = updateProfile;
-        vm.goToPreviousState = stateTrackerService.goToPreviousState;
+        vm.goToHome = goToHome;
         vm.changePassword = changePassword;
         vm.sendVerificationEmail = sendVerificationEmail;
 
@@ -116,6 +116,18 @@
                     notificationService.error('openlmisUser.updateProfile.updateFailed');
                     loadingModalService.close();
                 });
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf openlmis-user.controller:UserProfileBasicInformationController
+         * @name goToHome
+         *
+         * @description
+         * Redirects the user to the home page.
+         */
+        function goToHome() {
+            $state.go('openlmis.home');
         }
 
         /**
