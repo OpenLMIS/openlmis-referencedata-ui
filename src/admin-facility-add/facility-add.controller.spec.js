@@ -123,6 +123,43 @@ describe('FacilityAddController', function() {
             expect(this.vm.facility).not.toBe(this.facility);
         });
 
+        it('should initialize extraData when missing', function() {
+            this.facility.extraData = undefined;
+
+            this.vm.$onInit();
+
+            expect(this.vm.facility.extraData).toEqual({});
+        });
+
+        it('should preserve existing extraData', function() {
+            this.facility.extraData = {
+                quantityUnitDisplay: 'PACKS'
+            };
+
+            this.vm.$onInit();
+
+            expect(this.vm.facility.extraData.quantityUnitDisplay).toEqual('PACKS');
+        });
+
+        it('should expose quantity unit display options', function() {
+            this.vm.$onInit();
+
+            var values = this.vm.quantityUnitDisplayOptions.map(function(option) {
+                return option.value;
+            });
+
+            expect(values).toEqual([undefined, 'PACKS', 'DOSES', 'BOTH']);
+        });
+
+        it('should label the quantity unit display options from the expected message keys', function() {
+            this.vm.$onInit();
+
+            expect(this.messageService.get).toHaveBeenCalledWith('adminFacilityAdd.quantityUnitDisplay.systemDefault');
+            expect(this.messageService.get).toHaveBeenCalledWith('adminFacilityAdd.quantityUnitDisplay.packsOnly');
+            expect(this.messageService.get).toHaveBeenCalledWith('adminFacilityAdd.quantityUnitDisplay.dosesOnly');
+            expect(this.messageService.get).toHaveBeenCalledWith('adminFacilityAdd.quantityUnitDisplay.packsAndDoses');
+        });
+
     });
 
     describe('save', function() {
@@ -184,6 +221,20 @@ describe('FacilityAddController', function() {
                     facility: this.facility
                 }
             );
+        });
+
+        it('should persist the selected quantity unit display in facility extraData', function() {
+            this.vm.facility.extraData = {
+                quantityUnitDisplay: 'PACKS'
+            };
+
+            this.vm.save();
+            this.confirmDeferred.reject();
+            this.saveDeferred.resolve();
+            this.$rootScope.$apply();
+
+            expect(this.FacilityRepository.prototype.create.calls[0].args[0].extraData.quantityUnitDisplay)
+                .toEqual('PACKS');
         });
 
     });
