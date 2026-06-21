@@ -28,14 +28,15 @@
         .module('openlmis-user')
         .controller('UserProfileRoleAssignmentsController', controller);
 
-    controller.$inject = ['user', 'ROLE_TYPES'];
+    controller.$inject = ['user', 'ROLE_TYPES', '$state'];
 
-    function controller(user, ROLE_TYPES) {
+    function controller(user, ROLE_TYPES, $state) {
 
         var vm = this;
 
         vm.$onInit = onInit;
         vm.getRoleTypeLabel = ROLE_TYPES.getLabel;
+        vm.isRoleTypeActive = isRoleTypeActive;
 
         /**
          * @ngdoc property
@@ -70,6 +71,22 @@
         function onInit() {
             vm.user = user;
             vm.roleTypes = ROLE_TYPES.getRoleTypes();
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf openlmis-user.controller:UserProfileRoleAssignmentsController
+         * @name isRoleTypeActive
+         *
+         * @description
+         * Indicates whether the tab for the given role type is active, regardless of the currently
+         * selected page of the role assignments list.
+         *
+         * @param  {String}  type the role type name
+         * @return {Boolean}      true if the role type tab is active, false otherwise
+         */
+        function isRoleTypeActive(type) {
+            return $state.includes('openlmis.profile.roleAssignments.' + type);
         }
 
     }

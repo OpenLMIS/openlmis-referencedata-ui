@@ -1,6 +1,6 @@
 <nav>
     <ul>
-        <li ng-repeat="type in vm.roleTypes" ui-sref-active="active" role="presentation">
+        <li ng-repeat="type in vm.roleTypes" ng-class="{ active: vm.isRoleTypeActive(type) }" role="presentation">
             <a ui-sref=".{{type}}({page: 0})">
                 {{vm.getRoleTypeLabel(type) | message}}
             </a>
