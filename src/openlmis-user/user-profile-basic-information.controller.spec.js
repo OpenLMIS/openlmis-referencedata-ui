@@ -122,25 +122,12 @@ describe('UserProfileBasicInformationController', function() {
 
     });
 
-    describe('restoreProfile', function() {
+    describe('goToHome', function() {
 
-        beforeEach(function() {
-            this.vm.$onInit();
-            this.vm.restoreProfile();
-        });
+        it('should redirect to the home page', function() {
+            this.vm.goToHome();
 
-        it('should open loading modal', function() {
-            expect(this.loadingModalService.open).toHaveBeenCalled();
-        });
-
-        it('should reload the state', function() {
-            expect(this.$state.go).toHaveBeenCalledWith('openlmis.profile.basicInformation', undefined, {
-                reload: true
-            });
-        });
-
-        it('should show a notification', function() {
-            expect(this.notificationService.success).toHaveBeenCalledWith('openlmisUser.cancel.restoreSuccessful');
+            expect(this.$state.go).toHaveBeenCalledWith('openlmis.home');
         });
 
     });

@@ -10,8 +10,6 @@
     "openlmisUser.profile": "Profile",
     "openlmisUser.roleAssignments": "Role Assignments",
     "openlmisUser.cancel": "Cancel",
-    "openlmisUser.cancel.restoreSuccessful": "Basic information restored successfully",
-    "openlmisUser.cancel.restoreFailed": "Failed to restore basic information",
     "openlmisUser.updateProfile": "Update Profile",
     "openlmisUser.updateProfile.updateSuccessful": "Basic information updated successfully",
     "openlmisUser.updateProfile.updateFailed": "Failed to update basic information",
