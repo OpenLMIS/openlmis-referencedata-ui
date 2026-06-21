@@ -167,7 +167,9 @@ describe('referencedata-quantity-unit run', function() {
         });
 
         it('should resolve (not block login) when the user has no home facility', function() {
-            currentUserService.getUserInfo.andReturn($q.when({ id: 'user-1' }));
+            currentUserService.getUserInfo.andReturn($q.when({
+                id: 'user-1'
+            }));
 
             var resolved = false;
             getLastCallArg(loginServiceSpy.registerPostLoginAction)().then(function() {
@@ -198,7 +200,9 @@ describe('referencedata-quantity-unit run', function() {
     describe('post login action (offline)', function() {
 
         beforeEach(function() {
-            setUp({ offline: true });
+            setUp({
+                offline: true
+            });
         });
 
         it('should fall back to the cached home facility and NOT fetch fresh or hit the server',
