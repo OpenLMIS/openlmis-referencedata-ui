@@ -13,6 +13,10 @@
  * http://www.gnu.org/licenses.  For additional information contact info@OpenLMIS.org. 
  */
 
+function getLastCallArg(method) {
+    return method.calls[method.calls.length - 1].args[0];
+}
+
 describe('referencedata-quantity-unit run', function() {
 
     var loginServiceSpy, facilityFactory, quantityUnitConfigService, authorizationService,
@@ -67,10 +71,6 @@ describe('referencedata-quantity-unit run', function() {
                 }
             ));
         });
-    }
-
-    function getLastCallArg(method) {
-        return method.calls[method.calls.length - 1].args[0];
     }
 
     function triggerLogin() {
