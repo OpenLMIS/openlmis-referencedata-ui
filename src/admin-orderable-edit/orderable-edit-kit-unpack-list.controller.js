@@ -30,15 +30,34 @@
 
     controller.$inject = [
         'selectProductsModalService', 'orderable', 'children', 'OrderableResource', 'orderablesMap',
-        'FunctionDecorator', 'stateTrackerService'
+        'FunctionDecorator', 'stateTrackerService', 'JAVA_INTEGER_MAX', '$scope'
     ];
 
     function controller(selectProductsModalService, orderable, children, OrderableResource, orderablesMap,
-                        FunctionDecorator, stateTrackerService) {
+                        FunctionDecorator, stateTrackerService, JAVA_INTEGER_MAX, $scope) {
 
         var vm = this;
 
         vm.$onInit = onInit;
+        vm.JAVA_INTEGER_MAX = JAVA_INTEGER_MAX;
+
+        $scope.$watch(function() {
+            return vm.children && vm.children.map(function(c) {
+                return c.quantity;
+            });
+        }, function(quantities) {
+            if (!quantities || !vm.children) {
+                return;
+            }
+            vm.children.forEach(function(child) {
+                if (!child.$errors) {
+                    child.$errors = {};
+                }
+                child.$errors.quantityTooLarge = (child.quantity !== null && child.quantity > JAVA_INTEGER_MAX)
+                    ? 'adminOrderableEdit.quantityTooLarge'
+                    : null;
+            });
+        }, true);
         vm.goToOrderableList = goToOrderableList;
         vm.addChild = addChild;
         vm.removeChild = removeChild;

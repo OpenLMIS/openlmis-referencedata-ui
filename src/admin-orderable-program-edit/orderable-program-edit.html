@@ -17,12 +17,12 @@
                             {{'adminOrderableProgram.fullSupply' | message}}
                         </label>
                         <label for="dosesPerPatient">{{'adminOrderableProgram.dosesPerPatient' | message}}</label>
-                        <input positive-integer type="text" id="dosesPerPatient" ng-model="vm.programOrderable.dosesPerPatient"></input>
+                        <input positive-integer java-integer type="text" id="dosesPerPatient" ng-model="vm.programOrderable.dosesPerPatient"></input>
                         <label for="orderableDisplayCategory">{{'adminOrderableProgram.orderableDisplayCategory' | message}}</label>
                         <select id="orderableDisplayCategory" ng-model="vm.programOrderable.orderableDisplayCategoryId"
                         ng-options="item.id as item.displayName for item in vm.orderableDisplayCategories" required></select>
                         <label for="displayOrder">{{'adminOrderableProgram.displayOrder' | message}}</label>
-                        <input positive-integer type="text" id="displayOrder" ng-model="vm.programOrderable.displayOrder"></input>
+                        <input positive-integer java-integer type="text" id="displayOrder" ng-model="vm.programOrderable.displayOrder"></input>
                         <label for="pricePerPack">{{'adminOrderableProgram.pricePerPack' | message}}</label>
                         <input positive-decimal type="text" id="pricePerPack" ng-model="vm.programOrderable.pricePerPack"></input>
                     </fieldset>
