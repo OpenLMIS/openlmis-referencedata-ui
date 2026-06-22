@@ -4,6 +4,7 @@
 5.6.19 / 2026-06-09
 ==================
 Improvements:
+* [OLMIS-8238](https://openlmis.atlassian.net/browse/OLMIS-8238): Configure facility packs/doses display mode.
 * [OLMIS-8219](https://openlmis.atlassian.net/browse/OLMIS-8219): Vertically align logout button and language picker in navbar
 * [OLMIS-8217](https://openlmis.atlassian.net/browse/OLMIS-8217): Improve home facility alerts panel UI and functionality. 
   * Display actual facility name instead of `My Facility data`
