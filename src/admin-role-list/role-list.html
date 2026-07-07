@@ -15,7 +15,7 @@
         <tr ng-repeat="role in vm.rolesPage">
             <td>{{role.name}}</td>
             <td>{{role.rights[0].type | roleType}}</td>
-            <td>{{role.description}}</td>
+            <td><span class="openlmis-long-text">{{role.description}}</span></td>
             <td>{{role.count}}</td>
             <td>
                 <a ui-sref=".createUpdate({roleId: role.id})">{{'adminRoleList.edit' | message}}</a>

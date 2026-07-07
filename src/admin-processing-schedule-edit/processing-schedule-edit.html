@@ -50,7 +50,7 @@
                         <tbody>
                             <tr ng-repeat="period in vm.processingPeriods">
                                 <td>{{period.name}}</td>
-                                <td>{{period.description}}</td>
+                                <td><span class="openlmis-long-text">{{period.description}}</span></td>
                                 <td>{{period.startDate | openlmisDate}}</td>
                                 <td>{{period.endDate | openlmisDate}}</td>
                                 <td>

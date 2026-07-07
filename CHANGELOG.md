@@ -1,5 +1,6 @@
 5.6.20-SNAPSHOT (WIP)
 ==================
+* [OLMIS-8191](https://openlmis.atlassian.net/browse/OLMIS-8191): Wrap long read-only text in admin lists — the System Notifications message (previously cropped), and Role/Product/Processing period descriptions.
 
 5.6.19 / 2026-06-09
 ==================

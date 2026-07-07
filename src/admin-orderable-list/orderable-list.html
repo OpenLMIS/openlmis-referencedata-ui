@@ -35,7 +35,7 @@
             <tr ng-repeat="orderable in vm.orderables">
                 <td>{{orderable.productCode}}</td>
                 <td>{{orderable.fullProductName}}</td>
-                <td>{{orderable.description}}</td>
+                <td><span class="openlmis-long-text">{{orderable.description}}</span></td>
                 <td>
                     <button ui-sref=".edit.general({id: orderable.id})">{{'adminOrderableList.edit' | message}}</button>
                 </td>
