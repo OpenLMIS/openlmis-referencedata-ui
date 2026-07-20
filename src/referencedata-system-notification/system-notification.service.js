@@ -47,31 +47,61 @@
          * @name getSystemNotifications
          *
          * @description
-         * Retrieves notifications and saves them in the local storage.
+         * Retrieves notifications and saves them in the local storage. The cached list is
+         * filtered by the current active window on every call, so notifications that have
+         * expired (or are not yet active) since they were cached stop being returned without
+         * requiring the user to log in again.
          *
-         * @return {Object}        Array of system notifications
+         * @return {Object}        Array of currently displayed system notifications
          */
         function getSystemNotifications() {
-            if (systemNotificationsPromise) {
-                return systemNotificationsPromise;
+            if (!systemNotificationsPromise) {
+                var cachedNotifications = localStorageService.get(SYSTEM_NOTIFICATIONS);
+
+                if (cachedNotifications && cachedNotifications.length) {
+                    systemNotificationsPromise = $q.resolve(angular.fromJson(cachedNotifications));
+                } else {
+                    systemNotificationsPromise = new SystemNotificationResource().query({
+                        isDisplayed: true,
+                        expand: 'author'
+                    })
+                        .then(function(systemNotifications) {
+                            cacheSystemNotification(systemNotifications);
+                            return systemNotifications.content;
+                        });
+                }
             }
 
-            var cachedNotifications = localStorageService.get(SYSTEM_NOTIFICATIONS);
+            return systemNotificationsPromise.then(function(notifications) {
+                return notifications.filter(isCurrentlyDisplayed);
+            });
+        }
 
-            if (cachedNotifications && cachedNotifications.length) {
-                systemNotificationsPromise = $q.resolve(angular.fromJson(cachedNotifications));
-            } else {
-                systemNotificationsPromise = new SystemNotificationResource().query({
-                    isDisplayed: true,
-                    expand: 'author'
-                })
-                    .then(function(systemNotifications) {
-                        cacheSystemNotification(systemNotifications);
-                        return $q.resolve(systemNotifications.content);
-                    });
+        /**
+         * @ngdoc method
+         * @methodOf systemNotification.systemNotificationService
+         * @name isCurrentlyDisplayed
+         *
+         * @description
+         * Decides whether a system notification should be displayed at the current moment.
+         * Mirrors the server-side rule used by the referencedata service when querying with
+         * isDisplayed=true: the notification must be active and the current time must fall
+         * within its (inclusive) start/expiry window. A missing start or expiry date means
+         * that boundary is open-ended.
+         *
+         * @param  {Object}  notification  the system notification to check
+         * @return {Boolean}               true if the notification should currently be shown
+         */
+        function isCurrentlyDisplayed(notification) {
+            if (!notification.active) {
+                return false;
             }
 
-            return systemNotificationsPromise;
+            var now = new Date();
+            var hasStarted = !notification.startDate || new Date(notification.startDate) <= now;
+            var notExpired = !notification.expiryDate || new Date(notification.expiryDate) >= now;
+
+            return hasStarted && notExpired;
         }
 
         /**
