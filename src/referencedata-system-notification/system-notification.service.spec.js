@@ -32,8 +32,12 @@ describe('systemNotificationService', function() {
         this.localStorageKey = 'systemNotifications';
 
         this.systemNotifications = [
-            new this.SystemNotificationDataBuilder().build(),
-            new this.SystemNotificationDataBuilder().build()
+            new this.SystemNotificationDataBuilder()
+                .withoutExpiryDate()
+                .build(),
+            new this.SystemNotificationDataBuilder()
+                .withoutExpiryDate()
+                .build()
         ];
 
         this.systemNotificationsPage = new this.PageDataBuilder()
@@ -97,6 +101,80 @@ describe('systemNotificationService', function() {
             this.$rootScope.$apply();
 
             expect(rejected).toEqual(true);
+        });
+
+        it('should not return inactive notifications', function() {
+            var active = new this.SystemNotificationDataBuilder()
+                .withoutExpiryDate()
+                .build();
+            var inactive = new this.SystemNotificationDataBuilder()
+                .withoutExpiryDate()
+                .inactive()
+                .build();
+
+            this.SystemNotificationResource.prototype.query.andReturn(this.$q.resolve(
+                new this.PageDataBuilder()
+                    .withContent([active, inactive])
+                    .build()
+            ));
+
+            var result;
+            this.systemNotificationService.getSystemNotifications()
+                .then(function(notifications) {
+                    result = notifications;
+                });
+            this.$rootScope.$apply();
+
+            expect(result).toEqual([active]);
+        });
+
+        it('should not return notifications that have already expired', function() {
+            var displayed = new this.SystemNotificationDataBuilder()
+                .withoutExpiryDate()
+                .build();
+            var expired = new this.SystemNotificationDataBuilder()
+                .withExpiryDate('2000-01-01T00:00:00.000Z')
+                .build();
+
+            this.SystemNotificationResource.prototype.query.andReturn(this.$q.resolve(
+                new this.PageDataBuilder()
+                    .withContent([displayed, expired])
+                    .build()
+            ));
+
+            var result;
+            this.systemNotificationService.getSystemNotifications()
+                .then(function(notifications) {
+                    result = notifications;
+                });
+            this.$rootScope.$apply();
+
+            expect(result).toEqual([displayed]);
+        });
+
+        it('should not return notifications that have not started yet', function() {
+            var displayed = new this.SystemNotificationDataBuilder()
+                .withoutExpiryDate()
+                .build();
+            var notStarted = new this.SystemNotificationDataBuilder()
+                .withoutExpiryDate()
+                .withStartDate('2999-01-01T00:00:00.000Z')
+                .build();
+
+            this.SystemNotificationResource.prototype.query.andReturn(this.$q.resolve(
+                new this.PageDataBuilder()
+                    .withContent([displayed, notStarted])
+                    .build()
+            ));
+
+            var result;
+            this.systemNotificationService.getSystemNotifications()
+                .then(function(notifications) {
+                    result = notifications;
+                });
+            this.$rootScope.$apply();
+
+            expect(result).toEqual([displayed]);
         });
 
     });
