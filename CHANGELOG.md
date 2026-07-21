@@ -4,6 +4,7 @@ Bug fixes:
 * [OLMIS-7247](https://openlmis.atlassian.net/browse/OLMIS-7247): Fixed system notifications not refreshing without re-login.
   * Clear the cached notifications after creating/editing a notification so the home page banner and indicator update immediately.
   * Filter the cached list by the current active window on every read so expired or deactivated notifications stop being displayed without logging out.
+  * Refresh the notifications indicator on navigation so its count stays consistent with the home page (an expired notification stops being counted without a reload).
 
 5.6.19 / 2026-06-09
 ==================
