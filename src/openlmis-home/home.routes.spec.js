@@ -47,6 +47,7 @@ describe('openlmis.home route', function() {
                         .withLastName('Admin')
                         .build()
                 )
+                .withoutExpiryDate()
                 .build(),
             new this.SystemNotificationDataBuilder()
                 .withAuthor(
@@ -54,6 +55,7 @@ describe('openlmis.home route', function() {
                         .withId(this.users[1].id)
                         .build()
                 )
+                .withoutExpiryDate()
                 .build(),
             new this.SystemNotificationDataBuilder()
                 .withAuthor(
@@ -61,6 +63,7 @@ describe('openlmis.home route', function() {
                         .withId(this.users[1].id)
                         .build()
                 )
+                .withoutExpiryDate()
                 .build(),
             new this.SystemNotificationDataBuilder()
                 .withAuthor(
@@ -68,6 +71,7 @@ describe('openlmis.home route', function() {
                         .withId(this.users[0].id)
                         .build()
                 )
+                .withoutExpiryDate()
                 .build()
         ];
 

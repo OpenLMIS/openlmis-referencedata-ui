@@ -30,6 +30,7 @@ describe('AdminSystemNotificationEditController', function() {
             this.$q = $injector.get('$q');
             this.$rootScope = $injector.get('$rootScope');
             this.$state = $injector.get('$state');
+            this.systemNotificationService = $injector.get('systemNotificationService');
         });
 
         this.author = new this.UserDataBuilder().buildReferenceDataUserJson();
@@ -40,6 +41,7 @@ describe('AdminSystemNotificationEditController', function() {
         spyOn(this.SystemNotificationResource.prototype, 'create').andReturn(this.$q.resolve(this.systemNotification));
         spyOn(this.SystemNotificationResource.prototype, 'update').andReturn(this.$q.resolve(this.systemNotification));
         spyOn(this.$state, 'go').andReturn();
+        spyOn(this.systemNotificationService, 'clearCachedSystemNotifications');
 
         this.initController = function() {
             this.vm = this.$controller('AdminSystemNotificationEditController', {
@@ -126,6 +128,23 @@ describe('AdminSystemNotificationEditController', function() {
             expect(this.$state.go).toHaveBeenCalledWith('.^', {}, {
                 reload: true
             });
+        });
+
+        it('should clear the cached system notifications on success', function() {
+            this.initController();
+            this.vm.saveSystemNotification();
+            this.$rootScope.$apply();
+
+            expect(this.systemNotificationService.clearCachedSystemNotifications).toHaveBeenCalled();
+        });
+
+        it('should not clear the cached system notifications when saving fails', function() {
+            this.SystemNotificationResource.prototype.update.andReturn(this.$q.reject());
+            this.initController();
+            this.vm.saveSystemNotification();
+            this.$rootScope.$apply();
+
+            expect(this.systemNotificationService.clearCachedSystemNotifications).not.toHaveBeenCalled();
         });
 
     });

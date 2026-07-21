@@ -1,7 +1,11 @@
 5.6.20-SNAPSHOT (WIP)
 ==================
-* [OLMIS-8191](https://openlmis.atlassian.net/browse/OLMIS-8191): Wrap long read-only text in admin lists — the System Notifications message (previously cropped), and Role/Product/Processing period descriptions.
 
+Bug fixes:
+* [OLMIS-7247](https://openlmis.atlassian.net/browse/OLMIS-7247): Fixed system notifications not refreshing without re-login.
+  * Clear the cached notifications after creating/editing a notification so the home page banner and indicator update immediately.
+  * Filter the cached list by the current active window on every read so expired or deactivated notifications stop being displayed without logging out.
+* [OLMIS-8191](https://openlmis.atlassian.net/browse/OLMIS-8191): Wrap long read-only text in admin lists — the System Notifications message (previously cropped), and Role/Product/Processing period descriptions.
 5.6.19 / 2026-06-09
 ==================
 Improvements:
