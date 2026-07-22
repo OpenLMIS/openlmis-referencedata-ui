@@ -19,6 +19,7 @@ jobs:
           docker compose run --rm --entrypoint /dev-ui/build.sh referencedata-ui
       - name: Normalize lcov source paths
         run: |
+          sudo chown -R "$(id -u):$(id -g)" build
           mkdir -p build/sonar
           cp build/test/coverage/*/lcov.info build/sonar/lcov.info
           sed -i 's#/app/\.tmp/javascript/src/#src/#g; s#\.tmp/javascript/src/#src/#g' build/sonar/lcov.info
