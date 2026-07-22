@@ -36,7 +36,7 @@
                 <td>{{systemNotification.createdDate | openlmisDate}}</td>
                 <td><openlmis-ok-icon show="systemNotification.active"></openlmis-ok-icon></td>
                 <td><openlmis-ok-icon show="systemNotification.isDisplayed"></openlmis-ok-icon></td>
-                <td class="crop-long-text">{{systemNotification.message}}</td>
+                <td><span class="openlmis-long-text">{{systemNotification.message}}</span></td>
                 <td>
                     <button class="primary"
                         ui-sref=".edit({id: systemNotification.id})">{{'adminSystemNotificationList.edit' | message}}</button>
