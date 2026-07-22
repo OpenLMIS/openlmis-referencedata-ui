@@ -28,15 +28,24 @@
         .module('openlmis-system-notifications-indicator')
         .controller('SystemNotificationsIndicatorController', controller);
 
-    controller.$inject = ['offlineService', 'systemNotificationService'];
+    controller.$inject = ['offlineService', 'systemNotificationService', '$rootScope'];
 
-    function controller(offlineService, systemNotificationService) {
+    function controller(offlineService, systemNotificationService, $rootScope) {
 
         var vm = this;
 
         vm.$onInit = onInit;
 
         function onInit() {
+            refreshSystemNotifications();
+
+            // Re-read the notifications on every navigation so the indicator stays consistent
+            // with the home page - notifications that expired during the session stop being
+            // counted without requiring a full page reload or re-login.
+            $rootScope.$on('$stateChangeSuccess', refreshSystemNotifications);
+        }
+
+        function refreshSystemNotifications() {
             if (!offlineService.isOffline()) {
                 return systemNotificationService.getSystemNotifications()
                     .then(function(results) {
