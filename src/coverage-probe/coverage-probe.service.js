@@ -31,21 +31,21 @@
     function coverageProbeService() {
         return {
             add: add,
-            classify: classify
+            subtract: subtract
         };
 
         function add(a, b) {
-            return a + b;
+            if (a > b) {
+                return a + b;
+            }
+            return b + a;
         }
 
-        function classify(value) {
-            if (value > 0) {
-                return 'positive';
+        function subtract(a, b) {
+            if (a > b) {
+                return a - b;
             }
-            if (value < 0) {
-                return 'negative';
-            }
-            return 'zero';
+            return b - a;
         }
     }
 

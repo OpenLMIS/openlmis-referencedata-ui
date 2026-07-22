@@ -23,14 +23,9 @@ describe('coverageProbeService', function() {
         });
     });
 
-    it('should add two numbers', function() {
+    it('should add two numbers in both branches', function() {
+        expect(this.coverageProbeService.add(3, 2)).toBe(5);
         expect(this.coverageProbeService.add(2, 3)).toBe(5);
-    });
-
-    it('should classify positive, negative and zero values', function() {
-        expect(this.coverageProbeService.classify(5)).toBe('positive');
-        expect(this.coverageProbeService.classify(-5)).toBe('negative');
-        expect(this.coverageProbeService.classify(0)).toBe('zero');
     });
 
 });
