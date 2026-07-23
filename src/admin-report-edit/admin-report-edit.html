@@ -41,14 +41,17 @@
           </fieldset>
           <fieldset class="form-group" ng-if="vm.report.type === vm.REPORT_TYPES.SUPERSET">
             <label for="embeddedUuid">{{:: 'adminReportEdit.embeddedUuid' | message}}</label>
-            <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('supersetField')}">
+            <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('supersetField') || vm.invalidFields.has('embeddedUuidFormat')}">
               <input type="text" id="embeddedUuid" style="width: 100%" ng-model="vm.report.embeddedUuid"
                 ng-change="vm.validateSupersetFields()" />
             </div>
+            <ul class="openlmis-invalid" ng-if="vm.invalidFields.has('embeddedUuidFormat')">
+              <li>{{'adminReportEdit.embeddedUuidInvalid' | message}}</li>
+            </ul>
           </fieldset>
           <fieldset class="form-group">
             <label for="URL" ng-class="{'is-required': vm.report.type !== vm.REPORT_TYPES.SUPERSET}">{{:: 'adminReportEdit.URL' | message}}</label>
-            <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('url')}">
+            <div class="input-control" ng-class="{'is-invalid': vm.invalidFields.has('url') || vm.invalidFields.has('supersetField')}">
               <input type="text" id="URL" style="width: 100%" ng-model="vm.report.url"
                 ng-change="vm.validateField(vm.report.url, 'url'); vm.validateSupersetFields()" />
             </div>
@@ -56,6 +59,10 @@
               <li>{{'adminReportEdit.fieldRequired' | message}}</li>
             </ul>
           </fieldset>
+          <p class="superset-field-hint"
+             ng-if="vm.report.type === vm.REPORT_TYPES.SUPERSET && !vm.invalidFields.has('supersetField')">
+            {{:: 'adminReportEdit.supersetFieldHint' | message}}
+          </p>
           <ul class="openlmis-invalid" ng-if="vm.invalidFields.has('supersetField')">
             <li>{{'adminReportEdit.supersetFieldRequired' | message}}</li>
           </ul>

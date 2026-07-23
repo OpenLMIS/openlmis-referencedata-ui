@@ -25,6 +25,8 @@
      */
     angular.module('openlmis-home-page-report', [
         'report-dashboard',
-        'openlmis-superset'
+        'openlmis-superset',
+        'openlmis-urls',
+        'openlmis-i18n'
     ]);
 })();

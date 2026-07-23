@@ -35,6 +35,9 @@
                                   stateTrackerService, reportsList) {
         var vm = this;
 
+        // Standard 8-4-4-4-12 hexadecimal UUID (Superset embedded dashboard id).
+        var UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
         vm.$onInit = onInit;
         vm.confirmEdit = confirmEdit;
         vm.validateField = validateField;
@@ -180,6 +183,7 @@
                 } else {
                     vm.invalidFields.delete('supersetField');
                 }
+                validateEmbeddedUuidFormat();
             } else {
                 validateField(vm.report.url, 'url');
             }
@@ -193,6 +197,15 @@
                     vm.invalidFields.delete('supersetField');
                     vm.invalidFields.delete('url');
                 }
+                validateEmbeddedUuidFormat();
+            }
+        }
+
+        function validateEmbeddedUuidFormat() {
+            if (vm.report.embeddedUuid && !UUID_REGEX.test(vm.report.embeddedUuid)) {
+                vm.invalidFields.add('embeddedUuidFormat');
+            } else {
+                vm.invalidFields.delete('embeddedUuidFormat');
             }
         }
 
@@ -201,6 +214,8 @@
             vm.invalidFields.delete('supersetField');
             if (vm.report.type === REPORT_TYPES.SUPERSET) {
                 vm.invalidFields.delete('url');
+            } else {
+                vm.invalidFields.delete('embeddedUuidFormat');
             }
         }
 
