@@ -163,6 +163,27 @@ describe('ReportEditController', function() {
             expect(this.vm.invalidFields.has('supersetField')).toBe(true);
             expect(this.vm.invalidFields.has('url')).toBe(true);
         });
+
+        it('should flag a malformed embeddedUuid as the user types', function() {
+            this.vm.report.url = '';
+            this.vm.report.embeddedUuid = 'nope';
+
+            this.vm.validateSupersetFields();
+
+            expect(this.vm.invalidFields.has('embeddedUuidFormat')).toBe(true);
+        });
+
+        it('should clear the format error once the embeddedUuid becomes valid', function() {
+            this.vm.report.embeddedUuid = 'nope';
+            this.vm.validateSupersetFields();
+
+            expect(this.vm.invalidFields.has('embeddedUuidFormat')).toBe(true);
+
+            this.vm.report.embeddedUuid = '7f4258e8-037c-4b27-b44f-367efc243309';
+            this.vm.validateSupersetFields();
+
+            expect(this.vm.invalidFields.has('embeddedUuidFormat')).toBe(false);
+        });
     });
 
     describe('onTypeChange', function() {
@@ -278,11 +299,11 @@ describe('ReportEditController', function() {
             expect(this.reportDashboardService.edit).toHaveBeenCalled();
         });
 
-        it('should pass validation for SUPERSET when only embeddedUuid is provided', function() {
+        it('should pass validation for SUPERSET when only a valid embeddedUuid is provided', function() {
             setReport(this.vm, {
                 type: this.REPORT_TYPES.SUPERSET,
                 url: '',
-                embeddedUuid: 'abc-uuid'
+                embeddedUuid: '7f4258e8-037c-4b27-b44f-367efc243309'
             });
 
             this.vm.confirmEdit();
@@ -290,6 +311,7 @@ describe('ReportEditController', function() {
 
             expect(this.vm.invalidFields.has('supersetField')).toBe(false);
             expect(this.vm.invalidFields.has('url')).toBe(false);
+            expect(this.vm.invalidFields.has('embeddedUuidFormat')).toBe(false);
             expect(this.reportDashboardService.edit).toHaveBeenCalled();
         });
 
@@ -297,7 +319,7 @@ describe('ReportEditController', function() {
             setReport(this.vm, {
                 type: this.REPORT_TYPES.SUPERSET,
                 url: 'https://example.org/dashboard',
-                embeddedUuid: 'abc-uuid'
+                embeddedUuid: '7f4258e8-037c-4b27-b44f-367efc243309'
             });
             this.vm.invalidFields.add('supersetField');
 
@@ -305,6 +327,36 @@ describe('ReportEditController', function() {
             this.$rootScope.$apply();
 
             expect(this.vm.invalidFields.has('supersetField')).toBe(false);
+        });
+
+        it('should reject a malformed embeddedUuid and not save', function() {
+            setReport(this.vm, {
+                type: this.REPORT_TYPES.SUPERSET,
+                url: '',
+                embeddedUuid: 'not-a-uuid'
+            });
+
+            this.vm.confirmEdit();
+            this.$rootScope.$apply();
+
+            expect(this.vm.invalidFields.has('embeddedUuidFormat')).toBe(true);
+            expect(this.vm.invalidFields.has('supersetField')).toBe(false);
+            expect(this.reportDashboardService.edit).not.toHaveBeenCalled();
+        });
+
+        it('should accept a valid embeddedUuid alongside a URL without a format error', function() {
+            setReport(this.vm, {
+                type: this.REPORT_TYPES.SUPERSET,
+                url: 'https://example.org/dashboard',
+                embeddedUuid: 'not-a-uuid'
+            });
+
+            this.vm.confirmEdit();
+            this.$rootScope.$apply();
+
+            // Even though a URL is present, a malformed UUID must still block the save.
+            expect(this.vm.invalidFields.has('embeddedUuidFormat')).toBe(true);
+            expect(this.reportDashboardService.edit).not.toHaveBeenCalled();
         });
 
         it('should require URL when type is not SUPERSET', function() {

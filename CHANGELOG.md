@@ -1,5 +1,8 @@
 5.6.20-SNAPSHOT (WIP)
 ==================
+Improvements:
+* [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Superset embedding improvements
+
 Bug fixes:
 * [OLMIS-7247](https://openlmis.atlassian.net/browse/OLMIS-7247): Fixed system notifications not refreshing without re-login.
   * Clear the cached notifications after creating/editing a notification so the home page banner and indicator update immediately.

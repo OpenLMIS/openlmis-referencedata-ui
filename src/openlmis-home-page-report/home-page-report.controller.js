@@ -21,17 +21,21 @@
      * @ngdoc controller
      * @name openlmis-home-page-report.controller:OpenlmisHomePageReportController
      * @description
-     * Manages the openlmis-home-page-report component
+     * Manages the openlmis-home-page-report component. Superset reports with an embedded UUID
+     * render via the Embedded SDK (guest token); others fall back to the legacy iframe.
      */
     angular
         .module('openlmis-home-page-report')
         .controller('OpenlmisHomePageReportController', OpenlmisHomePageReportController);
 
     OpenlmisHomePageReportController.$inject = ['reportDashboardService', 'offlineService', '$sce',
-        'supersetOAuthService', '$rootScope', '$state', 'REPORT_TYPES'];
+        'supersetOAuthService', '$rootScope', '$state', 'REPORT_TYPES', '$http', '$q', '$element',
+        '$scope', 'SUPERSET_URL', 'openlmisUrlFactory', 'messageService'];
 
-    function OpenlmisHomePageReportController(reportDashboardService, offlineService, $sce, supersetOAuthService,
-                                              $rootScope, $state, REPORT_TYPES) {
+    function OpenlmisHomePageReportController(reportDashboardService, offlineService, $sce,
+                                              supersetOAuthService, $rootScope, $state, REPORT_TYPES,
+                                              $http, $q, $element, $scope, SUPERSET_URL,
+                                              openlmisUrlFactory, messageService) {
 
         var vm = this;
         vm.$onInit = onInit;
@@ -65,9 +69,42 @@
          * @type {boolean}
          *
          * @description
-         * Indicates if the controller is ready for iframe.
+         * Indicates if the controller is ready for the legacy iframe.
          */
         vm.isAuthorized = false;
+
+        /**
+         * @ngdoc property
+         * @propertyOf openlmis-home-page-report.controller:OpenlmisHomePageReportController
+         * @name isEmbedded
+         * @type {boolean}
+         *
+         * @description
+         * Indicates the report is a Superset report rendered via the Embedded SDK.
+         */
+        vm.isEmbedded = false;
+
+        /**
+         * @ngdoc property
+         * @propertyOf openlmis-home-page-report.controller:OpenlmisHomePageReportController
+         * @name isReady
+         * @type {boolean}
+         *
+         * @description
+         * Indicates the embedded dashboard has been initialized and is ready to display.
+         */
+        vm.isReady = false;
+
+        /**
+         * @ngdoc property
+         * @propertyOf openlmis-home-page-report.controller:OpenlmisHomePageReportController
+         * @name error
+         * @type {string}
+         *
+         * @description
+         * Error message to display if embedding fails.
+         */
+        vm.error = undefined;
 
         /**
          * @ngdoc method
@@ -81,17 +118,28 @@
             vm.isOffline = offlineService.isOffline();
 
             reportDashboardService.getHomePageReport().then(function(report) {
-                if (report.content[0]) {
-                    vm.report = report.content[0];
+                if (!report.content[0]) {
+                    return;
+                }
+                vm.report = report.content[0];
+
+                if (vm.report.type !== REPORT_TYPES.SUPERSET) {
                     vm.report.url = $sce.trustAsResourceUrl(vm.report.url);
+                    vm.isAuthorized = true;
+                    return;
+                }
 
-                    if (vm.report.type !== REPORT_TYPES.SUPERSET) {
-                        vm.isAuthorized = true;
+                if (vm.report.embeddedUuid) {
+                    vm.isEmbedded = true;
+                    if (!vm.isOffline) {
+                        initSupersetEmbed();
                     }
+                    return;
+                }
 
-                    if (!vm.isOffline && vm.report.type === REPORT_TYPES.SUPERSET) {
-                        checkAuthorizationInSuperset();
-                    }
+                vm.report.url = $sce.trustAsResourceUrl(vm.report.url);
+                if (!vm.isOffline) {
+                    checkAuthorizationInSuperset();
                 }
             });
         }
@@ -107,6 +155,74 @@
                     if (data.isAuthorized === true) {
                         vm.isAuthorized = true;
                     }
+                });
+        }
+
+        function initSupersetEmbed() {
+            loadSupersetSdk().then(function(sdk) {
+                var container = $element[0].querySelector('#home-page-superset-embed-container');
+                if (!container) {
+                    vm.error = messageService.get('openlmisHomePageReport.embed.containerNotFound');
+                    $scope.$applyAsync();
+                    return;
+                }
+                sdk.embedDashboard({
+                    id: vm.report.embeddedUuid,
+                    supersetDomain: SUPERSET_URL,
+                    mountPoint: container,
+                    fetchGuestToken: fetchGuestToken,
+                    dashboardUiConfig: {
+                        hideTitle: true,
+                        hideChartControls: false,
+                        hideTab: false,
+                        filters: {
+                            visible: true,
+                            expanded: false
+                        }
+                    }
+                }).then(function() {
+                    vm.isReady = true;
+                    $scope.$applyAsync();
+                })
+                    .catch(function(err) {
+                        vm.error = messageService.get('openlmisHomePageReport.embed.failed', {
+                            error: err.message
+                        });
+                        $scope.$applyAsync();
+                    });
+            })
+                .catch(function(err) {
+                    vm.error = messageService.get('openlmisHomePageReport.sdk.failed', {
+                        error: err.message
+                    });
+                    $scope.$applyAsync();
+                });
+        }
+
+        function loadSupersetSdk() {
+            if (window.supersetEmbeddedSdk) {
+                return $q.resolve(window.supersetEmbeddedSdk);
+            }
+            return $http.get(SUPERSET_URL + '/static/superset-embedded-sdk.js', {
+                transformResponse: function(data) {
+                    return data;
+                }
+            }).then(function(response) {
+                new Function(response.data)();
+                if (window.supersetEmbeddedSdk) {
+                    return window.supersetEmbeddedSdk;
+                }
+                throw new Error('Superset Embedded SDK failed to initialize');
+            });
+        }
+
+        function fetchGuestToken() {
+            var url = openlmisUrlFactory(
+                '/api/reports/superset/guest-token?embeddedUuid=' + vm.report.embeddedUuid
+            );
+            return $http.get(url)
+                .then(function(response) {
+                    return response.data.token;
                 });
         }
     }
