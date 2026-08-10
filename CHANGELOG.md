@@ -6,6 +6,9 @@ Bug fixes:
   * Filter the cached list by the current active window on every read so expired or deactivated notifications stop being displayed without logging out.
   * Refresh the notifications indicator on navigation so its count stays consistent with the home page (an expired notification stops being counted without a reload).
 
+Improvements:
+* [OPSD-107](https://openlmis.atlassian.net/browse/OPSD-107): Show cancelled orders in the home page order info panel.
+
 5.6.19 / 2026-06-09
 ==================
 Improvements:

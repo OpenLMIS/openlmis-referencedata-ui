@@ -63,7 +63,7 @@
             ];
             var orderOrder = [
                 'CREATING', 'ORDERED', 'FULFILLING', 'READY_TO_PACK',
-                'SHIPPED', 'IN_ROUTE', 'RECEIVED', 'TRANSFER_FAILED'
+                'SHIPPED', 'IN_ROUTE', 'RECEIVED', 'TRANSFER_FAILED', 'CANCELLED'
             ];
 
             var order = tableName === 'requisition' ? requisitionOrder : orderOrder;
