@@ -18,5 +18,6 @@
     "orders.status.SHIPPED": "Shipped",
     "orders.status.IN_ROUTE": "In Route",
     "orders.status.RECEIVED": "Received",
-    "orders.status.TRANSFER_FAILED": "Transfer Failed"
+    "orders.status.TRANSFER_FAILED": "Transfer Failed",
+    "orders.status.CANCELLED": "Cancelled"
 }

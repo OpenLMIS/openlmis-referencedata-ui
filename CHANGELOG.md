@@ -14,6 +14,9 @@ Improvements:
 * SonarCloud now receives JS unit-test coverage (lcov) so the quality gate reflects real coverage on new code.
 * Feed sonar.projectVersion from project.properties so SonarCloud's New Code baseline tracks releases.
 
+Improvements:
+* [OPSD-107](https://openlmis.atlassian.net/browse/OPSD-107): Show cancelled orders in the home page order info panel.
+
 5.6.19 / 2026-06-09
 ==================
 Improvements:
