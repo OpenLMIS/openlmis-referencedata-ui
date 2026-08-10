@@ -9,6 +9,7 @@ Bug fixes:
   * Filter the cached list by the current active window on every read so expired or deactivated notifications stop being displayed without logging out.
   * Refresh the notifications indicator on navigation so its count stays consistent with the home page (an expired notification stops being counted without a reload).
 * [OLMIS-8191](https://openlmis.atlassian.net/browse/OLMIS-8191): Wrap long read-only text in admin lists — the System Notifications message (previously cropped), and Role/Product/Processing period descriptions.
+* [OLMIS-8294](https://openlmis.atlassian.net/browse/OLMIS-8294): Fixed SonarCloud not picking up unit-test coverage. sonar-project.properties had no trailing newline, so the projectVersion build step appended onto the lcov report-path line and the scanner could not find the coverage report.
 
 Improvements:
 * SonarCloud now receives JS unit-test coverage (lcov) so the quality gate reflects real coverage on new code.
