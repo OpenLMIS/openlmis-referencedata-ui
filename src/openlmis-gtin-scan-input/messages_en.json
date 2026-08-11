@@ -1,0 +1,5 @@
+{
+    "openlmisGtinScanInput.gtinLookupFailed": "This barcode could not be checked against the product list. Scan it again.",
+    "openlmisGtinScanInput.gtinNotRegistered": "No product is registered with this barcode. Its GTIN must be registered before it can be scanned.",
+    "openlmisGtinScanInput.noGtin": "This barcode carries no product code. Enter this item manually."
+}
