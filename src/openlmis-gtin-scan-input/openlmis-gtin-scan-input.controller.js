@@ -70,13 +70,11 @@
             }
 
             return tradeItemService.getByGtin(scan.gtin)
+                .catch(function() {
+                    return $q.reject('openlmisGtinScanInput.gtinLookupFailed');
+                })
                 .then(function(tradeItem) {
                     return tradeItem || $q.reject('openlmisGtinScanInput.gtinNotRegistered');
-                })
-                .catch(function(rejection) {
-                    return $q.reject(angular.isString(rejection)
-                        ? rejection
-                        : 'openlmisGtinScanInput.gtinLookupFailed');
                 });
         }
     }

@@ -116,6 +116,15 @@ describe('OpenlmisGtinScanInputController', function() {
         expect(this.onScan).not.toHaveBeenCalled();
     });
 
+    it('should not show what the lookup rejected with as if it were a message', function() {
+        this.getByGtin.andReturn(this.$q.reject('Possibly sensitive internals'));
+
+        var outcome = this.resolve();
+
+        expect(outcome.rejection).toEqual('openlmisGtinScanInput.gtinLookupFailed');
+        expect(this.onScan).not.toHaveBeenCalled();
+    });
+
     it('should reject without looking up when the scan carries no gtin', function() {
         var outcome = this.resolve({
             lotCode: 'ABC123'
