@@ -16,19 +16,23 @@
 describe('scanResolutionService', function() {
 
     beforeEach(function() {
-        var scanResolutionService, resolutionError, $rootScope;
+        var scanResolutionService, resolutionError, confirmation, $rootScope, $q;
 
         module('openlmis-scan-resolution');
 
         inject(function($injector) {
             scanResolutionService = $injector.get('scanResolutionService');
             resolutionError = $injector.get('SCAN_RESOLUTION_ERROR');
+            confirmation = $injector.get('SCAN_CONFIRMATION');
             $rootScope = $injector.get('$rootScope');
+            $q = $injector.get('$q');
         });
 
         this.service = scanResolutionService;
         this.ERROR = resolutionError;
+        this.CONFIRMATION = confirmation;
         this.$rootScope = $rootScope;
+        this.$q = $q;
 
         this.tradeItem = {
             id: 'trade-item-id'
@@ -330,6 +334,133 @@ describe('scanResolutionService', function() {
             this.resolve(this.unknown);
 
             expect(this.strategy.countLine).not.toHaveBeenCalledWith(recorded);
+            expect(this.strategy.addLine).toHaveBeenCalled();
+        });
+    });
+
+    describe('acknowledging a scan', function() {
+
+        beforeEach(function() {
+            this.strategy.confirm = jasmine.createSpy('confirm').andReturn(this.$q.resolve());
+            this.strategy.allowsNewLot = true;
+        });
+
+        it('should ask before adding a batch with no record', function() {
+            var unknown = {
+                gtin: this.scan.gtin,
+                lotCode: 'NEWLOT1',
+                expirationDate: new Date(2027, 0, 30)
+            };
+
+            this.resolve(unknown);
+
+            expect(this.strategy.confirm).toHaveBeenCalled();
+            expect(this.strategy.confirm.mostRecentCall.args[0].reason)
+                .toEqual(this.CONFIRMATION.NEW_LOT);
+
+            expect(this.strategy.addLine).toHaveBeenCalled();
+        });
+
+        it('should ask when the label disagrees with the recorded expiry', function() {
+            this.lot.expirationDate = new Date(2028, 2, 31);
+
+            this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'ABC123',
+                expirationDate: new Date(2027, 0, 30)
+            });
+
+            expect(this.strategy.confirm.mostRecentCall.args[0].reason)
+                .toEqual(this.CONFIRMATION.EXPIRY_MISMATCH);
+
+            expect(this.strategy.addLine).toHaveBeenCalled();
+        });
+
+        it('should not ask when the label agrees with the recorded expiry', function() {
+            this.lot.expirationDate = new Date(2027, 0, 30);
+
+            this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'ABC123',
+                expirationDate: new Date(2027, 0, 30)
+            });
+
+            expect(this.strategy.confirm).not.toHaveBeenCalled();
+        });
+
+        /**
+         * A recorded expiry is a Date on a freshly loaded screen and a string once a draft has been
+         * through its cache. Both are the same date and must not be reported as a disagreement.
+         */
+        it('should not ask when the dates agree but are differently shaped', function() {
+            this.lot.expirationDate = '2027-01-30T00:00:00.000Z';
+
+            this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'ABC123',
+                expirationDate: new Date(2027, 0, 30)
+            });
+
+            expect(this.strategy.confirm).not.toHaveBeenCalled();
+        });
+
+        it('should not ask when the label carries no expiry', function() {
+            this.lot.expirationDate = new Date(2028, 2, 31);
+
+            this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'ABC123'
+            });
+
+            expect(this.strategy.confirm).not.toHaveBeenCalled();
+        });
+
+        it('should discard the scan when the user declines', function() {
+            var outcome;
+
+            this.strategy.confirm.andReturn(this.$q.reject());
+            this.lot.expirationDate = new Date(2028, 2, 31);
+
+            outcome = this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'ABC123',
+                expirationDate: new Date(2027, 0, 30)
+            });
+
+            expect(outcome.rejection).toEqual(this.ERROR.NOT_CONFIRMED);
+            expect(this.strategy.addLine).not.toHaveBeenCalled();
+            expect(this.strategy.countLine).not.toHaveBeenCalled();
+        });
+
+        it('should word a declined scan through the screen\'s messages', function() {
+            var outcome;
+
+            this.strategy.confirm.andReturn(this.$q.reject());
+            this.strategy.messages = {
+                NOT_CONFIRMED: 'stockScan.scanDiscarded'
+            };
+            this.lot.expirationDate = new Date(2028, 2, 31);
+
+            outcome = this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'ABC123',
+                expirationDate: new Date(2027, 0, 30)
+            });
+
+            expect(outcome.rejection.messageKey).toEqual('stockScan.scanDiscarded');
+        });
+
+        it('should apply the scan when the screen asks nothing', function() {
+            delete this.strategy.confirm;
+            this.lot.expirationDate = new Date(2028, 2, 31);
+
+            var outcome = this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'ABC123',
+                expirationDate: new Date(2027, 0, 30)
+            });
+
+            expect(outcome.resolved).toBe(true);
             expect(this.strategy.addLine).toHaveBeenCalled();
         });
     });

@@ -33,9 +33,9 @@
         .module('openlmis-scan-resolution')
         .service('scanResolutionService', service);
 
-    service.$inject = ['$q', 'SCAN_RESOLUTION_ERROR'];
+    service.$inject = ['$q', 'SCAN_RESOLUTION_ERROR', 'SCAN_CONFIRMATION'];
 
-    function service($q, SCAN_RESOLUTION_ERROR) {
+    function service($q, SCAN_RESOLUTION_ERROR, SCAN_CONFIRMATION) {
 
         this.resolve = resolve;
 
@@ -60,6 +60,9 @@
          * - `countLine`       called with the line the scan counted; the screen applies its own
          *                     quantity semantics, since a pack of doses and a requested quantity are
          *                     not the same thing
+         * - `confirm`         optional; called with `{reason, lot, scan}` before a scan that needs
+         *                     acknowledging is applied - see SCAN_CONFIRMATION. Resolve to go ahead,
+         *                     reject to discard the scan
          * - `focusLine`       optional; called with the line the scan counted
          * - `messages`        optional; SCAN_RESOLUTION_ERROR code to message key. A refusal then
          *                     carries `{messageKey, messageParams}` with the scanned gtin and lot code,
@@ -104,9 +107,76 @@
                         : SCAN_RESOLUTION_ERROR.LOT_REQUIRED, scan);
                 }
                 lot = pendingLot(scan);
+
+                return confirmed(strategy, SCAN_CONFIRMATION.NEW_LOT, lot, scan)
+                    .then(function() {
+                        return apply(group, lot, strategy);
+                    });
+            }
+
+            if (disagreesOnExpiry(lot, scan)) {
+                return confirmed(strategy, SCAN_CONFIRMATION.EXPIRY_MISMATCH, lot, scan)
+                    .then(function() {
+                        return apply(group, lot, strategy);
+                    });
             }
 
             return apply(group, lot, strategy);
+        }
+
+        /**
+         * A screen may want the user to acknowledge something before the scan lands - a batch about to
+         * be added, or a label that disagrees with what was recorded. The screen decides whether that
+         * means a dialog: a workflow where the situation is routine simply accepts.
+         *
+         * Declining is not an error in the screen's data, so it refuses with its own code rather than
+         * one of the not-found ones.
+         */
+        function confirmed(strategy, reason, lot, scan) {
+            if (!angular.isFunction(strategy.confirm)) {
+                return $q.resolve();
+            }
+
+            return $q.when(strategy.confirm({
+                reason: reason,
+                lot: lot,
+                scan: scan
+            }))
+                .catch(function() {
+                    return $q.reject(refusalFor(strategy, SCAN_RESOLUTION_ERROR.NOT_CONFIRMED, scan));
+                });
+        }
+
+        /**
+         * Compared as wire format dates. A recorded expiry is a Date on a freshly loaded screen and a
+         * string once a draft has been through its cache, so comparing the values themselves would
+         * report a mismatch on batches that agree.
+         */
+        function disagreesOnExpiry(lot, scan) {
+            var recorded = asIsoDate(lot.expirationDate),
+                scanned = asIsoDate(scan.expirationDate);
+
+            return Boolean(recorded) && Boolean(scanned) && recorded !== scanned;
+        }
+
+        function asIsoDate(value) {
+            if (!value) {
+                return undefined;
+            }
+
+            if (angular.isString(value)) {
+                return value.substring(0, 10);
+            }
+
+            return [
+                value.getFullYear(),
+                padTwo(value.getMonth() + 1),
+                padTwo(value.getDate())
+            ].join('-');
+        }
+
+        function padTwo(number) {
+            return number < 10 ? '0' + number : String(number);
         }
 
         function apply(group, lot, strategy) {
@@ -139,6 +209,10 @@
         /**
          * The screen's wording if it declared any, and the bare code if it did not - which keeps a new
          * consumer working before it has written its messages.
+         *
+         * The codes that arrived on the label travel with the refusal, so a message can name what
+         * failed to match: a clerk holding a box needs to know which of the two codes on it was not
+         * recognised, and a support ticket saying "the scan did not work" costs a site visit.
          */
         function refuse(strategy, code, scan) {
             return $q.reject(refusalFor(strategy, code, scan));

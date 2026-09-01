@@ -29,6 +29,7 @@
      * - `PRODUCT_AMBIGUOUS`     - more than one product on this screen carries it
      * - `LOT_NOT_AVAILABLE`     - the batch is not on this screen and this workflow cannot add one
      * - `LOT_REQUIRED`          - the product is tracked by batch and the barcode carries none
+     * - `NOT_CONFIRMED`         - the screen asked the user to acknowledge something and they declined
      */
     angular
         .module('openlmis-scan-resolution')
@@ -36,7 +37,8 @@
             PRODUCT_NOT_AVAILABLE: 'PRODUCT_NOT_AVAILABLE',
             PRODUCT_AMBIGUOUS: 'PRODUCT_AMBIGUOUS',
             LOT_NOT_AVAILABLE: 'LOT_NOT_AVAILABLE',
-            LOT_REQUIRED: 'LOT_REQUIRED'
+            LOT_REQUIRED: 'LOT_REQUIRED',
+            NOT_CONFIRMED: 'NOT_CONFIRMED'
         });
 
 })();
