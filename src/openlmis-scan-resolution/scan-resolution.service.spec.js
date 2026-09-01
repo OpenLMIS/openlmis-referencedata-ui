@@ -126,7 +126,38 @@ describe('scanResolutionService', function() {
                 PRODUCT_NOT_AVAILABLE: 'stockScan.productNotOnScreen'
             };
 
-            expect(this.resolve().rejection).toEqual('stockScan.productNotOnScreen');
+            expect(this.resolve().rejection.messageKey).toEqual('stockScan.productNotOnScreen');
+        });
+
+        /**
+         * A clerk holding a box needs to know which of the codes on it was not recognised.
+         */
+        it('should name the scanned codes in the refusal', function() {
+            this.strategy.orderableGroups = [];
+            this.strategy.messages = {
+                PRODUCT_NOT_AVAILABLE: 'stockScan.productNotOnScreen'
+            };
+
+            expect(this.resolve().rejection.messageParams).toEqual({
+                gtin: '05890123456786',
+                lotCode: 'ABC123'
+            });
+        });
+
+        it('should name the batch that could not be matched', function() {
+            var outcome;
+
+            this.strategy.messages = {
+                LOT_NOT_AVAILABLE: 'stockScan.lotNotOnScreen'
+            };
+
+            outcome = this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'UNKNOWN'
+            });
+
+            expect(outcome.rejection.messageKey).toEqual('stockScan.lotNotOnScreen');
+            expect(outcome.rejection.messageParams.lotCode).toEqual('UNKNOWN');
         });
 
         it('should refuse with the code when the screen declared none for it', function() {

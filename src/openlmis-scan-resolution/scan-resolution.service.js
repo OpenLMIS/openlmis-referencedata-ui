@@ -61,7 +61,9 @@
          *                     quantity semantics, since a pack of doses and a requested quantity are
          *                     not the same thing
          * - `focusLine`       optional; called with the line the scan counted
-         * - `messages`        optional; SCAN_RESOLUTION_ERROR code to message key
+         * - `messages`        optional; SCAN_RESOLUTION_ERROR code to message key. A refusal then
+         *                     carries `{messageKey, messageParams}` with the scanned gtin and lot code,
+         *                     so the wording can name them; with no wording declared it is the code
          *
          * @param  {Object}  scan      the parsed scan
          * @param  {Object}  tradeItem the trade item the GTIN resolved to
@@ -76,11 +78,11 @@
                 lot;
 
             if (!groups.length) {
-                return refuse(strategy, SCAN_RESOLUTION_ERROR.PRODUCT_NOT_AVAILABLE);
+                return refuse(strategy, SCAN_RESOLUTION_ERROR.PRODUCT_NOT_AVAILABLE, scan);
             }
 
             if (groups.length > 1) {
-                return refuse(strategy, SCAN_RESOLUTION_ERROR.PRODUCT_AMBIGUOUS);
+                return refuse(strategy, SCAN_RESOLUTION_ERROR.PRODUCT_AMBIGUOUS, scan);
             }
 
             group = groups[0];
@@ -99,7 +101,7 @@
                 if (!scan.lotCode || !strategy.allowsNewLot) {
                     return refuse(strategy, scan.lotCode
                         ? SCAN_RESOLUTION_ERROR.LOT_NOT_AVAILABLE
-                        : SCAN_RESOLUTION_ERROR.LOT_REQUIRED);
+                        : SCAN_RESOLUTION_ERROR.LOT_REQUIRED, scan);
                 }
                 lot = pendingLot(scan);
             }
@@ -138,8 +140,24 @@
          * The screen's wording if it declared any, and the bare code if it did not - which keeps a new
          * consumer working before it has written its messages.
          */
-        function refuse(strategy, code) {
-            return $q.reject(strategy.messages && strategy.messages[code] || code);
+        function refuse(strategy, code, scan) {
+            return $q.reject(refusalFor(strategy, code, scan));
+        }
+
+        function refusalFor(strategy, code, scan) {
+            var key = strategy.messages && strategy.messages[code];
+
+            if (!key) {
+                return code;
+            }
+
+            return {
+                messageKey: key,
+                messageParams: {
+                    gtin: scan.gtin,
+                    lotCode: scan.lotCode
+                }
+            };
         }
 
         function groupsOf(strategy) {
