@@ -46,26 +46,24 @@
          * returned promise is what the scan input reports on, so the indicator only turns green once
          * the handler itself has succeeded.
          *
-         * @param  {Object}  scan    the parsed scan
-         * @param  {String}  mode    the scan mode
-         * @param  {Object}  context the screen's context object
-         * @return {Promise}         resolves when the handler does, rejects with a message key
+         * @param  {Object}  scan the parsed scan
+         * @return {Promise}      resolves when the handler does, rejects with a message key
          */
-        function resolve(scan, mode, context) {
+        function resolve(scan) {
             return lookUp(scan)
                 .then(function(tradeItem) {
                     return vm.onScan({
                         scan: scan,
                         tradeItem: tradeItem,
-                        mode: mode,
-                        context: context
+                        mode: vm.mode,
+                        context: vm.context
                     });
                 });
         }
 
         // Rejections are relabelled to message keys.
         function lookUp(scan) {
-            if (!scan.gtin) {
+            if (!scan || !scan.gtin) {
                 return $q.reject('openlmisGtinScanInput.noGtin');
             }
 
