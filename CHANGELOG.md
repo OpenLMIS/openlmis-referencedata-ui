@@ -1,6 +1,7 @@
 5.6.20-SNAPSHOT (WIP)
 ==================
 Improvements:
+* [OLMIS-8298](https://openlmis.atlassian.net/browse/OLMIS-8298): Specs written next to the React components (`*.spec.jsx`) now run in the karma suite and count as tests in SonarCloud, so the `.jsx` sources they exercise report real coverage.
 * [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Superset embedding improvements
 
 Bug fixes:
