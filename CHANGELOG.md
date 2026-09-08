@@ -1,6 +1,7 @@
 5.6.20-SNAPSHOT (WIP)
 ==================
 Improvements:
+* [OLMIS-8236](https://openlmis.atlassian.net/browse/OLMIS-8236): Barcode scanning - GTIN to TradeItem resolver service. Added openlmis-scan-resolution: applies a scan to whatever screen embedded a scan input, with the screen supplying its own rows, callbacks, policy and wording.
 * [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Superset embedding improvements
 
 Bug fixes:
