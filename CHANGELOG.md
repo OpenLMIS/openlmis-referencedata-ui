@@ -11,6 +11,7 @@ Bug fixes:
   * Refresh the notifications indicator on navigation so its count stays consistent with the home page (an expired notification stops being counted without a reload).
 * [OLMIS-8191](https://openlmis.atlassian.net/browse/OLMIS-8191): Wrap long read-only text in admin lists — the System Notifications message (previously cropped), and Role/Product/Processing period descriptions.
 * [OLMIS-8294](https://openlmis.atlassian.net/browse/OLMIS-8294): Fixed SonarCloud not picking up unit-test coverage. Pass sonar.projectVersion to the scanner through its args instead of appending it to sonar-project.properties during the build, so a missing trailing newline can no longer glue it onto the lcov report-path line and zero out coverage.
+* [OLMIS-8118](https://openlmis.atlassian.net/browse/OLMIS-8118): Kit Unpack List quantity, Facility Type display order and Program Orderable doses per patient/display order now reject values too large to store.
 
 Improvements:
 * SonarCloud now receives JS unit-test coverage (lcov) so the quality gate reflects real coverage on new code.
@@ -22,7 +23,6 @@ Improvements:
 5.6.19 / 2026-06-09
 ==================
 Improvements:
-* [OLMIS-8118](https://openlmis.atlassian.net/browse/OLMIS-8118): Validate kit quantity and order field limits.
 * [OLMIS-8219](https://openlmis.atlassian.net/browse/OLMIS-8219): Vertically align logout button and language picker in navbar
 * [OLMIS-8217](https://openlmis.atlassian.net/browse/OLMIS-8217): Improve home facility alerts panel UI and functionality. 
   * Display actual facility name instead of `My Facility data`
