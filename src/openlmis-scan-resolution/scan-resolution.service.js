@@ -281,8 +281,16 @@
         function pendingLot(scan) {
             return {
                 lotCode: scan.lotCode,
-                expirationDate: scan.expirationDate
+                expirationDate: asUtcDate(scan.expirationDate)
             };
+        }
+
+        function asUtcDate(date) {
+            if (!date) {
+                return date;
+            }
+
+            return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
         }
 
         function findLineItem(strategy, group, lot) {
