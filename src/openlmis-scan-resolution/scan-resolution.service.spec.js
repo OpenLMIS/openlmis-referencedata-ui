@@ -283,13 +283,21 @@ describe('scanResolutionService', function() {
         });
 
         it('should add a line carrying the scanned code and expiry, without an id', function() {
-            var outcome = this.resolve(this.unknown);
+            var outcome = this.resolve(this.unknown),
+                added = this.strategy.addLine.mostRecentCall.args[1];
 
             expect(outcome.resolved).toBe(true);
-            expect(this.strategy.addLine).toHaveBeenCalledWith(this.group, {
-                lotCode: 'NEWLOT1',
-                expirationDate: this.unknown.expirationDate
-            });
+            expect(this.strategy.addLine.mostRecentCall.args[0]).toBe(this.group);
+            expect(added.lotCode).toEqual('NEWLOT1');
+            expect(added.id).toBeUndefined();
+        });
+
+        it('should carry the scanned expiry as the same calendar day in UTC', function() {
+            this.resolve(this.unknown);
+
+            var expiry = this.strategy.addLine.mostRecentCall.args[1].expirationDate;
+
+            expect(expiry.toISOString().substring(0, 10)).toEqual('2027-01-30');
         });
 
         it('should count up a pending line rather than adding another', function() {
