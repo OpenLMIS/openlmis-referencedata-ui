@@ -300,6 +300,18 @@ describe('scanResolutionService', function() {
             expect(expiry.toISOString().substring(0, 10)).toEqual('2027-01-30');
         });
 
+        it('should add a batch whose label carries no expiry', function() {
+            this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'NEWLOT2'
+            });
+
+            var added = this.strategy.addLine.mostRecentCall.args[1];
+
+            expect(added.lotCode).toEqual('NEWLOT2');
+            expect(added.expirationDate).toBeUndefined();
+        });
+
         it('should count up a pending line rather than adding another', function() {
             var pending = {
                 orderable: this.orderable,
