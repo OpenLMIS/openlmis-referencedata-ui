@@ -18,5 +18,11 @@
     "adminFacilityAdd.operationalDate.description": "This is used in reporting to record the date the facility becomes operational",
     "adminFacilityAdd.activeFacility.description": "This determines whether or not the facility can submit requisitions or receive deliveries",
     "adminFacilityAdd.enabled.description.checked": "Checked = The facility can operate",
-    "adminFacilityAdd.enabled.description.unchecked": "Unchecked = The facility is permanently decommissioned"
+    "adminFacilityAdd.enabled.description.unchecked": "Unchecked = The facility is permanently decommissioned",
+    "adminFacilityAdd.quantityUnitDisplay": "Quantity Display Unit",
+    "adminFacilityAdd.quantityUnitDisplay.description": "Determines whether quantities are shown in packs, in doses, or with a toggle between both for this facility's users",
+    "adminFacilityAdd.quantityUnitDisplay.systemDefault": "System default",
+    "adminFacilityAdd.quantityUnitDisplay.packsOnly": "Packs only",
+    "adminFacilityAdd.quantityUnitDisplay.dosesOnly": "Doses only",
+    "adminFacilityAdd.quantityUnitDisplay.packsAndDoses": "Packs and doses"
 }

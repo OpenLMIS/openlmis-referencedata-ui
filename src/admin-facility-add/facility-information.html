@@ -24,3 +24,6 @@
     <textarea id="description" ng-model="vm.facility.description" ng-disabled="vm.managedExternally"></textarea>
     <label for="facilityOperator">{{'adminFacilityAdd.facilityOperator' | message}}</label>
     <select id="facilityOperator" ng-model="vm.facility.operator" ng-options="facilityOperator as facilityOperator.name for facilityOperator in vm.facilityOperators track by facilityOperator.id"></select>
+    <label for="quantityUnitDisplay">{{'adminFacilityAdd.quantityUnitDisplay' | message}}</label>
+    <select id="quantityUnitDisplay" ng-model="vm.facility.extraData.quantityUnitDisplay" ng-options="option.value as option.name for option in vm.quantityUnitDisplayOptions"></select>
+    <p class="note">{{'adminFacilityAdd.quantityUnitDisplay.description' | message}}</p>
