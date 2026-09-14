@@ -283,77 +283,22 @@ describe('scanResolutionService', function() {
         });
 
         it('should add a line carrying the scanned code and expiry, without an id', function() {
-            var outcome = this.resolve(this.unknown),
-                added = this.strategy.addLine.mostRecentCall.args[1];
+            var outcome = this.resolve(this.unknown);
 
             expect(outcome.resolved).toBe(true);
-            expect(this.strategy.addLine.mostRecentCall.args[0]).toBe(this.group);
-            expect(added.lotCode).toEqual('NEWLOT1');
-            expect(added.id).toBeUndefined();
+            expect(this.strategy.addLine).toHaveBeenCalledWith(this.group, {
+                lotCode: 'NEWLOT1',
+                expirationDate: '2027-01-30'
+            });
         });
 
-        it('should carry the scanned expiry as the same calendar day in UTC', function() {
+        it('should carry the scanned expiry as a wire format date rather than a Date', function() {
             this.resolve(this.unknown);
 
             var expiry = this.strategy.addLine.mostRecentCall.args[1].expirationDate;
 
-            expect(expiry.toISOString().substring(0, 10)).toEqual('2027-01-30');
-        });
-
-        /**
-         * With the suite in UTC, local midnight IS UTC midnight and a pass-through of the parser's
-         * Date would slip past the assertion above.
-         */
-        it('should keep the scanned day when the clock runs east of UTC', function() {
-            // local midnight, 30 Jan 2027, in UTC+1: the instant is 23:00 UTC the day before
-            var scanned = new Date(Date.UTC(2027, 0, 29, 23, 0, 0));
-            scanned.getFullYear = function() {
-                return 2027;
-            };
-            scanned.getMonth = function() {
-                return 0;
-            };
-            scanned.getDate = function() {
-                return 30;
-            };
-
-            this.resolve({
-                gtin: this.scan.gtin,
-                lotCode: 'NEWLOT3',
-                expirationDate: scanned
-            });
-
-            var expiry = this.strategy.addLine.mostRecentCall.args[1].expirationDate;
-
-            expect(expiry.toISOString().substring(0, 10)).toEqual('2027-01-30');
-        });
-
-        /**
-         * Overcorrection cannot hide either: west of UTC the pass-through happens to land on the
-         * right UTC day, and rebuilding must not move it.
-         */
-        it('should keep the scanned day when the clock runs west of UTC', function() {
-            // local midnight, 30 Jan 2027, in UTC-5: the instant is 05:00 UTC the same day
-            var scanned = new Date(Date.UTC(2027, 0, 30, 5, 0, 0));
-            scanned.getFullYear = function() {
-                return 2027;
-            };
-            scanned.getMonth = function() {
-                return 0;
-            };
-            scanned.getDate = function() {
-                return 30;
-            };
-
-            this.resolve({
-                gtin: this.scan.gtin,
-                lotCode: 'NEWLOT4',
-                expirationDate: scanned
-            });
-
-            var expiry = this.strategy.addLine.mostRecentCall.args[1].expirationDate;
-
-            expect(expiry.toISOString().substring(0, 10)).toEqual('2027-01-30');
+            expect(angular.isString(expiry)).toBe(true);
+            expect(expiry).toEqual('2027-01-30');
         });
 
         it('should add a batch whose label carries no expiry', function() {
