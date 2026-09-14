@@ -38,7 +38,9 @@
                     if ($stateParams.type) {
                         return $stateParams.type;
                     }
-                    $state.go('openlmis.administration.roles.selectType');
+                    $state.go('openlmis.administration.roles.selectType', {
+                        roleId: $stateParams.roleId
+                    });
                 },
                 rights: function($q, role, type, referencedataRightService) {
                     var deferred = $q.defer();

@@ -27,12 +27,23 @@
         .module('admin-role-form')
         .controller('TypeFormController', controller);
 
-    controller.$inject = ['$state', 'types'];
+    controller.$inject = ['$state', '$stateParams', 'types'];
 
-    function controller($state, types) {
+    function controller($state, $stateParams, types) {
         var vm = this;
 
         vm.selectType = selectType;
+
+        /**
+         * @ngdoc property
+         * @propertyOf admin-role-form.controller:TypeFormController
+         * @type {String}
+         * @name roleId
+         *
+         * @description
+         * The UUID of the role being edited, undefined when creating a new role.
+         */
+        vm.roleId = $stateParams.roleId;
 
         /**
          * @ngdoc property
@@ -51,13 +62,14 @@
          * @name selectType
          *
          * @description
-         * Redirects to the role creation screen of the given type.
+         * Redirects to the role form of the given type, keeping the edited role if there is one.
          *
          * @param   {String}    type    the template name
          */
         function selectType(type) {
             $state.go('openlmis.administration.roles.createUpdate', {
-                type: type
+                type: type,
+                roleId: $stateParams.roleId
             });
         }
     }

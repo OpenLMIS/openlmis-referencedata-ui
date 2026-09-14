@@ -91,16 +91,21 @@ describe('openlmis.administration.roles state', function() {
             expect(result).toEqual('SUPERVISION');
         });
 
-        it('should redirect to the type picker for a role with no rights and no type parameter', function() {
-            this.typeResolve(this.roleWithoutRights, this.$state, {}, this.roleTypeService);
+        it('should send a role with no rights and no type parameter to the type picker', function() {
+            this.typeResolve(this.roleWithoutRights, this.$state, {
+                roleId: this.roleWithoutRights.id
+            }, this.roleTypeService);
 
-            expect(this.$state.go).toHaveBeenCalledWith('openlmis.administration.roles.selectType');
+            expect(this.$state.go).toHaveBeenCalledWith('openlmis.administration.roles.selectType', {
+                roleId: this.roleWithoutRights.id
+            });
         });
 
-        it('should redirect to the type picker when creating a role with no type parameter', function() {
+        it('should send a new role with no type parameter to the type picker', function() {
             this.typeResolve(undefined, this.$state, {}, this.roleTypeService);
 
-            expect(this.$state.go).toHaveBeenCalledWith('openlmis.administration.roles.selectType');
+            expect(this.$state.go.mostRecentCall.args[0]).toEqual('openlmis.administration.roles.selectType');
+            expect(this.$state.go.mostRecentCall.args[1].roleId).toBeUndefined();
         });
 
         it('should not log anything when creating a new role', function() {

@@ -2,7 +2,7 @@
 <div>{{'adminRoleForm.selectType' | message}}</div>
 <dl class="type-form">
     <dt ng-repeat-start="(type, rights) in vm.types">
-        <button ui-sref="^.createUpdate({type: type})">
+        <button ui-sref="^.createUpdate({type: type, roleId: vm.roleId})">
             {{type | roleType}}
         </button>
     </dt>
