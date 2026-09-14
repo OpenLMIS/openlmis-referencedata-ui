@@ -12,11 +12,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="role in vm.rolesPage" ng-init="roleTypeResult = vm.printRoleType(role)">
+        <tr ng-repeat="role in vm.rolesPage">
             <td>{{role.name}}</td>
-            <td>
-                {{ (roleTypeResult === 'NOT_APPLICABLE') ? ('adminRoleList.notApplicable' | message) : (roleTypeResult | roleType) }}
-            </td>
+            <td>{{vm.roleTypeLabels[role.id]}}</td>
             <td><span class="openlmis-long-text">{{role.description}}</span></td>
             <td>{{role.count}}</td>
             <td>

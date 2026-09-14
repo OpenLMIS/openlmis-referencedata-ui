@@ -28,9 +28,9 @@
         .module('admin-role-list')
         .controller('RoleListController', controller);
 
-    controller.$inject = ['roles'];
+    controller.$inject = ['roles', '$filter', 'messageService', 'roleTypeService'];
 
-    function controller(roles) {
+    function controller(roles, $filter, messageService, roleTypeService) {
         var vm = this;
 
         /**
@@ -56,32 +56,28 @@
         vm.rolesPage = undefined;
 
         /**
-         * @ngdoc method
-         * @methodOf admin-role-list.controller:RoleListController
-         * @name printRoleType
-         * 
+         * @ngdoc property
+         * @propertyOf admin-role-list.controller:RoleListController
+         * @name roleTypeLabels
+         * @type {Object}
+         *
          * @description
-         * Determines the string to display for the role type.
-         * If the role has valid rights, it returns the rights type.
-         * If the role has no rights, it logs an error message and returns appropriate placeholder text.
+         * Translated role type labels, keyed by role id. Roles with no rights have no type, and get a placeholder.
          */
-        vm.printRoleType = function(role) {
-            if (!role || !role.rights || role.rights.length === 0) {
-                // eslint-disable-next-line no-console
-                console.error(
-                    'Role Type Not Applicable: Rights array is missing or empty for role:',
-                    role.name,
-                    'Role Data:',
-                    role
-                );
+        vm.roleTypeLabels = getRoleTypeLabels(roles);
 
-                return 'NOT_APPLICABLE';
-            }
+        function getRoleTypeLabels(roleList) {
+            var labels = {};
 
-            // The role has valid rights, so we can safely return the first type.
-            return role.rights[0].type;
-        };
+            angular.forEach(roleList, function(role) {
+                var type = roleTypeService.getType(role);
 
+                labels[role.id] = type ?
+                    $filter('roleType')(type) : messageService.get('adminRoleList.notApplicable');
+            });
+
+            return labels;
+        }
     }
 
 })();

@@ -37,6 +37,7 @@ describe('referencedataRoleService', function() {
         ];
 
         spyOn(this.referencedataRoleService, 'getAll').andReturn(this.$q.when(this.roles));
+        spyOn(console, 'error');
     });
 
     describe('getAllWithType', function() {
@@ -54,6 +55,58 @@ describe('referencedataRoleService', function() {
             angular.forEach(result, function(role) {
                 expect(role.type).toEqual(role.rights[0].type);
             });
+        });
+
+        it('should leave the type undefined for a role without rights and still type the others', function() {
+            var roleWithoutRights = new this.RoleDataBuilder().build(),
+                lastRole = new this.RoleDataBuilder()
+                    .withRight(new this.RightDataBuilder().build())
+                    .build(),
+                result,
+                rejection;
+
+            this.referencedataRoleService.getAll.andReturn(this.$q.when([
+                this.roles[0],
+                roleWithoutRights,
+                lastRole
+            ]));
+
+            this.referencedataRoleFactory
+                .getAllWithType()
+                .then(function(roles) {
+                    result = roles;
+                })
+                .catch(function(error) {
+                    rejection = error;
+                });
+            this.$rootScope.$apply();
+
+            expect(rejection).toBeUndefined();
+            expect(result.length).toEqual(3);
+            expect(result[0].type).toEqual(this.roles[0].rights[0].type);
+            expect(result[1].type).toBeUndefined();
+            expect(result[2].type).toEqual(lastRole.rights[0].type);
+        });
+
+        it('should resolve and not reject if all roles have no rights', function() {
+            var result, rejection;
+
+            this.referencedataRoleService.getAll.andReturn(this.$q.when([
+                new this.RoleDataBuilder().build()
+            ]));
+
+            this.referencedataRoleFactory
+                .getAllWithType()
+                .then(function(roles) {
+                    result = roles;
+                })
+                .catch(function(error) {
+                    rejection = error;
+                });
+            this.$rootScope.$apply();
+
+            expect(rejection).toBeUndefined();
+            expect(result.length).toEqual(1);
         });
     });
 });

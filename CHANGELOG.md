@@ -6,6 +6,7 @@ Improvements:
 * [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Superset embedding improvements
 
 Bug fixes:
+* [OLMIS-8318](https://openlmis.atlassian.net/browse/OLMIS-8318): A role with no rights no longer breaks the admin screens. Role types are resolved in one place (`roleTypeService`): the Roles list shows a placeholder, the Edit Role form opens so the role can be repaired, Edit User Roles and Profile role assignments open instead of hanging, and an assignment referencing such a role stays on the user with its type left blank.
 * [OLMIS-7247](https://openlmis.atlassian.net/browse/OLMIS-7247): Fixed system notifications not refreshing without re-login.
   * Clear the cached notifications after creating/editing a notification so the home page banner and indicator update immediately.
   * Filter the cached list by the current active window on every read so expired or deactivated notifications stop being displayed without logging out.

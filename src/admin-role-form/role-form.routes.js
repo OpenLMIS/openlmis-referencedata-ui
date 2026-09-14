@@ -29,9 +29,9 @@
                 role: function($stateParams, referencedataRoleService) {
                     return $stateParams.roleId ? referencedataRoleService.get($stateParams.roleId) : undefined;
                 },
-                type: function(role, $state, $stateParams) {
+                type: function(role, $state, $stateParams, roleTypeService) {
                     if (role) {
-                        return role.rights[0].type;
+                        return roleTypeService.getType(role);
                     }
                     if ($stateParams.type) {
                         return $stateParams.type;

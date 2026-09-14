@@ -28,9 +28,9 @@
         .module('admin-user-roles')
         .factory('userRoleAssignmentFactory', factory);
 
-    factory.$inject = ['$filter', 'UserRepository'];
+    factory.$inject = ['$filter', 'UserRepository', 'roleTypeService'];
 
-    function factory($filter, UserRepository) {
+    function factory($filter, UserRepository, roleTypeService) {
 
         return {
             getUser: getUser
@@ -93,8 +93,8 @@
                 }
 
                 user.addRoleAssignment(roleAssignment.roleId,
-                    filteredRoles[0].name,
-                    filteredRoles[0].rights[0].type,
+                    filteredRoles[0] ? filteredRoles[0].name : undefined,
+                    roleTypeService.getType(filteredRoles[0]),
                     roleAssignment.programId,
                     filteredPrograms ? filteredPrograms[0].name : undefined,
                     roleAssignment.supervisoryNodeId,

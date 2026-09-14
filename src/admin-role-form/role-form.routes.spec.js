@@ -27,6 +27,7 @@ describe('openlmis.administration.roles state', function() {
             this.referencedataRightService = $injector.get('referencedataRightService');
             this.RoleDataBuilder = $injector.get('RoleDataBuilder');
             this.RightDataBuilder = $injector.get('RightDataBuilder');
+            this.roleTypeService = $injector.get('roleTypeService');
         });
 
         this.role =  new this.RoleDataBuilder()
@@ -43,6 +44,7 @@ describe('openlmis.administration.roles state', function() {
 
         this.type = 'type';
 
+        spyOn(console, 'error');
         spyOn(this.referencedataRightService, 'search').andReturn(this.$q.when(this.rights));
 
         this.state = this.$state.get('openlmis.administration.roles.createUpdate');
@@ -60,6 +62,20 @@ describe('openlmis.administration.roles state', function() {
         expect(result[0].checked).toEqual(true);
         expect(result[1].checked).toEqual(false);
 
+    });
+
+    describe('type resolve', function() {
+
+        it('should return the type of the role', function() {
+            expect(this.state.resolve.type(this.role, this.$state, {}, this.roleTypeService))
+                .toEqual(this.role.rights[0].type);
+        });
+
+        it('should return undefined for a role with no rights', function() {
+            var roleWithoutRights = new this.RoleDataBuilder().build();
+
+            expect(this.state.resolve.type(roleWithoutRights, this.$state, {}, this.roleTypeService)).toBeUndefined();
+        });
     });
 
 });
