@@ -22,7 +22,7 @@ services:
     volumes:
       - '/openlmis-auth-ui'
   ui-components:
-    image: openlmis/ui-components:7.2.16
+    image: openlmis/ui-components:7.2.17-SNAPSHOT
     volumes:
       - '/openlmis-ui-components'
   ui-layout:
