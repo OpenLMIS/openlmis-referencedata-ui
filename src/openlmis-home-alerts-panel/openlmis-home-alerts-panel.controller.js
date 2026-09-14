@@ -20,26 +20,37 @@
         .module('openlmis-home-alerts-panel')
         .controller('openlmisHomeAlertsPanelController', controller);
 
-    controller.$inject = ['openlmisHomeAlertsPanelService'];
+    controller.$inject = ['openlmisHomeAlertsPanelService', 'facilityFactory'];
 
-    function controller(openlmisHomeAlertsPanelService) {
+    function controller(openlmisHomeAlertsPanelService, facilityFactory) {
         var $ctrl = this;
         $ctrl.requisitionsStatusesStats = undefined;
         $ctrl.ordersStatusesStats = undefined;
         $ctrl.requisitionsToBeCreated = undefined;
-        var requisitionsImportantData = ['SUBMITTED', 'AUTHORIZED', 'IN_APPROVAL'];
-        var ordersImportantData = ['ORDERED', 'FULFILLING', 'SHIPPED', 'IN_ROUTE'];
-        var REQUISITION_PREFIX = 'requisition';
-        var ORDERS_PREFIX = 'orders';
+        $ctrl.homeFacility = undefined;
+        const REQUISITION_PREFIX = 'requisition';
+        const ORDERS_PREFIX = 'orders';
+        const requisitionsImportantData = ['SUBMITTED', 'AUTHORIZED', 'IN_APPROVAL'];
+        const ordersImportantData = ['ORDERED', 'FULFILLING', 'SHIPPED', 'IN_ROUTE'];
 
         $ctrl.$onInit = onInit;
 
         function onInit() {
+            facilityFactory.getUserHomeFacility()
+                .then(function(facility) {
+                    $ctrl.homeFacility = facility;
+                    if (facility) {
+                        loadData();
+                    }
+                });
+        }
+
+        function loadData() {
             openlmisHomeAlertsPanelService.getRequisitionsStatusesData()
                 .then(function(requisitionsData) {
                     $ctrl.requisitionsStatusesStats =
                         openlmisHomeAlertsPanelService.
-                            getMappedStatussesStats(
+                            getMappedStatusesStats(
                                 REQUISITION_PREFIX,
                                 requisitionsData.statusesStats,
                                 requisitionsImportantData
@@ -52,7 +63,7 @@
                 .then(function(ordersData) {
                     $ctrl.ordersStatusesStats =
                         openlmisHomeAlertsPanelService.
-                            getMappedStatussesStats(ORDERS_PREFIX, ordersData.statusesStats, ordersImportantData);
+                            getMappedStatusesStats(ORDERS_PREFIX, ordersData.statusesStats, ordersImportantData);
                 });
         }
     }

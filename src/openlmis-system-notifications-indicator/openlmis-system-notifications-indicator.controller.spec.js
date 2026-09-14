@@ -91,4 +91,42 @@ describe('SystemNotificationsIndicatorController', function() {
 
     });
 
+    describe('on state change', function() {
+
+        it('should re-read system notifications after navigation', function() {
+            this.$rootScope.$apply();
+            this.systemNotificationService.getSystemNotifications.reset();
+
+            this.$rootScope.$broadcast('$stateChangeSuccess');
+            this.$rootScope.$apply();
+
+            expect(this.systemNotificationService.getSystemNotifications).toHaveBeenCalled();
+        });
+
+        it('should update the exposed notifications after navigation', function() {
+            this.$rootScope.$apply();
+
+            var refreshed = [this.systemNotifications[0]];
+            this.systemNotificationService.getSystemNotifications
+                .andReturn(this.$q.resolve(refreshed));
+
+            this.$rootScope.$broadcast('$stateChangeSuccess');
+            this.$rootScope.$apply();
+
+            expect(this.vm.systemNotifications).toEqual(refreshed);
+        });
+
+        it('should not re-read system notifications while offline', function() {
+            this.$rootScope.$apply();
+            this.systemNotificationService.getSystemNotifications.reset();
+            this.offlineService.isOffline.andReturn(true);
+
+            this.$rootScope.$broadcast('$stateChangeSuccess');
+            this.$rootScope.$apply();
+
+            expect(this.systemNotificationService.getSystemNotifications).not.toHaveBeenCalled();
+        });
+
+    });
+
 });

@@ -6,6 +6,6 @@
     "adminReportCategoryAdd.save": "Save",
     "adminReportCategoryAdd.cancel": "Cancel",
     "adminReportCategoryAdd.fieldRequired": "This field is required",
-    "adminReportCategoryAdd.success": "Rreport category created successfully",
+    "adminReportCategoryAdd.success": "Report category created successfully",
     "adminReportCategoryAdd.error": "Failed to create report category"
 }

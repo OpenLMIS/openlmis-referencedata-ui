@@ -21,6 +21,7 @@ describe('UserProfileRoleAssignmentsController', function() {
         inject(function($injector) {
             this.$controller = $injector.get('$controller');
             this.$q = $injector.get('$q');
+            this.$state = $injector.get('$state');
             this.ROLE_TYPES = $injector.get('ROLE_TYPES');
             this.UserDataBuilder = $injector.get('UserDataBuilder');
         });
@@ -44,6 +45,24 @@ describe('UserProfileRoleAssignmentsController', function() {
 
         it('should expose role types', function() {
             expect(this.vm.roleTypes).toEqual(this.ROLE_TYPES.getRoleTypes());
+        });
+
+    });
+
+    describe('isRoleTypeActive', function() {
+
+        it('should be active when the role type state is included regardless of page', function() {
+            spyOn(this.$state, 'includes').andReturn(true);
+
+            expect(this.vm.isRoleTypeActive(this.ROLE_TYPES.SUPERVISION)).toBe(true);
+            expect(this.$state.includes)
+                .toHaveBeenCalledWith('openlmis.profile.roleAssignments.' + this.ROLE_TYPES.SUPERVISION);
+        });
+
+        it('should not be active when the role type state is not included', function() {
+            spyOn(this.$state, 'includes').andReturn(false);
+
+            expect(this.vm.isRoleTypeActive(this.ROLE_TYPES.SUPERVISION)).toBe(false);
         });
 
     });

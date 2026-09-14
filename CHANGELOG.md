@@ -1,5 +1,53 @@
-5.6.17-SNAPSHOT / WIP
+5.6.20-SNAPSHOT (WIP)
 ==================
+Improvements:
+* [OLMIS-8298](https://openlmis.atlassian.net/browse/OLMIS-8298): Specs written next to the React components (`*.spec.jsx`) now run in the karma suite and count as tests in SonarCloud, so the `.jsx` sources they exercise report real coverage.
+* [OLMIS-8236](https://openlmis.atlassian.net/browse/OLMIS-8236): Barcode scanning - GTIN to TradeItem resolver service. Added openlmis-scan-resolution: applies a scan to whatever screen embedded a scan input, with the screen supplying its own rows, callbacks, policy and wording.
+* [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Superset embedding improvements
+
+Bug fixes:
+* [OLMIS-7247](https://openlmis.atlassian.net/browse/OLMIS-7247): Fixed system notifications not refreshing without re-login.
+  * Clear the cached notifications after creating/editing a notification so the home page banner and indicator update immediately.
+  * Filter the cached list by the current active window on every read so expired or deactivated notifications stop being displayed without logging out.
+  * Refresh the notifications indicator on navigation so its count stays consistent with the home page (an expired notification stops being counted without a reload).
+* [OLMIS-8191](https://openlmis.atlassian.net/browse/OLMIS-8191): Wrap long read-only text in admin lists — the System Notifications message (previously cropped), and Role/Product/Processing period descriptions.
+* [OLMIS-8294](https://openlmis.atlassian.net/browse/OLMIS-8294): Fixed SonarCloud not picking up unit-test coverage. Pass sonar.projectVersion to the scanner through its args instead of appending it to sonar-project.properties during the build, so a missing trailing newline can no longer glue it onto the lcov report-path line and zero out coverage.
+* [OLMIS-8118](https://openlmis.atlassian.net/browse/OLMIS-8118): Kit Unpack List quantity, Facility Type display order and Program Orderable doses per patient/display order now reject values too large to store.
+
+Improvements:
+* SonarCloud now receives JS unit-test coverage (lcov) so the quality gate reflects real coverage on new code.
+* Feed sonar.projectVersion from project.properties so SonarCloud's New Code baseline tracks releases.
+
+Improvements:
+* [OPSD-107](https://openlmis.atlassian.net/browse/OPSD-107): Show cancelled orders in the home page order info panel.
+
+5.6.19 / 2026-06-09
+==================
+Improvements:
+* [OLMIS-8219](https://openlmis.atlassian.net/browse/OLMIS-8219): Vertically align logout button and language picker in navbar
+* [OLMIS-8217](https://openlmis.atlassian.net/browse/OLMIS-8217): Improve home facility alerts panel UI and functionality. 
+  * Display actual facility name instead of `My Facility data`
+  * Remove panels providing hardcoded `0` instead of relevant information
+  * Hide panel when user has no home facility
+  * Reorder requisition and order statuses
+  * Other minor layout/font improvements
+New functionality:
+* [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Added Embedded UUID field to the dashboard report admin form. For Superset reports, either URL or Embedded UUID is required; for other report types, URL remains required.
+Bug fixes:
+* [OLMIS-8121](https://openlmis.atlassian.net/browse/OLMIS-8121): Fix typo in the report category success notification.
+
+5.6.18 / 2026-02-05
+==================
+Improvements:
+* Localization & translations update (FR, ES, PT)
+
+5.6.17 / 2025-11-27
+==================
+New functionality:
+* [OLMIS-8125](https://openlmis.atlassian.net/browse/OLMIS-8125): Added User Roles import/export
+Bug fixes:
+* [SELV3-782](https://openlmis.atlassian.net/browse/SELV3-782): Improved validation in modal when creating new Report
+
 
 5.6.16 / 2025-03-31
 ==================

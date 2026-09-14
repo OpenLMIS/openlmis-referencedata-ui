@@ -142,7 +142,25 @@ const AdminDataImportPage = () => {
                     />
                     {TYPE_OF_IMPORTS.map(type => {
                         if (type.value === typeOfImport) {
-                            return <p style={{ maxWidth: '544px' }} key={type.value}>{formatMessage(type.info)}</p>
+                            return (
+                                <div key={type.value}>
+                                    <p style={{ maxWidth: '544px' }} key={type.value}>{formatMessage(type.info)}</p>
+
+                                    {typeOfImport === 'User' && (
+                                        <p
+                                            style={{
+                                                color: '#cc0000',
+                                                fontWeight: 'bold',
+                                                marginTop: '12px',
+                                                maxWidth: '544px',
+                                                lineHeight: 1.4,
+                                            }}
+                                        >
+                                            {formatMessage(type.additionalInfo)}
+                                        </p>
+                                    )}
+                                </div>
+                            )
                         }
                     })}
                 </div>

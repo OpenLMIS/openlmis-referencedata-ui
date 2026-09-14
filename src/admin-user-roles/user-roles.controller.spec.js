@@ -138,4 +138,21 @@ describe('UserRolesController', function() {
                 .toEqual(this.ROLE_TYPES.getLabel(this.ROLE_TYPES.SUPERVISION));
         });
     });
+
+    describe('isRoleTypeActive', function() {
+
+        it('should be active when the role type state is included regardless of page', function() {
+            spyOn(this.$state, 'includes').andReturn(true);
+
+            expect(this.vm.isRoleTypeActive(this.ROLE_TYPES.SUPERVISION)).toBe(true);
+            expect(this.$state.includes)
+                .toHaveBeenCalledWith('openlmis.administration.users.roles.' + this.ROLE_TYPES.SUPERVISION);
+        });
+
+        it('should not be active when the role type state is not included', function() {
+            spyOn(this.$state, 'includes').andReturn(false);
+
+            expect(this.vm.isRoleTypeActive(this.ROLE_TYPES.SUPERVISION)).toBe(false);
+        });
+    });
 });

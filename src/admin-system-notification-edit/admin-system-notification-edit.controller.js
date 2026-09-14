@@ -30,13 +30,14 @@
 
     adminSystemNotificationEditController.$inject = [
         'systemNotification', 'author', 'FunctionDecorator', 'SystemNotificationResource', 'successNotificationKey',
-        'errorNotificationKey', '$state', 'MAX_SYSTEM_NOTIFICATION_TITLE_LENGTH'
+        'errorNotificationKey', '$state', 'MAX_SYSTEM_NOTIFICATION_TITLE_LENGTH', 'systemNotificationService'
     ];
 
     function adminSystemNotificationEditController(systemNotification, author, FunctionDecorator,
                                                    SystemNotificationResource, successNotificationKey,
                                                    errorNotificationKey, $state,
-                                                   MAX_SYSTEM_NOTIFICATION_TITLE_LENGTH) {
+                                                   MAX_SYSTEM_NOTIFICATION_TITLE_LENGTH,
+                                                   systemNotificationService) {
         var vm = this;
 
         vm.$onInit = onInit;
@@ -108,6 +109,7 @@
                 new SystemNotificationResource().create(systemNotification);
 
             return promise.then(function() {
+                systemNotificationService.clearCachedSystemNotifications();
                 $state.go('.^', {}, {
                     reload: true
                 });

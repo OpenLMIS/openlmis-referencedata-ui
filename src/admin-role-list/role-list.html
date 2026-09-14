@@ -17,7 +17,7 @@
             <td>
                 {{ (roleTypeResult === 'NOT_APPLICABLE') ? ('adminRoleList.notApplicable' | message) : (roleTypeResult | roleType) }}
             </td>
-            <td>{{role.description}}</td>
+            <td><span class="openlmis-long-text">{{role.description}}</span></td>
             <td>{{role.count}}</td>
             <td>
                 <a ui-sref=".createUpdate({roleId: role.id})">{{'adminRoleList.edit' | message}}</a>

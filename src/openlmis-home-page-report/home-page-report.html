@@ -1,6 +1,16 @@
 <div class="home-page-report-panel">
+    <p ng-if="vm.error" class="alert alert-danger">{{ vm.error }}</p>
+
+    <!-- ng-show, not ng-if: keep the SDK mount point in the DOM before embedDashboard() runs. -->
+    <div
+        ng-show="vm.isEmbedded && vm.isReady"
+        id="home-page-superset-embed-container"
+        class="home-page-superset-embed-container">
+    </div>
+
+    <!-- Non-Superset reports and legacy Superset OAuth iframe -->
     <iframe
-        ng-if="vm.isAuthorized"
+        ng-if="!vm.isEmbedded && vm.isAuthorized"
         title="home_page_report"
         style="width: 95vw; height: 90vh"
         src="{{ vm.report.url }}"

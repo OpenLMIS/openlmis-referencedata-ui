@@ -42,7 +42,7 @@
 
         vm.$onInit = onInit;
         vm.updateProfile = updateProfile;
-        vm.restoreProfile = restoreProfile;
+        vm.goToHome = goToHome;
         vm.changePassword = changePassword;
         vm.sendVerificationEmail = sendVerificationEmail;
 
@@ -120,18 +120,14 @@
 
         /**
          * @ngdoc method
-         * @propertyOf openlmis-user.controller:UserProfileBasicInformationController
-         * @name restoreProfile
+         * @methodOf openlmis-user.controller:UserProfileBasicInformationController
+         * @name goToHome
          *
          * @description
-         * Restore user profile.
+         * Redirects the user to the home page.
          */
-        function restoreProfile() {
-            loadingModalService.open();
-            $state.go('openlmis.profile.basicInformation', undefined, {
-                reload: true
-            });
-            notificationService.success('openlmisUser.cancel.restoreSuccessful');
+        function goToHome() {
+            $state.go('openlmis.home');
         }
 
         /**

@@ -25,10 +25,13 @@
     angular.module('admin-report-edit', [
         'ngResource',
         'openlmis-i18n',
-        'openlmis-rights',
-        'openlmis-urls',
-        'openlmis-permissions',
+        'openlmis-modal',
+        'openlmis-modal-state',
         'openlmis-pagination',
+        'openlmis-permissions',
+        'openlmis-rights',
+        'openlmis-state-tracker',
+        'openlmis-urls',
         'ui.router',
         'report-dashboard'
     ]);

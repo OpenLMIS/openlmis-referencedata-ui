@@ -33,7 +33,8 @@ export const TYPE_OF_IMPORTS = [
     {
         value: "User",
         name: "admin.dataImport.types.users",
-        info: "admin.dataImport.types.users.info"
+        info: "admin.dataImport.types.users.info",
+        additionalInfo: "admin.dataImport.types.users.additionalInfo"
     }
 ];
 

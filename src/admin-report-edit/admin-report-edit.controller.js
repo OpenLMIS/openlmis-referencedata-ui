@@ -35,9 +35,14 @@
                                   stateTrackerService, reportsList) {
         var vm = this;
 
+        // Standard 8-4-4-4-12 hexadecimal UUID (Superset embedded dashboard id).
+        var UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
         vm.$onInit = onInit;
         vm.confirmEdit = confirmEdit;
         vm.validateField = validateField;
+        vm.validateSupersetFields = validateSupersetFields;
+        vm.onTypeChange = onTypeChange;
         vm.invalidFields = new Set();
 
         /**
@@ -95,6 +100,8 @@
         vm.editMode = undefined;
 
         vm.reportsList = reportsList;
+
+        vm.REPORT_TYPES = REPORT_TYPES;
 
         function onInit() {
             vm.editMode = !!dashboardReport;
@@ -165,12 +172,51 @@
         }
 
         function validateEditReport() {
-            var fieldsToValidate = ['name', 'url', 'category'];
+            var fieldsToValidate = ['name', 'category', 'type'];
             fieldsToValidate.forEach(function(fieldName) {
                 validateField(vm.report[fieldName], fieldName);
             });
 
+            if (vm.report.type === REPORT_TYPES.SUPERSET) {
+                if (!vm.report.url && !vm.report.embeddedUuid) {
+                    vm.invalidFields.add('supersetField');
+                } else {
+                    vm.invalidFields.delete('supersetField');
+                }
+                validateEmbeddedUuidFormat();
+            } else {
+                validateField(vm.report.url, 'url');
+            }
+
             return vm.invalidFields.size === 0;
+        }
+
+        function validateSupersetFields() {
+            if (vm.report.type === REPORT_TYPES.SUPERSET) {
+                if (vm.report.url || vm.report.embeddedUuid) {
+                    vm.invalidFields.delete('supersetField');
+                    vm.invalidFields.delete('url');
+                }
+                validateEmbeddedUuidFormat();
+            }
+        }
+
+        function validateEmbeddedUuidFormat() {
+            if (vm.report.embeddedUuid && !UUID_REGEX.test(vm.report.embeddedUuid)) {
+                vm.invalidFields.add('embeddedUuidFormat');
+            } else {
+                vm.invalidFields.delete('embeddedUuidFormat');
+            }
+        }
+
+        function onTypeChange() {
+            validateField(vm.report.type, 'type');
+            vm.invalidFields.delete('supersetField');
+            if (vm.report.type === REPORT_TYPES.SUPERSET) {
+                vm.invalidFields.delete('url');
+            } else {
+                vm.invalidFields.delete('embeddedUuidFormat');
+            }
         }
 
         function isNotEmpty(value) {
