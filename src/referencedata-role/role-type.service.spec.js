@@ -21,7 +21,7 @@ describe('roleTypeService', function() {
         inject(function($injector) {
             this.roleTypeService = $injector.get('roleTypeService');
             this.RoleDataBuilder = $injector.get('RoleDataBuilder');
-            this.RightDataBuilder = $injector.get('RightDataBuilder');
+            this.ROLE_TYPES = $injector.get('ROLE_TYPES');
         });
 
         this.consoleError = spyOn(console, 'error');
@@ -30,12 +30,13 @@ describe('roleTypeService', function() {
     describe('getType', function() {
 
         it('should return the type of the first right', function() {
-            var right = new this.RightDataBuilder().build(),
-                role = new this.RoleDataBuilder()
-                    .withRight(right)
-                    .build();
+            var role = new this.RoleDataBuilder()
+                .withRight({
+                    type: this.ROLE_TYPES.SUPERVISION
+                })
+                .build();
 
-            expect(this.roleTypeService.getType(role)).toEqual(right.type);
+            expect(this.roleTypeService.getType(role)).toEqual(this.ROLE_TYPES.SUPERVISION);
         });
 
         it('should return undefined if the rights array is empty', function() {
@@ -64,7 +65,9 @@ describe('roleTypeService', function() {
 
         it('should not log a role that has rights', function() {
             this.roleTypeService.getType(new this.RoleDataBuilder()
-                .withRight(new this.RightDataBuilder().build())
+                .withRight({
+                    type: this.ROLE_TYPES.SUPERVISION
+                })
                 .build());
 
             expect(this.consoleError).not.toHaveBeenCalled();

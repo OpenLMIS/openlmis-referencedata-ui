@@ -48,7 +48,6 @@
          */
         function getType(role) {
             if (!role || !role.rights || role.rights.length === 0) {
-                // eslint-disable-next-line no-console
                 console.error('Cannot resolve role type, role is missing or has no rights:', role && role.name);
 
                 return undefined;

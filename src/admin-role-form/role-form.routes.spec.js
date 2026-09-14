@@ -44,7 +44,7 @@ describe('openlmis.administration.roles state', function() {
 
         this.type = 'type';
 
-        spyOn(console, 'error');
+        this.consoleError = spyOn(console, 'error');
         spyOn(this.referencedataRightService, 'search').andReturn(this.$q.when(this.rights));
 
         this.state = this.$state.get('openlmis.administration.roles.createUpdate');
@@ -66,16 +66,47 @@ describe('openlmis.administration.roles state', function() {
 
     describe('type resolve', function() {
 
-        it('should return the type of the role', function() {
-            expect(this.state.resolve.type(this.role, this.$state, {}, this.roleTypeService))
-                .toEqual(this.role.rights[0].type);
+        beforeEach(function() {
+            spyOn(this.$state, 'go');
+
+            this.typeResolve = this.state.resolve.type;
+            this.roleWithoutRights = new this.RoleDataBuilder().build();
+            this.roleWithType = new this.RoleDataBuilder()
+                .withRight({
+                    type: 'SUPERVISION'
+                })
+                .build();
         });
 
-        it('should return undefined for a role with no rights', function() {
-            var roleWithoutRights = new this.RoleDataBuilder().build();
+        it('should return the type of the role', function() {
+            expect(this.typeResolve(this.roleWithType, this.$state, {}, this.roleTypeService))
+                .toEqual('SUPERVISION');
+        });
 
-            expect(this.state.resolve.type(roleWithoutRights, this.$state, {}, this.roleTypeService)).toBeUndefined();
+        it('should fall back to the type parameter for a role with no rights', function() {
+            var result = this.typeResolve(this.roleWithoutRights, this.$state, {
+                type: 'SUPERVISION'
+            }, this.roleTypeService);
+
+            expect(result).toEqual('SUPERVISION');
+        });
+
+        it('should redirect to the type picker for a role with no rights and no type parameter', function() {
+            this.typeResolve(this.roleWithoutRights, this.$state, {}, this.roleTypeService);
+
+            expect(this.$state.go).toHaveBeenCalledWith('openlmis.administration.roles.selectType');
+        });
+
+        it('should redirect to the type picker when creating a role with no type parameter', function() {
+            this.typeResolve(undefined, this.$state, {}, this.roleTypeService);
+
+            expect(this.$state.go).toHaveBeenCalledWith('openlmis.administration.roles.selectType');
+        });
+
+        it('should not log anything when creating a new role', function() {
+            this.typeResolve(undefined, this.$state, {}, this.roleTypeService);
+
+            expect(this.consoleError).not.toHaveBeenCalled();
         });
     });
-
 });

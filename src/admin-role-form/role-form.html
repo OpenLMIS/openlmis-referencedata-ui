@@ -2,7 +2,7 @@
 <form id="newRoleForm" ng-submit="vm.saveRole()">
     <label>
         <span>{{'adminRoleForm.roleType' | message}}</span>
-        <span ng-if="vm.type">{{vm.type | roleType}}</span>
+        <span>{{vm.type | roleType}}</span>
     </label>
     <label for="roleName">{{'adminRoleForm.name' | message}}</label>
     <input id="roleName" class="form-control" ng-model="vm.role.name" required/>

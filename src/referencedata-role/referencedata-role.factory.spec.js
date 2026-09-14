@@ -24,15 +24,19 @@ describe('referencedataRoleService', function() {
             this.referencedataRoleFactory = $injector.get('referencedataRoleFactory');
             this.referencedataRoleService = $injector.get('referencedataRoleService');
             this.RoleDataBuilder = $injector.get('RoleDataBuilder');
-            this.RightDataBuilder = $injector.get('RightDataBuilder');
+            this.ROLE_TYPES = $injector.get('ROLE_TYPES');
         });
 
         this.roles = [
             new this.RoleDataBuilder()
-                .withRight(new this.RightDataBuilder().build())
+                .withRight({
+                    type: this.ROLE_TYPES.SUPERVISION
+                })
                 .build(),
             new this.RoleDataBuilder()
-                .withRight(new this.RightDataBuilder().build())
+                .withRight({
+                    type: this.ROLE_TYPES.REPORTS
+                })
                 .build()
         ];
 
@@ -60,7 +64,9 @@ describe('referencedataRoleService', function() {
         it('should leave the type undefined for a role without rights and still type the others', function() {
             var roleWithoutRights = new this.RoleDataBuilder().build(),
                 lastRole = new this.RoleDataBuilder()
-                    .withRight(new this.RightDataBuilder().build())
+                    .withRight({
+                        type: this.ROLE_TYPES.GENERAL_ADMIN
+                    })
                     .build(),
                 result,
                 rejection;

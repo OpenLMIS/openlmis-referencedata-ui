@@ -30,8 +30,10 @@
                     return $stateParams.roleId ? referencedataRoleService.get($stateParams.roleId) : undefined;
                 },
                 type: function(role, $state, $stateParams, roleTypeService) {
-                    if (role) {
-                        return roleTypeService.getType(role);
+                    var type = role ? roleTypeService.getType(role) : undefined;
+
+                    if (type) {
+                        return type;
                     }
                     if ($stateParams.type) {
                         return $stateParams.type;
