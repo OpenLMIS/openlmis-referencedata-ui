@@ -288,8 +288,29 @@ describe('scanResolutionService', function() {
             expect(outcome.resolved).toBe(true);
             expect(this.strategy.addLine).toHaveBeenCalledWith(this.group, {
                 lotCode: 'NEWLOT1',
-                expirationDate: this.unknown.expirationDate
+                expirationDate: '2027-01-30'
             });
+        });
+
+        it('should carry the scanned expiry as a wire format date rather than a Date', function() {
+            this.resolve(this.unknown);
+
+            var expiry = this.strategy.addLine.mostRecentCall.args[1].expirationDate;
+
+            expect(angular.isString(expiry)).toBe(true);
+            expect(expiry).toEqual('2027-01-30');
+        });
+
+        it('should add a batch whose label carries no expiry', function() {
+            this.resolve({
+                gtin: this.scan.gtin,
+                lotCode: 'NEWLOT2'
+            });
+
+            var added = this.strategy.addLine.mostRecentCall.args[1];
+
+            expect(added.lotCode).toEqual('NEWLOT2');
+            expect(added.expirationDate).toBeUndefined();
         });
 
         it('should count up a pending line rather than adding another', function() {

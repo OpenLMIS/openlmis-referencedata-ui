@@ -281,7 +281,7 @@
         function pendingLot(scan) {
             return {
                 lotCode: scan.lotCode,
-                expirationDate: scan.expirationDate
+                expirationDate: asIsoDate(scan.expirationDate)
             };
         }
 
