@@ -1,8 +1,8 @@
-<h2>{{'adminRoleForm.createRole' | message}}</h2>
-<div>{{'adminRoleForm.selectType' | message}}</div>
+<h2>{{(vm.roleId ? 'adminRoleForm.updateRole' : 'adminRoleForm.createRole') | message}}</h2>
+<div>{{(vm.roleId ? 'adminRoleForm.selectTypeForExistingRole' : 'adminRoleForm.selectType') | message}}</div>
 <dl class="type-form">
     <dt ng-repeat-start="(type, rights) in vm.types">
-        <button ui-sref="^.createUpdate({type: type, roleId: vm.roleId})">
+        <button ng-click="vm.selectType(type)">
             {{type | roleType}}
         </button>
     </dt>
@@ -10,3 +10,6 @@
         {{type | roleType:true}}
     </dd>
 </dl>
+<div class="openlmis-toolbar">
+    <button ui-sref="^">{{'adminRoleForm.cancel' | message}}</button>
+</div>

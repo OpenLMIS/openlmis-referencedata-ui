@@ -53,6 +53,17 @@ describe('TypeFormController', function() {
         });
     });
 
+    it('should expose an empty role id as falsy for a new role', function() {
+        this.vm = this.$controller('TypeFormController', {
+            $stateParams: {
+                roleId: ''
+            },
+            types: this.types
+        });
+
+        expect(this.vm.roleId).toBeFalsy();
+    });
+
     it('selectType should open the role form of the given type for a new role', function() {
         this.vm = this.$controller('TypeFormController', {
             $stateParams: {},
