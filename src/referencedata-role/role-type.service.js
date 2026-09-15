@@ -19,44 +19,42 @@
 
     /**
      * @ngdoc service
-     * @name referencedata-role.referencedataRoleFactory
+     * @name referencedata-role.roleTypeService
      *
      * @description
-     * Allows the user to retrieve roles with additional info.
+     * Resolves the type of a role from the rights assigned to it.
      */
     angular
         .module('referencedata-role')
-        .factory('referencedataRoleFactory', factory);
+        .factory('roleTypeService', factory);
 
-    factory.$inject = ['$q', 'referencedataRoleService', 'roleTypeService'];
-
-    function factory($q, referencedataRoleService, roleTypeService) {
+    function factory() {
 
         return {
-            getAllWithType: getAllWithType
+            getType: getType
         };
 
         /**
          * @ngdoc method
-         * @methodOf referencedata-role.referencedataRoleFactory
-         * @name getAllWithType
+         * @methodOf referencedata-role.roleTypeService
+         * @name getType
          *
          * @description
-         * Retrieves all roles and assigns type attribute to each of them. A role with no rights has no type.
+         * Returns the type of the given role. Roles are typed by their rights, so a role that is missing or has no
+         * rights has no type. Such a role is logged and undefined is returned.
          *
-         * @return {Promise} array of roles with type property
+         * @param  {Object} role the role to resolve the type of
+         * @return {String}      the role type, undefined if it cannot be resolved
          */
-        function getAllWithType() {
-            var deferred = $q.defer();
+        function getType(role) {
+            if (!role || !role.rights || role.rights.length === 0) {
+                // eslint-disable-next-line no-console
+                console.error('Cannot resolve role type, role is missing or has no rights:', role && role.name);
 
-            referencedataRoleService.getAll().then(function(roles) {
-                angular.forEach(roles, function(role) {
-                    role.type = roleTypeService.getType(role);
-                });
-                deferred.resolve(roles);
-            }, deferred.reject);
+                return undefined;
+            }
 
-            return deferred.promise;
+            return role.rights[0].type;
         }
     }
 

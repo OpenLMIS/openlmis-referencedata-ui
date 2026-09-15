@@ -125,4 +125,51 @@ describe('userRoleAssignmentFactory', function() {
             expect(resultUser.roleAssignments[2].warehouseName).toEqual(this.warehouses[0].name);
         });
     });
+
+    describe('getUser for a role without rights', function() {
+
+        beforeEach(function() {
+            spyOn(console, 'error');
+
+            this.roleWithoutRights = new this.RoleDataBuilder().build();
+            this.userWithRoleWithoutRights = new this.UserDataBuilder()
+                .withGeneralAdminRoleAssignment(this.roleWithoutRights.id)
+                .build();
+
+            this.UserRepository.prototype.get.andReturn(this.$q.resolve(this.userWithRoleWithoutRights));
+        });
+
+        it('should keep the assignment and leave its type undefined', function() {
+            var result;
+
+            this.userRoleAssignmentFactory
+                .getUser(this.userWithRoleWithoutRights.id, [this.roleWithoutRights], this.programs,
+                    this.supervisoryNodes, this.warehouses)
+                .then(function(response) {
+                    result = response;
+                });
+            this.$rootScope.$apply();
+
+            expect(result.roleAssignments.length).toEqual(1);
+            expect(result.roleAssignments[0].roleName).toEqual(this.roleWithoutRights.name);
+            expect(result.roleAssignments[0].type).toBeUndefined();
+        });
+
+        it('should keep the assignment if its role is not in the given list', function() {
+            var result;
+
+            this.userRoleAssignmentFactory
+                .getUser(this.userWithRoleWithoutRights.id, [], this.programs,
+                    this.supervisoryNodes, this.warehouses)
+                .then(function(response) {
+                    result = response;
+                });
+            this.$rootScope.$apply();
+
+            expect(result.roleAssignments.length).toEqual(1);
+            expect(result.roleAssignments[0].roleId).toEqual(this.roleWithoutRights.id);
+            expect(result.roleAssignments[0].roleName).toBeUndefined();
+            expect(result.roleAssignments[0].type).toBeUndefined();
+        });
+    });
 });

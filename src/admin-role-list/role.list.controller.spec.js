@@ -20,7 +20,14 @@ describe('RoleListController', function() {
 
         inject(function($injector) {
             this.$controller = $injector.get('$controller');
+            this.messageService = $injector.get('messageService');
             this.RoleDataBuilder = $injector.get('RoleDataBuilder');
+            this.ROLE_TYPES = $injector.get('ROLE_TYPES');
+        });
+
+        spyOn(console, 'error');
+        spyOn(this.messageService, 'get').andCallFake(function(key) {
+            return 'translated:' + key;
         });
 
         this.rolesList = [
@@ -42,5 +49,48 @@ describe('RoleListController', function() {
             expect(this.vm.rolesPage).toBe(undefined);
         });
 
+    });
+
+    describe('roleTypeLabels', function() {
+
+        it('should translate the type of a role that has rights', function() {
+            var role = new this.RoleDataBuilder()
+                .withRight({
+                    type: this.ROLE_TYPES.SUPERVISION
+                })
+                .build();
+
+            this.vm = this.$controller('RoleListController', {
+                roles: [role]
+            });
+
+            expect(this.vm.roleTypeLabels[role.id]).toEqual('translated:referencedataRoles.supervision');
+        });
+
+        it('should use the placeholder for a role with no rights', function() {
+            var role = new this.RoleDataBuilder().build();
+
+            this.vm = this.$controller('RoleListController', {
+                roles: [role]
+            });
+
+            expect(this.vm.roleTypeLabels[role.id]).toEqual('translated:adminRoleList.notApplicable');
+        });
+
+        it('should label every role, whether or not it has rights', function() {
+            var withRights = new this.RoleDataBuilder()
+                    .withRight({
+                        type: this.ROLE_TYPES.REPORTS
+                    })
+                    .build(),
+                withoutRights = new this.RoleDataBuilder().build();
+
+            this.vm = this.$controller('RoleListController', {
+                roles: [withoutRights, withRights]
+            });
+
+            expect(this.vm.roleTypeLabels[withoutRights.id]).toEqual('translated:adminRoleList.notApplicable');
+            expect(this.vm.roleTypeLabels[withRights.id]).toEqual('translated:referencedataRoles.reports');
+        });
     });
 });

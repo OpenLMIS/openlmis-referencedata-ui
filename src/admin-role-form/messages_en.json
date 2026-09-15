@@ -32,6 +32,7 @@
     "adminRoleForm.roleCreatedSuccessfully": "Role was created successfully",
     "adminRoleForm.roleUpdatedSuccessfully": "Role was updated successfully",
     "adminRoleForm.selectType": "Select from one of the predefined role templates to create a new role by editing rights withing the role.",
+    "adminRoleForm.selectTypeForExistingRole": "This role has no rights, so it has no type yet. Select the role type to assign rights to it.",
     "adminRoleForm.stockAdjust": "Adjust stock",
     "adminRoleForm.stockAdjustmentReasonsManage": "Manage stock adjustment reasons",
     "adminRoleForm.stockCardLineItemReasonsManage": "Manage stock card line item reasons",

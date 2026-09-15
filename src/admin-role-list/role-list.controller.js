@@ -28,9 +28,9 @@
         .module('admin-role-list')
         .controller('RoleListController', controller);
 
-    controller.$inject = ['roles'];
+    controller.$inject = ['roles', '$filter', 'messageService', 'roleTypeService'];
 
-    function controller(roles) {
+    function controller(roles, $filter, messageService, roleTypeService) {
         var vm = this;
 
         /**
@@ -54,6 +54,30 @@
          * Holds current page of roles.
          */
         vm.rolesPage = undefined;
+
+        /**
+         * @ngdoc property
+         * @propertyOf admin-role-list.controller:RoleListController
+         * @name roleTypeLabels
+         * @type {Object}
+         *
+         * @description
+         * Translated role type labels, keyed by role id. Roles with no rights have no type, and get a placeholder.
+         */
+        vm.roleTypeLabels = getRoleTypeLabels(roles);
+
+        function getRoleTypeLabels(roleList) {
+            var labels = {};
+
+            angular.forEach(roleList, function(role) {
+                var type = roleTypeService.getType(role);
+
+                labels[role.id] = type ?
+                    $filter('roleType')(type) : messageService.get('adminRoleList.notApplicable');
+            });
+
+            return labels;
+        }
     }
 
 })();

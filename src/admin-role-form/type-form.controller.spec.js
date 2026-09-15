@@ -26,20 +26,54 @@ describe('TypeFormController', function() {
         inject(function($injector) {
             this.$state = $injector.get('$state');
 
-            this.vm = $injector.get('$controller')('TypeFormController', {
-                types: this.types
-            });
+            this.$controller = $injector.get('$controller');
+        });
+
+        this.roleId = 'role-id';
+        this.vm = this.$controller('TypeFormController', {
+            $stateParams: {
+                roleId: this.roleId
+            },
+            types: this.types
         });
 
         spyOn(this.$state, 'go');
     });
 
-    it('selectType should redirect to the role creation screen', function() {
+    it('should expose the edited role id', function() {
+        expect(this.vm.roleId).toEqual(this.roleId);
+    });
+
+    it('selectType should open the role form of the given type for the edited role', function() {
         this.vm.selectType(this.types[1]);
 
         expect(this.$state.go).toHaveBeenCalledWith('openlmis.administration.roles.createUpdate', {
-            type: this.types[1]
+            type: this.types[1],
+            roleId: this.roleId
         });
+    });
+
+    it('should expose an empty role id as falsy for a new role', function() {
+        this.vm = this.$controller('TypeFormController', {
+            $stateParams: {
+                roleId: ''
+            },
+            types: this.types
+        });
+
+        expect(this.vm.roleId).toBeFalsy();
+    });
+
+    it('selectType should open the role form of the given type for a new role', function() {
+        this.vm = this.$controller('TypeFormController', {
+            $stateParams: {},
+            types: this.types
+        });
+
+        this.vm.selectType(this.types[0]);
+
+        expect(this.$state.go.mostRecentCall.args[1].type).toEqual(this.types[0]);
+        expect(this.$state.go.mostRecentCall.args[1].roleId).toBeUndefined();
     });
 
 });
