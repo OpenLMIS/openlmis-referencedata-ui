@@ -4,8 +4,16 @@ Improvements:
 * [OLMIS-8298](https://openlmis.atlassian.net/browse/OLMIS-8298): Specs written next to the React components (`*.spec.jsx`) now run in the karma suite and count as tests in SonarCloud, so the `.jsx` sources they exercise report real coverage.
 * [OLMIS-8236](https://openlmis.atlassian.net/browse/OLMIS-8236): Barcode scanning - GTIN to TradeItem resolver service. Added openlmis-scan-resolution: applies a scan to whatever screen embedded a scan input, with the screen supplying its own rows, callbacks, policy and wording.
 * [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Superset embedding improvements
+* [OLMIS-8284](https://openlmis.atlassian.net/browse/OLMIS-8284): Barcode scanning - a confirmation modal for a new lot and for an expiry date mismatch, with the scanned code in the message.
+* SonarCloud now receives JS unit-test coverage (lcov) so the quality gate reflects real coverage on new code.
+* Feed sonar.projectVersion from project.properties so SonarCloud's New Code baseline tracks releases.
+* [OPSD-107](https://openlmis.atlassian.net/browse/OPSD-107): Show cancelled orders in the home page order info panel.
 
 Bug fixes:
+* [OLMIS-8121](https://openlmis.atlassian.net/browse/OLMIS-8121): Fix typo in the report category success notification.
+* [OLMIS-6624](https://openlmis.atlassian.net/browse/OLMIS-6624): The active state of the user role tabs follows the selected tab.
+* [OLMIS-7700](https://openlmis.atlassian.net/browse/OLMIS-7700): Cancel on the user profile returns to the home page instead of doing nothing.
+* [OLMIS-8311](https://openlmis.atlassian.net/browse/OLMIS-8311): A scanned expiry date is carried as a wire format date, so the lot it creates keeps the scanned day.
 * [OLMIS-8318](https://openlmis.atlassian.net/browse/OLMIS-8318): A role with no rights no longer breaks the admin screens. Role types are resolved in one place (`roleTypeService`): the Roles list shows a placeholder, the Edit Role form opens so the role can be repaired, Edit User Roles and Profile role assignments open instead of hanging, and an assignment referencing such a role stays on the user with its type left blank. The role type picker says Update Role and explains the repair when reached from Edit, and has a Cancel button.
 * [OLMIS-7247](https://openlmis.atlassian.net/browse/OLMIS-7247): Fixed system notifications not refreshing without re-login.
   * Clear the cached notifications after creating/editing a notification so the home page banner and indicator update immediately.
@@ -14,14 +22,6 @@ Bug fixes:
 * [OLMIS-8191](https://openlmis.atlassian.net/browse/OLMIS-8191): Wrap long read-only text in admin lists — the System Notifications message (previously cropped), and Role/Product/Processing period descriptions.
 * [OLMIS-8294](https://openlmis.atlassian.net/browse/OLMIS-8294): Fixed SonarCloud not picking up unit-test coverage. Pass sonar.projectVersion to the scanner through its args instead of appending it to sonar-project.properties during the build, so a missing trailing newline can no longer glue it onto the lcov report-path line and zero out coverage.
 * [OLMIS-8118](https://openlmis.atlassian.net/browse/OLMIS-8118): Kit Unpack List quantity, Facility Type display order and Program Orderable doses per patient/display order now reject values too large to store.
-
-Improvements:
-* SonarCloud now receives JS unit-test coverage (lcov) so the quality gate reflects real coverage on new code.
-* Feed sonar.projectVersion from project.properties so SonarCloud's New Code baseline tracks releases.
-
-Improvements:
-* [OPSD-107](https://openlmis.atlassian.net/browse/OPSD-107): Show cancelled orders in the home page order info panel.
-
 5.6.19 / 2026-06-09
 ==================
 Improvements:
@@ -35,7 +35,6 @@ Improvements:
 New functionality:
 * [MW-1449](https://openlmis.atlassian.net/browse/MW-1449): Added Embedded UUID field to the dashboard report admin form. For Superset reports, either URL or Embedded UUID is required; for other report types, URL remains required.
 Bug fixes:
-* [OLMIS-8121](https://openlmis.atlassian.net/browse/OLMIS-8121): Fix typo in the report category success notification.
 
 5.6.18 / 2026-02-05
 ==================
