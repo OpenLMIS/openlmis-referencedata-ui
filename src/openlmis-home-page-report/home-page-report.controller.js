@@ -117,6 +117,10 @@
         function onInit() {
             vm.isOffline = offlineService.isOffline();
 
+            if (vm.isOffline) {
+                return;
+            }
+
             reportDashboardService.getHomePageReport().then(function(report) {
                 if (!report.content[0]) {
                     return;
@@ -131,16 +135,12 @@
 
                 if (vm.report.embeddedUuid) {
                     vm.isEmbedded = true;
-                    if (!vm.isOffline) {
-                        initSupersetEmbed();
-                    }
+                    initSupersetEmbed();
                     return;
                 }
 
                 vm.report.url = $sce.trustAsResourceUrl(vm.report.url);
-                if (!vm.isOffline) {
-                    checkAuthorizationInSuperset();
-                }
+                checkAuthorizationInSuperset();
             });
         }
 
