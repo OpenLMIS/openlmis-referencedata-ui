@@ -20,9 +20,9 @@
         .module('openlmis-home-alerts-panel')
         .controller('openlmisHomeAlertsPanelController', controller);
 
-    controller.$inject = ['openlmisHomeAlertsPanelService', 'facilityFactory'];
+    controller.$inject = ['openlmisHomeAlertsPanelService', 'facilityFactory', 'offlineService'];
 
-    function controller(openlmisHomeAlertsPanelService, facilityFactory) {
+    function controller(openlmisHomeAlertsPanelService, facilityFactory, offlineService) {
         var $ctrl = this;
         $ctrl.requisitionsStatusesStats = undefined;
         $ctrl.ordersStatusesStats = undefined;
@@ -36,6 +36,10 @@
         $ctrl.$onInit = onInit;
 
         function onInit() {
+            if (offlineService.isOffline()) {
+                return;
+            }
+
             facilityFactory.getUserHomeFacility()
                 .then(function(facility) {
                     $ctrl.homeFacility = facility;

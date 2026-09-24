@@ -88,6 +88,30 @@ describe('OpenlmisHomePageReportController', function() {
         window.supersetEmbeddedSdk = this.savedSdk;
     });
 
+    describe('when offline', function() {
+
+        beforeEach(function() {
+            this.offlineService.isOffline.andReturn(true);
+            this.initController();
+        });
+
+        it('should flag offline', function() {
+            expect(this.vm.isOffline).toBe(true);
+        });
+
+        it('should not fetch the home page report', function() {
+            expect(this.reportDashboardService.getHomePageReport).not.toHaveBeenCalled();
+        });
+
+        it('should neither authorize nor embed', function() {
+            expect(this.supersetOAuthService.checkAuthorizationInSuperset).not.toHaveBeenCalled();
+            expect(this.vm.isAuthorized).toBe(false);
+            expect(this.vm.isEmbedded).toBe(false);
+            expect(this.vm.isReady).toBe(false);
+            this.$httpBackend.verifyNoOutstandingRequest();
+        });
+    });
+
     describe('when there is no home page report', function() {
 
         beforeEach(function() {
@@ -143,17 +167,6 @@ describe('OpenlmisHomePageReportController', function() {
             expect(this.vm.isEmbedded).toBe(false);
         });
 
-        it('should not check authorization when offline', function() {
-            this.offlineService.isOffline.andReturn(true);
-
-            this.run({
-                type: this.REPORT_TYPES.SUPERSET,
-                url: 'http://superset/dashboard'
-            });
-
-            expect(this.supersetOAuthService.checkAuthorizationInSuperset).not.toHaveBeenCalled();
-            expect(this.vm.isAuthorized).toBe(false);
-        });
     });
 
     describe('for a Superset report with an embedded UUID', function() {
@@ -172,16 +185,6 @@ describe('OpenlmisHomePageReportController', function() {
             this.run(report);
 
             expect(this.vm.isEmbedded).toBe(true);
-        });
-
-        it('should not embed nor make requests when offline', function() {
-            this.offlineService.isOffline.andReturn(true);
-
-            this.run(report);
-
-            expect(this.vm.isEmbedded).toBe(true);
-            expect(this.vm.isReady).toBe(false);
-            this.$httpBackend.verifyNoOutstandingRequest();
         });
 
         describe('when the SDK is already cached', function() {

@@ -10,6 +10,7 @@ Improvements:
 * [OPSD-107](https://openlmis.atlassian.net/browse/OPSD-107): Show cancelled orders in the home page order info panel.
 
 Bug fixes:
+* [OLMIS-8363](https://openlmis.atlassian.net/browse/OLMIS-8363): Opening the home page while offline no longer shows the "This action can't be completed while offline" alert; the alerts panel and home page report skip their requests when offline.
 * [OLMIS-8121](https://openlmis.atlassian.net/browse/OLMIS-8121): Fix typo in the report category success notification.
 * [OLMIS-6624](https://openlmis.atlassian.net/browse/OLMIS-6624): The active state of the user role tabs follows the selected tab.
 * [OLMIS-7700](https://openlmis.atlassian.net/browse/OLMIS-7700): Cancel on the user profile returns to the home page instead of doing nothing.

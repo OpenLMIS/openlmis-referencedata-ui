@@ -16,5 +16,10 @@
 (function() {
     'use strict';
 
-    angular.module('openlmis-home-alerts-panel', []);
+    angular.module('openlmis-home-alerts-panel', [
+        'openlmis-offline',
+        'openlmis-urls',
+        'openlmis-i18n',
+        'referencedata-facility'
+    ]);
 })();
