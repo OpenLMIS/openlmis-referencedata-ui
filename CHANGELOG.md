@@ -1,4 +1,4 @@
-5.6.20-SNAPSHOT (WIP)
+5.7.0 / 2026-09-28
 ==================
 Improvements:
 * [OLMIS-8298](https://openlmis.atlassian.net/browse/OLMIS-8298): Specs written next to the React components (`*.spec.jsx`) now run in the karma suite and count as tests in SonarCloud, so the `.jsx` sources they exercise report real coverage.
@@ -10,6 +10,7 @@ Improvements:
 * [OPSD-107](https://openlmis.atlassian.net/browse/OPSD-107): Show cancelled orders in the home page order info panel.
 
 Bug fixes:
+* [MALAWISUP-7416](https://openlmis.atlassian.net/browse/MALAWISUP-7416): The home page report iframe no longer requests the literal `{{ vm.report.url }}` path (a 404 "network error") before Angular fills in the URL; it uses `ng-src` so the request is made only once the URL is known.
 * [OLMIS-8363](https://openlmis.atlassian.net/browse/OLMIS-8363): Opening the home page while offline no longer shows the "This action can't be completed while offline" alert; the alerts panel and home page report skip their requests when offline.
 * [OLMIS-8121](https://openlmis.atlassian.net/browse/OLMIS-8121): Fix typo in the report category success notification.
 * [OLMIS-6624](https://openlmis.atlassian.net/browse/OLMIS-6624): The active state of the user role tabs follows the selected tab.
