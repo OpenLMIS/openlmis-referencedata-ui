@@ -1,5 +1,6 @@
 5.8.0-SNAPSHOT (WIP)
 ==================
+* [OLMIS-8410](https://openlmis.atlassian.net/browse/OLMIS-8410): Add translations for user rights
 
 5.7.0 / 2026-09-28
 ==================

@@ -80,5 +80,13 @@
     "adminRoleForm.poralgApproval": "PORALG Approval",
     "adminRoleForm.createForecasting": "Create Forecasting",
     "adminRoleForm.authorizeForecasting": "Authorize Forecasting",
-    "adminRoleForm.prepareBuq": "Prepare BUQ"
+    "adminRoleForm.prepareBuq": "Prepare BUQ",
+    "adminRoleForm.priceChangesView": "View stock price changes",
+    "adminRoleForm.editProductPriceStockManagement": "Edit product prices in stock management",
+    "adminRoleForm.stockEventsCancel": "Cancel stock events",
+    "adminRoleForm.manageDhis2": "Manage DHIS2",
+    "adminRoleForm.manageDhis2Periods": "Manage DHIS2 periods",
+    "adminRoleForm.manageDhis2SupervisoryNodes": "Manage DHIS2 supervisory nodes",
+    "adminRoleForm.reportsManage": "Manage reports",
+    "adminRoleForm.reportCategoriesManage": "Manage report categories"
 }
