@@ -72,8 +72,6 @@
          */
         function onInit() {
             vm.user = user;
-            vm.user.enabled = true;
-
             vm.roleTypes = ROLE_TYPES.getRoleTypes();
         }
 
