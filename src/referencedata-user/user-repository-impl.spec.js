@@ -212,6 +212,48 @@ describe('UserRepositoryImpl', function() {
 
     });
 
+    describe('updateRoleAssignments', function() {
+
+        beforeEach(function() {
+            this.user = this.userDataBuilder.build();
+            this.user.enabled = this.authUser.enabled;
+        });
+
+        it('should update only the reference data user', function() {
+            var expected = this.userDataBuilder.buildJson(),
+                result;
+
+            expected.enabled = this.authUser.enabled;
+
+            this.userRepositoryImpl.updateRoleAssignments(this.user)
+                .then(function(user) {
+                    result = user;
+                });
+            this.$rootScope.$apply();
+
+            expect(result).toEqual(expected);
+            expect(this.ReferenceDataUserResource.prototype.update)
+                .toHaveBeenCalledWith(this.expected.getBasicInformation());
+
+            expect(this.UserContactDetailsResource.prototype.update).not.toHaveBeenCalled();
+            expect(this.AuthUserResource.prototype.create).not.toHaveBeenCalled();
+        });
+
+        it('should reject if reference data user update failed', function() {
+            this.ReferenceDataUserResource.prototype.update.andReturn(this.$q.reject());
+
+            var rejected;
+            this.userRepositoryImpl.updateRoleAssignments(this.user)
+                .catch(function() {
+                    rejected = true;
+                });
+            this.$rootScope.$apply();
+
+            expect(rejected).toEqual(true);
+        });
+
+    });
+
     describe('get', function() {
 
         beforeEach(function() {

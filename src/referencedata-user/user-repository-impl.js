@@ -37,6 +37,7 @@
         UserRepositoryImpl.prototype.query = query;
         UserRepositoryImpl.prototype.create = create;
         UserRepositoryImpl.prototype.update = update;
+        UserRepositoryImpl.prototype.updateRoleAssignments = updateRoleAssignments;
 
         return UserRepositoryImpl;
 
@@ -117,6 +118,27 @@
 
                 return combineResponses(referenceDataUser, userContactDetails, authUser);
             });
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf referencedata-user.UserRepositoryImpl
+         * @name updateRoleAssignments
+         *
+         * @description
+         * Updates the reference data user, which carries the role assignments, on the OpenLMIS server. The
+         * contact details and the auth details are not sent, so values loaded earlier do not overwrite what
+         * changed on the server in the meantime.
+         *
+         * @param  {Object}  user the instance of the User class
+         * @return {Promise}      the promise resolving to combined JSON which can be used for creating instance of the
+         *                        User class
+         */
+        function updateRoleAssignments(user) {
+            return this.referenceDataUserResource.update(user.getBasicInformation())
+                .then(function(referenceDataUser) {
+                    return combineResponses(referenceDataUser, user.getContactDetails(), user.getAuthDetails());
+                });
         }
 
         /**

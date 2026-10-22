@@ -34,7 +34,25 @@
 
         classExtender.extend(UserRepository, OpenlmisRepository);
 
+        UserRepository.prototype.updateRoleAssignments = updateRoleAssignments;
+
         return UserRepository;
+
+        /**
+         * @ngdoc method
+         * @methodOf referencedata-user.UserRepository
+         * @name updateRoleAssignments
+         *
+         * @description
+         * Updates the role assignments of the given user. Unlike update, the contact details and the auth
+         * details are not sent.
+         *
+         * @param  {Object}  user the instance of the User class
+         * @return {Promise}      the promise resolving to the combined user JSON
+         */
+        function updateRoleAssignments(user) {
+            return this.impl.updateRoleAssignments(user);
+        }
 
         /**
          * @ngdoc method
