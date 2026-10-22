@@ -6,6 +6,7 @@ Improvements:
 
 Bug fixes:
 * [OLMIS-8414](https://openlmis.atlassian.net/browse/OLMIS-8414): Saving a disabled user's roles in Administration > Users > Roles no longer enables the user again.
+* [OLMIS-8380](https://openlmis.atlassian.net/browse/OLMIS-8380): Saving a user's roles no longer re-sends the contact details and auth details loaded when the Roles screen was opened. When the user's email had been verified in the meantime, the save failed with "{0} is an invariant and should not be changed."
 
 5.7.1 / 2026-10-16
 ==================
