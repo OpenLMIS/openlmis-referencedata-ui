@@ -41,6 +41,7 @@ describe('UserFormController', function() {
             .withUsername('random-user')
             .withHomeFacilityId(this.facilities[0].id)
             .build();
+        this.user.enabled = true;
 
         this.pendingVerificationEmail = new this.VerificationEmailDataBuilder().build();
 
@@ -49,6 +50,7 @@ describe('UserFormController', function() {
         spyOn(this.loadingModalService, 'close').andReturn();
         spyOn(this.notificationService, 'success').andReturn();
         spyOn(this.user, 'removeHomeFacilityRights');
+        spyOn(this.user, 'removeAllRoleAssignments');
         spyOn(this.user, 'save').andReturn();
         spyOn(this.authUserService, 'sendVerificationEmail').andReturn();
         spyOn(this.confirmService, 'confirmDestroy').andReturn();
@@ -172,6 +174,89 @@ describe('UserFormController', function() {
 
             expect(this.user.save).toHaveBeenCalled();
             expect(this.user.removeHomeFacilityRights).toHaveBeenCalled();
+        });
+
+        it('should ask to remove roles if the user has been disabled', function() {
+            this.vm.user.enabled = false;
+
+            this.vm.saveUser();
+            this.$rootScope.$apply();
+
+            expect(this.confirmService.confirmDestroy).toHaveBeenCalledWith({
+                messageKey: 'adminUserForm.disableUser.confirmation',
+                messageParams: {
+                    username: 'random-user'
+                }
+            }, 'adminUserForm.disableUser.removeRoles', 'adminUserForm.disableUser.keepRoles');
+        });
+
+        it('should remove all role assignments and save after confirming', function() {
+            this.vm.user.enabled = false;
+
+            this.vm.saveUser();
+            this.$rootScope.$apply();
+
+            expect(this.user.removeAllRoleAssignments).toHaveBeenCalled();
+            expect(this.user.save).toHaveBeenCalled();
+        });
+
+        it('should keep role assignments and save after dismissing the confirmation', function() {
+            this.confirmService.confirmDestroy.andReturn(this.$q.reject());
+            this.vm.user.enabled = false;
+
+            this.vm.saveUser();
+            this.$rootScope.$apply();
+
+            expect(this.user.removeAllRoleAssignments).not.toHaveBeenCalled();
+            expect(this.user.save).toHaveBeenCalled();
+        });
+
+        it('should not ask to remove roles if the user stays enabled', function() {
+            this.vm.saveUser();
+            this.$rootScope.$apply();
+
+            expect(this.confirmService.confirmDestroy).not.toHaveBeenCalled();
+            expect(this.user.save).toHaveBeenCalled();
+        });
+
+        it('should not ask to remove roles if the user was already disabled', function() {
+            this.user.enabled = false;
+            this.vm.$onInit();
+
+            this.vm.saveUser();
+            this.$rootScope.$apply();
+
+            expect(this.confirmService.confirmDestroy).not.toHaveBeenCalled();
+            expect(this.user.save).toHaveBeenCalled();
+        });
+
+        it('should not ask to remove roles when creating a disabled user', function() {
+            this.user.id = undefined;
+            this.user.enabled = undefined;
+            this.vm.$onInit();
+            this.vm.user.enabled = false;
+
+            this.vm.saveUser();
+            this.$rootScope.$apply();
+
+            expect(this.confirmService.confirmDestroy).not.toHaveBeenCalled();
+            expect(this.user.save).toHaveBeenCalled();
+        });
+
+        it('should ask only about disabling if the home facility changed too', function() {
+            this.vm.homeFacility = this.facilities[1];
+            this.vm.user.enabled = false;
+
+            this.vm.saveUser();
+            this.$rootScope.$apply();
+
+            expect(this.confirmService.confirmDestroy.callCount).toBe(1);
+            expect(this.confirmService.confirmDestroy.mostRecentCall.args[0].messageKey)
+                .toEqual('adminUserForm.disableUser.confirmation');
+
+            expect(this.user.removeAllRoleAssignments).toHaveBeenCalled();
+            expect(this.user.removeHomeFacilityRights).not.toHaveBeenCalled();
+            expect(this.user.save).toHaveBeenCalled();
         });
 
     });
