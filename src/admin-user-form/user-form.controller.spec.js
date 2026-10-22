@@ -88,6 +88,12 @@ describe('UserFormController', function() {
             expect(this.vm.initialUsername).toBe('random-user');
         });
 
+        it('should set initialEnabled', function() {
+            this.vm.$onInit();
+
+            expect(this.vm.initialEnabled).toBe(true);
+        });
+
         it('should set not set updateMode if creating new user', function() {
             this.user.id = undefined;
 

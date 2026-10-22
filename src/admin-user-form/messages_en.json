@@ -33,7 +33,7 @@
     "adminUserForm.removeHomeFacility.confirmation": "${facility} is no longer ${username}'s home facility.\n\nDo you want to remove ${username}'s roles for ${facility}?",
     "adminUserForm.removeHomeFacility.keepRoles": "Keep Roles",
     "adminUserForm.removeHomeFacility.removeRoles": "Remove Roles",
-    "adminUserForm.disableUser.confirmation": "${username} is being disabled.\n\nDo you want to remove ${username}'s roles? Kept roles are not used while the user is disabled, and apply again if the user is enabled later.",
+    "adminUserForm.disableUser.confirmation": "${username} is being disabled.\n\nDo you want to remove ${username}'s roles? While ${username} is disabled, kept roles do not make ${username} an approver, fulfiller or supervisor. They apply again if ${username} is enabled later.",
     "adminUserForm.disableUser.keepRoles": "Keep Roles",
     "adminUserForm.disableUser.removeRoles": "Remove Roles",
     "adminUserForm.showPassword": "Show password",

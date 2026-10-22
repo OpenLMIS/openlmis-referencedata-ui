@@ -157,26 +157,26 @@
             vm.user.homeFacilityId = vm.homeFacility ? vm.homeFacility.id : undefined;
 
             if (hasBeenDisabled()) {
-                return removeRolesOnDisableConfirmation()
-                    .then(function() {
-                        vm.user.removeAllRoleAssignments();
-                    })
-                    .finally(function() {
-                        return vm.user.save();
-                    });
+                return saveAfterRolesConfirmation(removeRolesOnDisableConfirmation(), function() {
+                    vm.user.removeAllRoleAssignments();
+                });
             }
 
             if (hasHomeFacilityChanged()) {
-                return removeHomeFacilityRightsConfirmation()
-                    .then(function() {
-                        vm.user.removeHomeFacilityRights();
-                    })
-                    .finally(function() {
-                        return vm.user.save();
-                    });
+                return saveAfterRolesConfirmation(removeHomeFacilityRightsConfirmation(), function() {
+                    vm.user.removeHomeFacilityRights();
+                });
             }
             return vm.user.save();
 
+        }
+
+        function saveAfterRolesConfirmation(confirmation, removeRoles) {
+            return confirmation
+                .then(removeRoles)
+                .finally(function() {
+                    return vm.user.save();
+                });
         }
 
         /**
