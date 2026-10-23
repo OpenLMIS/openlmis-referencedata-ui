@@ -32,13 +32,13 @@
     FacilityAddController.$inject = [
         'facility', 'facilityTypes', 'geographicZones', 'facilityOperators', 'confirmService',
         'FacilityRepository', 'stateTrackerService', '$state', 'loadingModalService',
-        'notificationService', 'messageService'
+        'notificationService', 'messageService', 'QUANTITY_UNIT_DISPLAY_OPTIONS'
     ];
 
     function FacilityAddController(facility, facilityTypes, geographicZones, facilityOperators,
                                    confirmService, FacilityRepository, stateTrackerService,
                                    $state, loadingModalService, notificationService,
-                                   messageService) {
+                                   messageService, QUANTITY_UNIT_DISPLAY_OPTIONS) {
         var vm = this;
 
         vm.$onInit = onInit;
@@ -60,6 +60,13 @@
             vm.facilityOperators = facilityOperators;
             vm.facility.active = facility.active !== false;
             vm.facility.enabled = facility.enabled !== false;
+            vm.facility.extraData = vm.facility.extraData || {};
+            vm.quantityUnitDisplayOptions = QUANTITY_UNIT_DISPLAY_OPTIONS.map(function(option) {
+                return {
+                    value: option.value,
+                    name: messageService.get(option.messageKey)
+                };
+            });
         }
 
         /**

@@ -30,11 +30,13 @@
 
     controller.$inject = [
         '$q', '$state', 'facility', 'facilityTypes', 'geographicZones', 'facilityOperators',
-        'programs', 'FacilityRepository', 'loadingModalService', 'notificationService'
+        'programs', 'FacilityRepository', 'loadingModalService', 'notificationService',
+        'messageService', 'QUANTITY_UNIT_DISPLAY_OPTIONS'
     ];
 
     function controller($q, $state, facility, facilityTypes, geographicZones, facilityOperators,
-                        programs, FacilityRepository, loadingModalService, notificationService) {
+                        programs, FacilityRepository, loadingModalService, notificationService,
+                        messageService, QUANTITY_UNIT_DISPLAY_OPTIONS) {
 
         var vm = this;
 
@@ -128,6 +130,13 @@
             vm.programs = programs;
             vm.selectedTab = 0;
             vm.managedExternally = facility.isManagedExternally();
+            vm.facility.extraData = vm.facility.extraData || {};
+            vm.quantityUnitDisplayOptions = QUANTITY_UNIT_DISPLAY_OPTIONS.map(function(option) {
+                return {
+                    value: option.value,
+                    name: messageService.get(option.messageKey)
+                };
+            });
 
             if (!vm.facilityWithPrograms.supportedPrograms) {
                 vm.facilityWithPrograms.supportedPrograms = [];
