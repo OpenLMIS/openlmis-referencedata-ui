@@ -239,6 +239,15 @@ describe('UserRepositoryImpl', function() {
             expect(this.AuthUserResource.prototype.create).not.toHaveBeenCalled();
         });
 
+        it('should send the active flag as loaded for a disabled user', function() {
+            this.user.enabled = false;
+            this.user.active = true;
+
+            this.userRepositoryImpl.updateRoleAssignments(this.user);
+
+            expect(this.ReferenceDataUserResource.prototype.update.calls[0].args[0].active).toBe(true);
+        });
+
         it('should reject if reference data user update failed', function() {
             this.ReferenceDataUserResource.prototype.update.andReturn(this.$q.reject());
 
