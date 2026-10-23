@@ -133,8 +133,8 @@
          * @name saveRoleAssignments
          *
          * @description
-         * Saves the role assignments of the user. Only the reference data user is sent; the contact
-         * details, the auth details and the active flag stay as they are on the server.
+         * Saves the role assignments of the user by sending the reference data user as it was loaded,
+         * active flag included. The contact details and the auth details are not sent.
          *
          * @return {Promise} the promise resolving to the combined user JSON
          */

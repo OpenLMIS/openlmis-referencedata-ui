@@ -127,8 +127,8 @@
          *
          * @description
          * Updates the reference data user, which carries the role assignments, on the OpenLMIS server. The
-         * contact details and the auth details are not sent, so values loaded earlier do not overwrite what
-         * changed on the server in the meantime.
+         * contact details and the auth details are not sent, so changes made to them on the server in the
+         * meantime are kept.
          *
          * @param  {Object}  user the instance of the User class
          * @return {Promise}      the promise resolving to combined JSON which can be used for creating instance of the
