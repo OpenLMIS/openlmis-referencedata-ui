@@ -41,6 +41,7 @@ describe('UserRolesController', function() {
         spyOn(this.loadingModalService, 'open');
         spyOn(this.$state, 'go').andReturn();
         spyOn(this.user, 'save');
+        spyOn(this.user, 'saveRoleAssignments');
 
         this.vm = this.$controller('UserRolesController', {
             user: this.user
@@ -80,7 +81,7 @@ describe('UserRolesController', function() {
     describe('saveUser', function() {
 
         beforeEach(function() {
-            this.user.save.andReturn(this.$q.when(true));
+            this.user.saveRoleAssignments.andReturn(this.$q.when(true));
             this.loadingModalService.open.andReturn(this.$q.when(true));
             this.vm.saveUserRoles();
         });
@@ -89,8 +90,9 @@ describe('UserRolesController', function() {
             expect(this.loadingModalService.open).toHaveBeenCalledWith(true);
         });
 
-        it('should save user', function() {
-            expect(this.user.save).toHaveBeenCalled();
+        it('should save the role assignments only', function() {
+            expect(this.user.saveRoleAssignments).toHaveBeenCalled();
+            expect(this.user.save).not.toHaveBeenCalled();
         });
 
         it('should show success notification', function() {
@@ -118,7 +120,7 @@ describe('UserRolesController', function() {
             deferred.reject();
 
             this.$rootScope.$apply();
-            this.user.save.andReturn(deferred.promise);
+            this.user.saveRoleAssignments.andReturn(deferred.promise);
             this.vm.saveUserRoles();
             this.$rootScope.$apply();
 

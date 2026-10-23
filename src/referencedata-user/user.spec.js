@@ -48,6 +48,7 @@ describe('User', function() {
 
         spyOn(this.userRepository, 'create');
         spyOn(this.userRepository, 'update');
+        spyOn(this.userRepository, 'updateRoleAssignments');
     });
 
     describe('constructor', function() {
@@ -144,6 +145,26 @@ describe('User', function() {
             this.user.save();
 
             expect(this.user.active).toEqual(this.user.enabled);
+        });
+
+    });
+
+    describe('saveRoleAssignments', function() {
+
+        it('should update the role assignments through the repository', function() {
+            this.user.saveRoleAssignments();
+
+            expect(this.userRepository.updateRoleAssignments).toHaveBeenCalledWith(this.user);
+            expect(this.userRepository.update).not.toHaveBeenCalled();
+        });
+
+        it('should leave the active flag as loaded', function() {
+            this.user.enabled = false;
+            this.user.active = true;
+
+            this.user.saveRoleAssignments();
+
+            expect(this.user.active).toBe(true);
         });
 
     });

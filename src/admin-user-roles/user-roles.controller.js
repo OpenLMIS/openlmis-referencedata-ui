@@ -81,12 +81,13 @@
          * @name saveUserRoles
          *
          * @description
-         * Updates user roles.
+         * Saves the user's role assignments. Contact details and auth details are not sent, so an email
+         * verification that happened while the screen was open does not fail the save.
          */
         function saveUserRoles() {
             var loadingPromise = loadingModalService.open(true);
 
-            return vm.user.save().then(function() {
+            return vm.user.saveRoleAssignments().then(function() {
                 loadingPromise.then(function() {
                     notificationService.success('adminUserRoles.updateSuccessful');
                 });

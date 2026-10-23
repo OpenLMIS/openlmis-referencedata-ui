@@ -38,6 +38,7 @@
         User.prototype.removeHomeFacilityRights = removeHomeFacilityRights;
         User.prototype.removeAllRoleAssignments = removeAllRoleAssignments;
         User.prototype.save = save;
+        User.prototype.saveRoleAssignments = saveRoleAssignments;
 
         return User;
 
@@ -124,6 +125,21 @@
                 return this.repository.update(this);
             }
             return this.repository.create(this);
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf referencedata-user.User
+         * @name saveRoleAssignments
+         *
+         * @description
+         * Saves the role assignments of the user by sending the reference data user as it was loaded,
+         * active flag included. The contact details and the auth details are not sent.
+         *
+         * @return {Promise} the promise resolving to the combined user JSON
+         */
+        function saveRoleAssignments() {
+            return this.repository.updateRoleAssignments(this);
         }
 
         function getBasicInformation() {
