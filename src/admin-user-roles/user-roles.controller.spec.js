@@ -67,6 +67,14 @@ describe('UserRolesController', function() {
         it('should set types', function() {
             expect(this.vm.roleTypes).toEqual(this.ROLE_TYPES.getRoleTypes());
         });
+
+        it('should keep a disabled user disabled', function() {
+            this.user.enabled = false;
+
+            this.vm.$onInit();
+
+            expect(this.vm.user.enabled).toBe(false);
+        });
     });
 
     describe('saveUser', function() {

@@ -36,6 +36,7 @@
         User.prototype.getContactDetails = getContactDetails;
         User.prototype.getAuthDetails = getAuthDetails;
         User.prototype.removeHomeFacilityRights = removeHomeFacilityRights;
+        User.prototype.removeAllRoleAssignments = removeAllRoleAssignments;
         User.prototype.save = save;
 
         return User;
@@ -164,6 +165,10 @@
             this.roleAssignments = this.roleAssignments.filter(function(roleAssignment) {
                 return !(roleAssignment.programId && !roleAssignment.supervisoryNodeId);
             });
+        }
+
+        function removeAllRoleAssignments() {
+            this.roleAssignments = [];
         }
     }
 })();

@@ -1,6 +1,12 @@
 5.7.2-SNAPSHOT (WIP)
 ==================
 
+Improvements:
+* [OLMIS-8414](https://openlmis.atlassian.net/browse/OLMIS-8414): Disabling a user in Administration > Users asks whether to keep or remove the user's role assignments, as changing the home facility already does. "Remove Roles" clears every role assignment in the same save.
+
+Bug fixes:
+* [OLMIS-8414](https://openlmis.atlassian.net/browse/OLMIS-8414): Saving a disabled user's roles in Administration > Users > Roles no longer enables the user again.
+
 5.7.1 / 2026-10-16
 ==================
 * [OLMIS-8410](https://openlmis.atlassian.net/browse/OLMIS-8410): Add translations for user rights

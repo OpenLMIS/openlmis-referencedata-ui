@@ -212,4 +212,22 @@ describe('User', function() {
 
     });
 
+    describe('removeAllRoleAssignments', function() {
+
+        it('should remove every role assignment', function() {
+            this.user.removeAllRoleAssignments();
+
+            expect(this.user.roleAssignments).toEqual([]);
+        });
+
+        it('should leave an empty list if the user had no role assignments', function() {
+            this.user.roleAssignments = undefined;
+
+            this.user.removeAllRoleAssignments();
+
+            expect(this.user.roleAssignments).toEqual([]);
+        });
+
+    });
+
 });

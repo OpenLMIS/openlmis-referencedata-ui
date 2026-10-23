@@ -102,6 +102,17 @@
         /**
          * @ngdoc property
          * @propertyOf admin-user-form.controller:UserFormController
+         * @name initialEnabled
+         * @type {Boolean}
+         *
+         * @description
+         * Whether the user was enabled when the form was opened.
+         */
+        vm.initialEnabled = undefined;
+
+        /**
+         * @ngdoc property
+         * @propertyOf admin-user-form.controller:UserFormController
          * @name pendingEmailVerificationToken
          * @type {Object}
          *
@@ -124,6 +135,7 @@
             vm.initialUsername = vm.user.username;
             vm.homeFacility = getHomeFacility();
             vm.initialHomeFacility = vm.homeFacility;
+            vm.initialEnabled = vm.user.enabled;
             vm.facilities = facilities;
             vm.pendingVerificationEmail = pendingVerificationEmail;
         }
@@ -134,25 +146,37 @@
          * @name saveUser
          *
          * @description
-         * Creates or updates the user. If home facility has changed, a confirmation modal
-         * is shown for deleting user's roles for old home facility, and deletes them if accepted.
+         * Creates or updates the user. If the user has been disabled, a confirmation modal
+         * is shown for deleting all user's roles, and deletes them if accepted. Otherwise, if home
+         * facility has changed, a confirmation modal is shown for deleting user's roles for old home
+         * facility, and deletes them if accepted.
          *
          * @return {Promise} the promise resolving to the created/updated user
          */
         function saveUser() {
             vm.user.homeFacilityId = vm.homeFacility ? vm.homeFacility.id : undefined;
 
+            if (hasBeenDisabled()) {
+                return saveAfterRolesConfirmation(removeRolesOnDisableConfirmation(), function() {
+                    vm.user.removeAllRoleAssignments();
+                });
+            }
+
             if (hasHomeFacilityChanged()) {
-                return removeHomeFacilityRightsConfirmation()
-                    .then(function() {
-                        vm.user.removeHomeFacilityRights();
-                    })
-                    .finally(function() {
-                        return vm.user.save();
-                    });
+                return saveAfterRolesConfirmation(removeHomeFacilityRightsConfirmation(), function() {
+                    vm.user.removeHomeFacilityRights();
+                });
             }
             return vm.user.save();
 
+        }
+
+        function saveAfterRolesConfirmation(confirmation, removeRoles) {
+            return confirmation
+                .then(removeRoles)
+                .finally(function() {
+                    return vm.user.save();
+                });
         }
 
         /**
@@ -182,6 +206,29 @@
         /**
          * @ngdoc method
          * @methodOf admin-user-form.controller:UserFormController
+         * @name removeRolesOnDisableConfirmation
+         *
+         * @description
+         * Displays a confirmation modal for removing all roles of a user who is being disabled.
+         *
+         * @return {Promise} the promise resolving on confirmation modal action.
+         */
+        function removeRolesOnDisableConfirmation() {
+            var message = {
+                messageKey: 'adminUserForm.disableUser.confirmation',
+                messageParams: {
+                    username: vm.user.username
+                }
+            };
+
+            return confirmService.confirmDestroy(message,
+                'adminUserForm.disableUser.removeRoles',
+                'adminUserForm.disableUser.keepRoles');
+        }
+
+        /**
+         * @ngdoc method
+         * @methodOf admin-user-form.controller:UserFormController
          * @name sendVerificationEmail
          *
          * @description
@@ -200,6 +247,10 @@
             });
 
             return filtered.length ? filtered[0] : undefined;
+        }
+
+        function hasBeenDisabled() {
+            return vm.initialEnabled === true && vm.user.enabled === false;
         }
 
         function hasHomeFacilityChanged() {
