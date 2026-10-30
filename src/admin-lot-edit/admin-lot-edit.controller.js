@@ -104,9 +104,10 @@
                         loadingModalService.close();
                         stateTrackerService.goToPreviousState();
                     })
-                        .catch(function() {
+                        .catch(function(response) {
                             loadingModalService.close();
-                            notificationService.error('adminLotEdit.save.failure');
+                            notificationService.error(response && response.data && response.data.message ?
+                                response.data.message : 'adminLotEdit.save.failure');
                         });
                 });
         }
