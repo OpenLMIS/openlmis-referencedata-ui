@@ -122,5 +122,27 @@ describe('LotEditController', function() {
             expect(this.vm.lotResource.update).toHaveBeenCalled();
             expect(this.notificationService.error).toHaveBeenCalledWith('adminLotEdit.save.failure');
         });
+
+        it('should show the server message on failure', function() {
+            this.confirmDeferred = this.$q.defer();
+            this.updateResultDeferred = this.$q.defer();
+
+            spyOn(this.confirmService, 'confirm').andReturn(this.confirmDeferred.promise);
+            spyOn(this.vm.lotResource, 'update').andReturn(this.updateResultDeferred.promise);
+
+            this.vm.editLot();
+
+            this.confirmDeferred.resolve();
+            this.updateResultDeferred.reject({
+                status: 400,
+                data: {
+                    message: 'Lot code must be at most 20 characters long'
+                }
+            });
+            this.$rootScope.$apply();
+
+            expect(this.notificationService.error)
+                .toHaveBeenCalledWith('Lot code must be at most 20 characters long');
+        });
     });
 });

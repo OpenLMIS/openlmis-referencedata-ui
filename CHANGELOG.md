@@ -5,6 +5,7 @@ Improvements:
 * [OLMIS-8414](https://openlmis.atlassian.net/browse/OLMIS-8414): Disabling a user in Administration > Users asks whether to keep or remove the user's role assignments, as changing the home facility already does. "Remove Roles" clears every role assignment in the same save.
 
 Bug fixes:
+* [OLMIS-8419](https://openlmis.atlassian.net/browse/OLMIS-8419): Administration > Lots > Edit shows the server's message when a lot cannot be saved.
 * [OLMIS-8414](https://openlmis.atlassian.net/browse/OLMIS-8414): Saving a disabled user's roles in Administration > Users > Roles no longer enables the user again.
 * [OLMIS-8380](https://openlmis.atlassian.net/browse/OLMIS-8380): Saving a user's roles no longer re-sends the contact details and auth details loaded when the Roles screen was opened. When the user's email had been verified in the meantime, the save failed with "{0} is an invariant and should not be changed."
 
