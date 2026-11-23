@@ -5,7 +5,7 @@
     <label for="facilityType">{{'adminFacilityAdd.facilityType' | message}}</label>
     <select id="facilityType" ng-model="vm.facility.type" ng-options="type as type.name for type in vm.facilityTypes track by type.id" required></select>
     <label for="operationalDate">{{'adminFacilityAdd.operationalDate' | message}}</label>
-    <input id="operationalDate" type="date" ng-model="vm.facility.goLiveDate" ng-required="vm.facility.id" />
+    <input id="operationalDate" type="date" ng-model="vm.facility.goLiveDate" />
     <p class="note">{{'adminFacilityAdd.operationalDate.description' | message}}</p>
     <label for="facilityActive" class="checkbox">
         <input id="facilityActive" type="checkbox" ng-model="vm.facility.active" ng-disabled="vm.managedExternally" />
