@@ -1,6 +1,9 @@
 5.7.2-SNAPSHOT (WIP)
 ==================
 
+New functionality:
+* [OLMIS-8478](https://openlmis.atlassian.net/browse/OLMIS-8478): Added the vaccine forecasting rights as the `VACCINE_FORECAST_RIGHTS` constant, and their names on the role screens: Prepare, Submit, Authorize and Approve Vaccine Forecast, and Manage Vaccine Forecasting.
+
 Improvements:
 * [OLMIS-8414](https://openlmis.atlassian.net/browse/OLMIS-8414): Disabling a user in Administration > Users asks whether to keep or remove the user's role assignments, as changing the home facility already does. "Remove Roles" clears every role assignment in the same save.
 
